@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" font-family="-apple-system, Helvetica Neue, Arial, sans-serif">
+  <defs>
+    <marker id="arrowBlue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b6a88" />
+    </marker>
+    <marker id="arrowGreen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#3f8a53" />
+    </marker>
+    <marker id="arrowPurple" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#8a4b9a" />
+    </marker>
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="#1f2d3d" flood-opacity="0.18" />
+    </filter>
+  </defs>
+
+  <rect width="900" height="600" fill="#ffffff" />
+
+  <text x="450" y="30" text-anchor="middle" font-size="19" font-weight="700" fill="#1f2d3d">
+    How CIPHOS data flows from CSV export to the demo
+  </text>
+
+  <!-- Box 1: CSV export -->
+  <rect x="120" y="70" width="660" height="70" rx="12" fill="#eef2f8" stroke="#4b6a88" stroke-width="1.5" filter="url(#softShadow)" />
+  <text x="450" y="98" text-anchor="middle" font-size="15" font-weight="600" fill="#1f2d3d">CIPHOS CSV export</text>
+  <text x="450" y="120" text-anchor="middle" font-size="12.5" fill="#51606f">27 node types, 50 relationship types, one current-source snapshot</text>
+
+  <line x1="450" y1="140" x2="450" y2="158" stroke="#4b6a88" stroke-width="1.5" marker-end="url(#arrowBlue)" />
+
+  <!-- Phase bar -->
+  <rect x="120" y="160" width="660" height="34" rx="8" fill="#e7f0fb" />
+  <text x="450" y="182" text-anchor="middle" font-size="12.5" font-weight="700" fill="#2d5a8a" letter-spacing="0.4">
+    DATABRICKS: BRONZE AND SILVER
+  </text>
+
+  <!-- Box 2: Bronze -->
+  <rect x="120" y="204" width="660" height="70" rx="12" fill="#f2f6fb" stroke="#4b6a88" stroke-width="1.5" filter="url(#softShadow)" />
+  <text x="450" y="232" text-anchor="middle" font-size="15" font-weight="600" fill="#1f2d3d">Bronze</text>
+  <text x="450" y="254" text-anchor="middle" font-size="12.5" fill="#51606f">Raw rows loaded as-is, with source-file and row-level provenance</text>
+
+  <line x1="450" y1="274" x2="450" y2="292" stroke="#4b6a88" stroke-width="1.5" marker-end="url(#arrowBlue)" />
+
+  <!-- Box 3: Silver -->
+  <rect x="120" y="294" width="660" height="100" rx="12" fill="#f2f6fb" stroke="#4b6a88" stroke-width="1.5" filter="url(#softShadow)" />
+  <text x="450" y="322" text-anchor="middle" font-size="15" font-weight="600" fill="#1f2d3d">Silver</text>
+  <text x="450" y="344" text-anchor="middle" font-size="12.5" fill="#51606f">Typed facts, tag-property values, and source-document provenance</text>
+  <text x="450" y="364" text-anchor="middle" font-size="12.5" fill="#51606f">Snapshot metadata and data-quality results</text>
+
+  <line x1="450" y1="394" x2="450" y2="412" stroke="#4b6a88" stroke-width="1.5" marker-end="url(#arrowBlue)" />
+
+  <!-- Mini pills: operational graph + NeoCarta -->
+  <rect x="130" y="412" width="290" height="50" rx="10" fill="#f4f9f5" stroke="#3f8a53" stroke-width="1.2" stroke-dasharray="4 3" />
+  <text x="275" y="432" text-anchor="middle" font-size="12.5" font-weight="600" fill="#2f6b3f">Neo4j operational graph</text>
+  <text x="275" y="450" text-anchor="middle" font-size="11" fill="#51606f">current-state assets, OT, zones, vulnerabilities</text>
+
+  <rect x="480" y="412" width="290" height="50" rx="10" fill="#f9f5fb" stroke="#8a4b9a" stroke-width="1.2" stroke-dasharray="4 3" />
+  <text x="625" y="432" text-anchor="middle" font-size="12.5" font-weight="600" fill="#6b3f8a">NeoCarta semantic store</text>
+  <text x="625" y="450" text-anchor="middle" font-size="11" fill="#51606f">schema only: labels, rel types, constraints</text>
+
+  <line x1="275" y1="462" x2="430" y2="480" stroke="#3f8a53" stroke-width="1.5" marker-end="url(#arrowGreen)" />
+  <line x1="625" y1="462" x2="470" y2="480" stroke="#8a4b9a" stroke-width="1.5" marker-end="url(#arrowPurple)" />
+
+  <!-- Box 4: Streamlit / MCP clients -->
+  <rect x="120" y="482" width="660" height="90" rx="12" fill="#f7f8fa" stroke="#51606f" stroke-width="1.5" filter="url(#softShadow)" />
+  <text x="450" y="510" text-anchor="middle" font-size="15" font-weight="600" fill="#1f2d3d">Streamlit demo and MCP clients</text>
+  <text x="450" y="532" text-anchor="middle" font-size="12.5" fill="#51606f">Read-only queries join Databricks facts and provenance</text>
+  <text x="450" y="552" text-anchor="middle" font-size="12.5" fill="#51606f">with Neo4j asset, OT, zone, and vulnerability context</text>
+</svg>

@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" font-family="-apple-system, Helvetica Neue, Arial, sans-serif">
+  <defs>
+    <marker id="arrowBlue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b6a88" />
+    </marker>
+    <marker id="arrowGreen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#3f8a53" />
+    </marker>
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="#1f2d3d" flood-opacity="0.18" />
+    </filter>
+  </defs>
+
+  <rect width="1000" height="600" fill="#ffffff" />
+
+  <text x="500" y="30" text-anchor="middle" font-size="19" font-weight="700" fill="#1f2d3d">
+    What lives where: lakehouse vs. graph
+  </text>
+
+  <text x="270" y="66" text-anchor="middle" font-size="13" font-weight="700" fill="#4b6a88" letter-spacing="0.4">
+    DATABRICKS LAKEHOUSE — complete data history
+  </text>
+  <text x="750" y="66" text-anchor="middle" font-size="13" font-weight="700" fill="#3f8a53" letter-spacing="0.4">
+    NEO4J — current-state graph
+  </text>
+
+  <!-- Bronze -->
+  <rect x="60" y="100" width="420" height="90" rx="12" fill="#eef2f8" stroke="#4b6a88" stroke-width="1.5" filter="url(#softShadow)" />
+  <text x="270" y="140" text-anchor="middle" font-size="16" font-weight="600" fill="#1f2d3d">Bronze</text>
+  <text x="270" y="162" text-anchor="middle" font-size="12.5" fill="#51606f">Raw rows plus ingestion and source provenance</text>
+
+  <line x1="270" y1="190" x2="270" y2="208" stroke="#4b6a88" stroke-width="1.5" marker-end="url(#arrowBlue)" />
+
+  <!-- Silver -->
+  <rect x="60" y="210" width="420" height="180" rx="12" fill="#eef2f8" stroke="#4b6a88" stroke-width="1.5" filter="url(#softShadow)" />
+  <text x="270" y="250" text-anchor="middle" font-size="16" font-weight="600" fill="#1f2d3d">Silver</text>
+  <text x="270" y="272" text-anchor="middle" font-size="12.5" fill="#51606f">Typed facts and tag-property values</text>
+  <text x="270" y="294" text-anchor="middle" font-size="12.5" fill="#51606f">Source documents and their provenance</text>
+  <text x="270" y="316" text-anchor="middle" font-size="12.5" fill="#51606f">Snapshot metadata and data-quality results</text>
+
+  <!-- projection arrow -->
+  <text x="510" y="298" text-anchor="middle" font-size="12" font-style="italic" fill="#51606f">projection</text>
+  <line x1="480" y1="308" x2="538" y2="308" stroke="#3f8a53" stroke-width="1.5" marker-end="url(#arrowGreen)" />
+
+  <!-- Operational graph -->
+  <rect x="540" y="100" width="420" height="290" rx="12" fill="#f4f9f5" stroke="#3f8a53" stroke-width="1.5" filter="url(#softShadow)" />
+  <text x="750" y="140" text-anchor="middle" font-size="16" font-weight="600" fill="#1f2d3d">Operational graph</text>
+  <text x="750" y="170" text-anchor="middle" font-size="12.5" fill="#51606f">Current-state asset hierarchy: facility, plant,</text>
+  <text x="750" y="192" text-anchor="middle" font-size="12.5" fill="#51606f">system, functional location, tag</text>
+  <text x="750" y="214" text-anchor="middle" font-size="12.5" fill="#51606f">Equipment classes and manufacturer models</text>
+  <text x="750" y="236" text-anchor="middle" font-size="12.5" fill="#51606f">OT assets, network segments, zones, conduits</text>
+  <text x="750" y="258" text-anchor="middle" font-size="12.5" fill="#51606f">Vulnerabilities, threats, controls, risk</text>
+  <text x="750" y="280" text-anchor="middle" font-size="12.5" fill="#51606f">assessments, compliance frameworks</text>
+  <text x="750" y="302" text-anchor="middle" font-size="12.5" fill="#51606f">Organizations</text>
+
+  <!-- down arrows into NeoCarta -->
+  <line x1="270" y1="390" x2="270" y2="452" stroke="#4b6a88" stroke-width="1.5" marker-end="url(#arrowBlue)" />
+  <text x="258" y="415" text-anchor="end" font-size="11.5" font-style="italic" fill="#51606f">curated table/column</text>
+  <text x="258" y="431" text-anchor="end" font-size="11.5" font-style="italic" fill="#51606f">metadata</text>
+
+  <line x1="750" y1="390" x2="750" y2="452" stroke="#3f8a53" stroke-width="1.5" marker-end="url(#arrowGreen)" />
+  <text x="762" y="423" text-anchor="start" font-size="11.5" font-style="italic" fill="#51606f">schema only</text>
+
+  <!-- NeoCarta -->
+  <rect x="60" y="460" width="900" height="110" rx="12" fill="#f9f5fb" stroke="#8a4b9a" stroke-width="1.5" filter="url(#softShadow)" />
+  <text x="510" y="495" text-anchor="middle" font-size="16" font-weight="600" fill="#1f2d3d">NeoCarta semantic store (separate database)</text>
+  <text x="510" y="518" text-anchor="middle" font-size="12.5" fill="#51606f">Labels, relationship types, properties, constraints, and indexes</text>
+  <text x="510" y="540" text-anchor="middle" font-size="12.5" fill="#51606f">No operational values are stored here</text>
+</svg>

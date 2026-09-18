@@ -8,6 +8,12 @@ This project moves CIPHOS CSV data into Databricks and Neo4j, then demos it.
 - **Neo4j holds a current-state graph**: A smaller graph in Neo4j answers connected questions, like which assets link to which zones.
 - **The Streamlit demo reads both**: It reads property values and documents from Databricks. It reads asset connections, OT assets, zones, and vulnerabilities from Neo4j.
 
+![What lives where: lakehouse vs. graph](src/ciphos_semantics/demo/assets/lakehouse_vs_graph.png)
+
+![How CIPHOS data flows from CSV export to the demo](src/ciphos_semantics/demo/assets/data_flow.png)
+
+See [DATA_ARCHITECURE.md](DATA_ARCHITECURE.md) for the full data architecture writeup.
+
 ## Quick start
 
 Run this flow once to load data into Databricks, build the Neo4j graph, and build the NeoCarta semantic map.
