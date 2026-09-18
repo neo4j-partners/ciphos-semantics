@@ -34,7 +34,8 @@ POLL_TIMEOUT_SECONDS = 180
 DATABRICKS_CLI_TIMEOUT_SECONDS = 65
 RESULT_ROW_LIMIT = 10
 DEFAULT_SHOWCASE_QUESTION = (
-    "Which tags have high pressure readings and which source documents support them?"
+    "Which tags have the highest recorded property values, and which source documents "
+    "support them?"
 )
 ANSI_RESET = "\033[0m"
 ANSI_BOLD_CYAN = "\033[1;36m"
