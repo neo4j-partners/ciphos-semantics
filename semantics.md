@@ -237,6 +237,15 @@ rule must not change any ID.
 Tests must cover single-label, multi-label, `CiphosEntity`-only, and unlabeled
 procedure results.
 
+The label sets themselves come from `db.schema.nodeTypeProperties()`, which
+reports whole sets. `db.labels()` and the endpoint query report individual
+labels, and promoting each of those to its own set would claim node types the
+source does not have: a bare `CiphosEntity` set describes nothing when every
+projected node carries the marker, and a bare `Tag` set duplicates the reported
+`CiphosEntity` plus `Tag` node. A bare label therefore becomes its own `Node`
+only when no reported set contains it, which keeps a label the property
+procedure never reports from disappearing from the map.
+
 Property types are preserved exactly as reported by Neo4j. Nullability is not a
 passthrough. Neo4j reports `mandatory`, NeoCarta stores `nullable`, and the
 contract is `nullable = not mandatory`. Phase 0 freezes that inversion so the
@@ -501,15 +510,37 @@ contains unrelated finance labels, it contains the excluded
 store write was attempted. Point `OPS_NEO4J_*` at the active CIPHOS serving
 projection, then resume the remaining acceptance checks.
 
-**Local acceptance (2026-09-18):** The reusable Docker Compose source/store
-environment completed ingestion, fresh drift validation, a second idempotent
-ingestion, semantic-store context retrieval, and an in-process FastMCP client
-call. A deliberately invalid property write failed with `CypherTypeError`; a
-fresh comparison immediately afterward confirmed that the replacement
-transaction left no partial scope. It produced 8 nodes, 2 relationships, 6
-properties, and 17 links with no operational values. Neo4j 5.26 returned
-virtual visualization rows without endpoint labels, so `endpoints_available`
-correctly recorded `false`.
+**Local acceptance (2026-09-18):** `ciphos-local up` is the local acceptance
+harness and runs the full sequence against disposable Compose containers:
+ingestion, fresh drift validation, a second idempotent ingestion and
+validation, an endpoint-availability check, a scope-isolation proof, a
+deliberately failed write, and an in-process FastMCP client call. The
+isolation proof writes a `Database` record under a foreign source scope and
+confirms scoped replacement leaves it untouched. The invalid property write
+fails with `CypherTypeError`, and the comparison immediately afterward
+confirms the replacement transaction left no partial scope. The MCP client
+sees exactly one tool and a payload identical to the persisted context. The
+seeded source produces 8 nodes, 2 relationships, 8 properties, 20 records, and
+43 links with no operational values, and `endpoints_available` records `true`.
+
+Two limits of the local environment are structural rather than defects. The
+containers run Neo4j Community, where property-existence and node-key
+constraints are Enterprise-only, so no local source can make `existence`
+report `true`; the flag is read through the same `SHOW CONSTRAINTS` path as
+`unique` and is covered by unit fixtures instead. Endpoint metadata comes from
+the statistics-based `db.schema.visualization()`, so a reported endpoint label
+fans out to every label set containing it and over-reports genuinely ambiguous
+endpoints by design.
+
+An earlier revision of this section recorded `endpoints_available` as `false`
+on Neo4j 5.26 and treated that as correct. It was an extraction defect, not a
+server limit: `UNWIND relationships AS relationship` detaches a virtual
+relationship from the procedure's `nodes` column, so `startNode()` and
+`endNode()` returned label-less stubs and every endpoint row was discarded as
+unusable. `ENDPOINTS_QUERY` now resolves both endpoints in the `nodes` column
+by element ID. Because unit fixtures supply already-shaped endpoint rows and
+cannot reach the query text, `ciphos-local up` asserts live endpoint
+availability and the presence of `HAS_SOURCE_NODE` and `HAS_TARGET_NODE`.
 
 ## Parallel implementation plan
 

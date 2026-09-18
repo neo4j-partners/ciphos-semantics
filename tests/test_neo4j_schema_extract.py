@@ -127,11 +127,31 @@ class Neo4jSchemaExtractTests(unittest.TestCase):
                 for node_id in source_ids
             },
             {
-                ("Tag", ()),
                 ("Archived", ("Tag",)),
                 ("Tag", ("CiphosEntity",)),
             },
         )
+
+    def test_bare_labels_are_kept_only_when_no_reported_label_set_covers_them(self) -> None:
+        schema_map = build_schema_map(
+            self.identity,
+            SCHEMA_METADATA,
+            ENDPOINTS,
+            endpoints_available=True,
+        )
+        label_sets = {
+            (row["label"], tuple(row.get("additional_labels", []))) for row in schema_map.nodes
+        }
+
+        # ``Unconnected`` is reported by db.labels() alone, so it keeps its own
+        # node.  ``Tag`` and ``Archived`` are already covered by the reported
+        # ``Archived`` plus ``Tag`` set, so neither becomes a separate node type.
+        self.assertIn(("Unconnected", ()), label_sets)
+        self.assertNotIn(("Tag", ()), label_sets)
+        self.assertNotIn(("Archived", ()), label_sets)
+        # A label set the property procedure really reports is kept even when it
+        # consists of the CIPHOS marker label alone.
+        self.assertIn(("CiphosEntity", ()), label_sets)
 
     def test_endpoint_permission_failure_is_optional_but_required_queries_are_not(self) -> None:
         optional_driver = SourceDriver(fail_query=ENDPOINTS_QUERY)
@@ -276,6 +296,19 @@ class Neo4jSchemaExtractTests(unittest.TestCase):
             "indexes",
         })
         self.assertEqual(len(SCHEMA_QUERY_ALLOWLIST), 7)
+
+    def test_endpoint_query_resolves_labels_from_the_procedure_node_column(self) -> None:
+        """Pin the one property that makes endpoint extraction work on Neo4j 5.x.
+
+        Dereferencing ``startNode`` on an unwound virtual relationship returns a
+        label-less stub, so the endpoint labels have to be looked up in the
+        procedure's own ``nodes`` column by element ID.  A rewrite that stops
+        yielding ``nodes`` silently reports every endpoint as unavailable, which
+        no fixture-driven test can detect.
+        """
+        self.assertIn("YIELD nodes, relationships", ENDPOINTS_QUERY)
+        self.assertIn("elementId(startNode(relationship))", ENDPOINTS_QUERY)
+        self.assertIn("elementId(endNode(relationship))", ENDPOINTS_QUERY)
 
 
 if __name__ == "__main__":

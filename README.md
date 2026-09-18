@@ -112,14 +112,31 @@ left in place. `NEO4J_LOCAL=true` switches only the running process to those
 two local endpoints, so switching back is simply removing the flag or setting
 it to `false`.
 
-With Docker running, this one command starts Compose, waits for the source to
-be seeded, ingests its structural map into the local semantic store, validates
-it, and prints the resulting context:
+With Docker running, this one command runs the whole local acceptance flow. It
+starts Compose, waits for the source to be seeded, ingests its structural map
+into the local semantic store, validates the map against a fresh extraction,
+ingests and validates a second time to prove the replacement is idempotent,
+checks that endpoint extraction produced source and target links, proves a
+scoped replacement leaves another source scope untouched, proves a rejected
+write leaves no partial scope behind, retrieves the map through the read-only
+MCP tool, and prints the resulting context:
 
 ```sh
 uv sync
 uv run ciphos-local
 ```
+
+The seed deliberately covers every case the frozen contract cares about: a
+multi-label node set, a label set that is the CIPHOS marker alone, a label set
+with no properties, a label no node carries, a unique constraint, node and
+relationship indexes, and one relationship type whose endpoints are genuinely
+ambiguous.
+
+One property flag cannot be proven locally. The containers run Neo4j
+Community, where property-existence and node-key constraints are
+Enterprise-only, so no local seed can make `existence` report `true`. The flag
+is read from `SHOW CONSTRAINTS` through the same path as `unique`, which the
+local flow does exercise, and its own behaviour is covered by the unit tests.
 
 Use the same disposable environment for an individual command by prefixing it
 with the flag. Your remote settings remain unchanged.
@@ -154,7 +171,7 @@ semantic-local-down` targets remain available as short aliases.
 - **`make semantic-ingest`**: saves a fresh Neo4j structural map.
 - **`make semantic-context`**: prints the saved structural map as JSON.
 - **`make semantic-mcp`**: starts the read-only structural-map service at `http://127.0.0.1:8000/mcp`.
-- **`make semantic-local-test`**: runs the complete semantic-map flow against disposable local Neo4j containers.
+- **`make semantic-local-test`**: runs the complete semantic-map acceptance flow against disposable local Neo4j containers.
 - **`make semantic-local-down`**: removes those containers and their volumes.
 
 Run `make help` to see every command.

@@ -38,11 +38,20 @@ YIELD relType, propertyName, propertyTypes, mandatory
 RETURN relType, propertyName, propertyTypes, mandatory
 ORDER BY relType, propertyName
 """.strip()
+# The virtual relationships yielded by db.schema.visualization() carry endpoint
+# element IDs but not endpoint labels: reading startNode() or endNode() off an
+# unwound relationship returns a stub with no labels and no name.  The endpoint
+# descriptors live in the procedure's own `nodes` column, so resolve each
+# endpoint there by element ID instead of dereferencing the relationship.
 ENDPOINTS_QUERY = """
 CALL db.schema.visualization()
-YIELD relationships
+YIELD nodes, relationships
 UNWIND relationships AS relationship
-WITH relationship, startNode(relationship) AS source, endNode(relationship) AS target
+WITH head([candidate IN nodes WHERE elementId(candidate) = elementId(startNode(relationship))])
+         AS source,
+     head([candidate IN nodes WHERE elementId(candidate) = elementId(endNode(relationship))])
+         AS target,
+     relationship
 RETURN type(relationship) AS relationship_type,
        coalesce(source["name"], head(labels(source))) AS source_label,
        coalesce(target["name"], head(labels(target))) AS target_label
@@ -70,6 +79,16 @@ REQUIRED_SCHEMA_QUERIES: dict[str, str] = {
     "indexes": INDEXES_QUERY,
 }
 SCHEMA_QUERY_ALLOWLIST = frozenset((*REQUIRED_SCHEMA_QUERIES.values(), ENDPOINTS_QUERY))
+
+# Schema introspection always raises two kinds of server notification that say
+# nothing about the source. The node and relationship property procedures warn
+# that `propertyTypes` will change output format (GENERIC), and the endpoint
+# query's coalesce over `name` warns that no node uses that key on the servers
+# that omit it (UNRECOGNIZED). The coalesce stays because servers that do
+# populate `name` give a better endpoint label than the first raw label, so the
+# notifications are suppressed on the source driver instead. They would
+# otherwise bury the real output of every extraction.
+SUPPRESSED_SOURCE_NOTIFICATIONS = ("GENERIC", "UNRECOGNIZED")
 
 
 class SchemaExtractionError(RuntimeError):
@@ -258,6 +277,37 @@ def _endpoint_label(row: Mapping[str, Any], field: str) -> str:
     return _required_text(row, field, "endpoint").removeprefix(":").strip("`")
 
 
+def _resolve_label_sets(
+    label_rows: Sequence[Mapping[str, Any]],
+    node_property_rows: Sequence[Mapping[str, Any]],
+    endpoints: Sequence[Mapping[str, Any]],
+) -> set[tuple[str, ...]]:
+    """Keep reported label sets, adding a bare label only when none covers it.
+
+    ``db.labels()`` and ``db.schema.visualization()`` report individual labels
+    while ``db.schema.nodeTypeProperties()`` reports whole label sets.  Promoting
+    every bare label to its own set would claim node types the source does not
+    have: every projected CIPHOS node carries ``CiphosEntity``, so a bare
+    ``CiphosEntity`` set describes nothing in the graph, and a bare ``Tag`` set
+    duplicates the reported ``CiphosEntity`` plus ``Tag`` node.  A bare label is
+    still kept when no reported label set contains it, so a label the property
+    procedure never reports does not disappear from the map.
+    """
+    reported: set[tuple[str, ...]] = set()
+    for row in node_property_rows:
+        if "nodeLabels" not in row:
+            raise SchemaExtractionError("Malformed node property row: missing nodeLabels.")
+        reported.add(canonical_label_set(row["nodeLabels"]))
+
+    bare_labels = {_required_text(row, "label", "label") for row in label_rows}
+    for row in endpoints:
+        bare_labels.add(_endpoint_label(row, "source_label"))
+        bare_labels.add(_endpoint_label(row, "target_label"))
+
+    covered = {label for labels in reported for label in labels}
+    return reported | {(label,) for label in bare_labels if label not in covered}
+
+
 def _endpoint_candidates(
     label: str, label_sets: set[tuple[str, ...]]
 ) -> tuple[tuple[str, ...], ...]:
@@ -287,16 +337,9 @@ def build_schema_map(
     scope = source_scope(identity)
     database_id = scoped_id(scope, "database", identity.database)
     schema_id = scoped_id(scope, "schema", "default")
-    label_sets: set[tuple[str, ...]] = set()
-    for row in metadata["labels"]:
-        label_sets.add((_required_text(row, "label", "label"),))
-    for row in metadata["node_properties"]:
-        if "nodeLabels" not in row:
-            raise SchemaExtractionError("Malformed node property row: missing nodeLabels.")
-        label_sets.add(canonical_label_set(row["nodeLabels"]))
-    for row in endpoints:
-        label_sets.add((_endpoint_label(row, "source_label"),))
-        label_sets.add((_endpoint_label(row, "target_label"),))
+    label_sets = _resolve_label_sets(
+        metadata["labels"], metadata["node_properties"], endpoints
+    )
 
     node_ids = {labels: scoped_id(scope, "node", *labels) for labels in sorted(label_sets)}
     nodes = []

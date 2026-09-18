@@ -15,7 +15,10 @@ from dotenv import load_dotenv
 from neo4j import GraphDatabase
 
 from ciphos_semantics.local_neo4j import configure_local_neo4j
-from ciphos_semantics.neo4j_schema_extract import extract_schema_map
+from ciphos_semantics.neo4j_schema_extract import (
+    SUPPRESSED_SOURCE_NOTIFICATIONS,
+    extract_schema_map,
+)
 from ciphos_semantics.semantic_config import (
     OperationalNeo4jConnection,
     SemanticStoreNeo4jConnection,
@@ -46,6 +49,15 @@ def _driver(connection: OperationalNeo4jConnection | SemanticStoreNeo4jConnectio
     )
 
 
+def _source_driver(connection: OperationalNeo4jConnection) -> Any:
+    """Open the metadata-read driver with its inherent notifications silenced."""
+    return GraphDatabase.driver(
+        connection.uri,
+        auth=(connection.username, connection.password),
+        notifications_disabled_classifications=list(SUPPRESSED_SOURCE_NOTIFICATIONS),
+    )
+
+
 def _candidate_database() -> str | None:
     return os.environ.get("CIPHOS_CANDIDATE_DATABASE", "").strip() or None
 
@@ -71,7 +83,19 @@ def _requested_scope(argument: str | None) -> str | None:
     return argument or os.environ.get("CIPHOS_SEMANTIC_SOURCE_SCOPE", "").strip() or None
 
 
-def _open_store() -> tuple[Any, SemanticStore]:
+def open_source_driver(connection: OperationalNeo4jConnection) -> Any:
+    """Open the operational metadata-read driver, verifying connectivity first."""
+    driver = _source_driver(connection)
+    try:
+        driver.verify_connectivity()
+    except Exception:
+        driver.close()
+        raise
+    return driver
+
+
+def open_semantic_store() -> tuple[Any, SemanticStore]:
+    """Open the semantic store, verifying connectivity before handing it over."""
     connection = load_semantic_store_connection()
     driver = _driver(connection)
     try:
@@ -87,7 +111,7 @@ def ingest_main() -> None:
     load_environment()
     source = load_operational_connection()
     store_connection = load_semantic_store_connection()
-    source_driver = _driver(source)
+    source_driver = _source_driver(source)
     store_driver = _driver(store_connection)
     try:
         source_driver.verify_connectivity()
@@ -120,7 +144,7 @@ def context_main(argv: Sequence[str] | None = None) -> None:
     parser.add_argument("--source-scope", help="Persisted source scope; auto-detected if unique.")
     args = parser.parse_args(argv)
     load_environment()
-    driver, store = _open_store()
+    driver, store = open_semantic_store()
     try:
         scope = resolve_source_scope(store, _requested_scope(args.source_scope))
         context = store.read_context(scope)
@@ -139,7 +163,7 @@ def validate_main() -> None:
         store_connection,
         candidate_database=_candidate_database(),
     )
-    source_driver = _driver(source)
+    source_driver = _source_driver(source)
     store_driver = _driver(store_connection)
     try:
         source_driver.verify_connectivity()
@@ -190,7 +214,7 @@ def mcp_main(argv: Sequence[str] | None = None) -> None:
         parser.error("--port must be between 1 and 65535")
 
     load_environment()
-    driver, store = _open_store()
+    driver, store = open_semantic_store()
     try:
         scope = resolve_source_scope(store, _requested_scope(args.source_scope))
 
