@@ -17,6 +17,7 @@ MCP_PORT ?= 8000
 .PHONY: help validate-contract validate validate-all graph graph-activate graph-clear \
         graph-counts graph-verify lakehouse-tables lakehouse-plan demo lint test \
         semantic-contract semantic-context semantic-ingest semantic-mcp semantic-validate \
+        semantic-index semantic-query semantic-search-mcp \
         semantic-local-down semantic-local-test semantic-local-up
 
 help:
@@ -38,6 +39,9 @@ help:
 	@echo "  make semantic-context  Print the persisted structural context as JSON."
 	@echo "  make semantic-validate  Compare persisted context with a fresh extraction."
 	@echo "  make semantic-mcp  Serve the read-only LPG context on loopback HTTP."
+	@echo "  make semantic-index  Index curated Silver table/column metadata and embeddings."
+	@echo "  make semantic-search-mcp  Serve NeoCarta search plus CIPHOS graph context."
+	@echo "  make semantic-query  Run the CIPHOS semantic-search showcase and grounded SQL query."
 	@echo "  make semantic-local-up  Start, seed, and accept disposable local Neo4j containers."
 	@echo "  make semantic-local-test  Alias for the complete local Neo4j acceptance flow."
 	@echo "  make semantic-local-down  Remove disposable local semantic-test containers and volumes."
@@ -111,6 +115,18 @@ semantic-validate:
 semantic-mcp:
 	@echo "==> Serving CIPHOS LPG context at http://127.0.0.1:$(MCP_PORT)/mcp"
 	$(UV) run $(SEMANTIC_MCP) --transport streamable-http --port $(MCP_PORT)
+
+semantic-index:
+	@echo "==> Indexing CIPHOS Silver metadata and embeddings"
+	$(UV) run ciphos-semantic-index
+
+semantic-search-mcp:
+	@echo "==> Serving CIPHOS semantic search at http://127.0.0.1:$(MCP_PORT)/mcp"
+	$(UV) run ciphos-semantic-search-mcp --port $(MCP_PORT)
+
+semantic-query:
+	@echo "==> Running the CIPHOS semantic query showcase"
+	$(UV) run ciphos-semantic-query
 
 semantic-local-up:
 	$(UV) run ciphos-local up

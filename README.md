@@ -103,6 +103,52 @@ Use separate `OPS_NEO4J_*` settings for the CIPHOS graph and `NEO4J_*` settings
 for the semantic store. This keeps the structural map separate from the live
 graph.
 
+### Search the curated Silver model
+
+The structural map above gives an agent the CIPHOS graph vocabulary. The
+semantic-search path additionally indexes the curated lakehouse query surface:
+`silver_tag_property_value_enriched` for tag-property traceability,
+`silver_tag_property_value_sources` for row-level provenance,
+`silver_snapshots` for publication freshness, and
+`silver_data_quality_results` for snapshot contract checks. Bronze exports,
+raw measurements, documents, OT assets, and graph property values are never
+copied to the semantic store; only Unity Catalog table and column metadata is
+embedded.
+
+Set `CIPHOS_SEMANTIC_EMBEDDING_MODEL=databricks/system.ai.gte-large-en` and
+`CIPHOS_SEMANTIC_LLM_ENDPOINT` to a Foundation Model endpoint. Then run:
+
+```sh
+make lakehouse-tables
+make semantic-ingest
+make semantic-index
+make semantic-search-mcp
+```
+
+Leave `make semantic-search-mcp` running in its own terminal. In another
+terminal, the adapted showcase exercises exact, conceptual, and hybrid lookup,
+then generates a grounded, bounded SQL query:
+
+```sh
+uv run ciphos-semantic-query
+```
+
+For one question without the showcase:
+
+```sh
+uv run ciphos-semantic-query \
+  "Which tags have high pressure readings and which source documents support them?"
+```
+
+`CIPHOS_SEMANTIC_TABLES` can override the curated Silver view list, comma
+separated. Do not add Bronze tables or append-only `*_snapshots` tables to that
+setting: they are loader internals or historical stores, not the supported
+analytical model.
+
+The GTE setting above is the Databricks model-service name. NeoCarta uses the
+Model Serving API, so the integration automatically resolves it to this
+workspace's `databricks-gte-large-en` serving endpoint before embedding.
+
 ## Local development
 
 [`docker-compose.semantic-test.yml`](docker-compose.semantic-test.yml) starts

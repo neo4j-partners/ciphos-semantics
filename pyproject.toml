@@ -7,7 +7,9 @@ requires-python = ">=3.11"
 dependencies = [
     "databricks-sdk>=0.77,<1",
     "fastmcp>=2.14,<3",
+    "neocarta[databricks,mcp]",
     "neo4j>=5.28,<7",
+    "openai>=2.54,<3",
     "pandas>=2",
     "python-dotenv>=1.0,<2",
     "streamlit>=1.40",
@@ -25,7 +27,13 @@ ciphos-local = "ciphos_semantics.local_cli:main"
 ciphos-semantic-context = "ciphos_semantics.semantic_cli:context_main"
 ciphos-semantic-ingest = "ciphos_semantics.semantic_cli:ingest_main"
 ciphos-semantic-mcp = "ciphos_semantics.semantic_cli:mcp_main"
+ciphos-semantic-search-mcp = "ciphos_semantics.semantic_search_mcp:main"
+ciphos-semantic-index = "ciphos_semantics.semantic_index:main"
+ciphos-semantic-query = "ciphos_semantics.semantic_query:main"
 ciphos-semantic-validate = "ciphos_semantics.semantic_cli:validate_main"
+
+[tool.uv.sources]
+neocarta = { git = "https://github.com/neo4j-labs/neocarta.git", rev = "62c32d78be3c2dffb4cd3617b57f5534d550a9b9" }
 
 [build-system]
 requires = ["setuptools>=77"]
