@@ -21,18 +21,47 @@ Open `.env` and fill in the required values. See [Setting up your environment](#
 
 ```sh
 make lakehouse-tables
-make graph-activate
+make graph
 make semantic-ingest
 ```
 
 - **`make lakehouse-tables`**: Loads the CIPHOS CSV files into Databricks. It builds raw Bronze tables, then typed Silver tables for queries.
-- **`make graph-activate`**: Builds a candidate graph in Neo4j, checks it, then activates it as the graph the demo reads.
-- **`make semantic-ingest`**: Builds the NeoCarta structural map of the active graph, then indexes the curated Silver tables for semantic search. This one command always does both steps. There is no separate index command to run.
+- **`make graph`**: Builds the Neo4j graph the demo reads, straight into your configured `OPS_NEO4J_DATABASE`.
+- **`make semantic-ingest`**: Builds the NeoCarta structural map of the graph, then indexes the curated Silver tables for semantic search. This one command always does both steps. There is no separate index command to run.
 
 A few things to know before you run these commands:
 
-- **The bundled sample data is a raw export**: `make graph-activate` allows this by default. Set `CIPHOS_SILVER_SNAPSHOT_DIR` in `.env` to require an approved Silver snapshot instead.
+- **The bundled sample data is a raw export**: `make graph` allows this by default. Set `CIPHOS_SILVER_SNAPSHOT_DIR` in `.env` to require an approved Silver snapshot instead.
 - **You can check first without writing anything**: `make validate-all` checks the data contract, code style, and tests. `make lakehouse-plan` prints the Databricks load plan without running it.
+
+## Local development
+
+Test the semantic map end to end against disposable local containers, with no real Neo4j or Databricks involved.
+
+With Docker running:
+
+```sh
+uv sync
+uv run ciphos-local
+```
+
+This one command starts the local containers, seeds test data, and runs the full acceptance flow (ingest, validate, retrieve). It sets `NEO4J_LOCAL=true` for itself, so your `.env` stays untouched.
+
+To run a single extra command against the same local stack, set the flag yourself:
+
+```sh
+NEO4J_LOCAL=true uv run ciphos-semantic-context
+```
+
+When you are done, remove the containers and their data:
+
+```sh
+uv run ciphos-local down
+```
+
+- **`make semantic-local-up`**, **`make semantic-local-test`**, and **`make semantic-local-down`** are shortcuts for the commands above.
+- **`CIPHOS_TEST_NEO4J_PASSWORD`** sets the password for these disposable containers only.
+- **One known gap**: the containers run Neo4j Community, so the local flow cannot test property-existence constraints. Those are Enterprise-only. Unit tests cover that case instead.
 
 ## Running the demo
 
@@ -74,12 +103,11 @@ Set these values in `.env` once. Start from `.env.sample`.
 - **`OPS_NEO4J_URI`**: Connection URI for the CIPHOS graph. Use `neo4j+s://` for Aura or `bolt://` for a local server.
 - **`OPS_NEO4J_USERNAME`**: Username for the CIPHOS graph.
 - **`OPS_NEO4J_PASSWORD`**: Password for the CIPHOS graph.
-- **`OPS_NEO4J_DATABASE`**: Serving database the demo reads. This is the live graph.
-- **`CIPHOS_CANDIDATE_DATABASE`**: Separate database for candidate graph builds. It must differ from `OPS_NEO4J_DATABASE`, so a bad build never touches the graph the demo reads.
+- **`OPS_NEO4J_DATABASE`**: The database `make graph` writes to and the demo reads from.
 
 **Graph build identifiers**
 
-These are required for `make graph-activate` when you use an approved Silver snapshot instead of the bundled sample data.
+These are required for `make graph` when you use an approved Silver snapshot instead of the bundled sample data.
 
 - **`CIPHOS_SILVER_SNAPSHOT_DIR`**: Local folder holding the approved Silver snapshot.
 - **`CIPHOS_SOURCE_BATCH_ID`**: ID of the source data batch.
@@ -117,7 +145,22 @@ This is a separate Neo4j database. It stores graph structure only, never operati
 make demo
 ```
 
-This starts the Streamlit app. It joins facts from Databricks with connections from Neo4j into one view. It can show an asset's properties, documents, hierarchy, OT context, zones, and vulnerabilities together.
+The explorer uses port **8502** by default, leaving Streamlit's standard 8501
+available for another app. Choose any other available port when needed:
+
+```sh
+make demo DEMO_PORT=8510
+```
+
+This starts a four-page Streamlit explorer:
+
+- **Lakehouse** browses contract-allowlisted Bronze and Silver tables with real sample rows.
+- **Operational graph** renders a bounded Neo4j subgraph from a selected CIPHOS entity.
+- **Traceability** joins a tag's Databricks facts and provenance with its Neo4j hierarchy, OT, and cyber context.
+- **Architecture & glossary** explains the data flow and CIPHOS vocabulary.
+
+Every query is read-only. The graph page caps a rendering at 150 nodes and the
+lakehouse page caps a sample at 10 rows.
 
 ## What it does
 
@@ -128,7 +171,7 @@ This starts the Streamlit app. It joins facts from Databricks with connections f
 
 **Build a Neo4j graph**
 
-- **Checks before activation**: The graph build reads an approved Silver snapshot, then checks its counts, labels, and relationship types.
+- **Checks during the build**: The graph build reads an approved Silver snapshot, then checks its counts, labels, and relationship types.
 - **What each side stores**: Neo4j stores the current asset structure and connections. Databricks stores the full property history and documents.
 
 **Show asset traceability**
@@ -146,35 +189,6 @@ This starts the Streamlit app. It joins facts from Databricks with connections f
 - **What gets indexed**: table and column metadata from four curated Silver views: `silver_tag_property_value_enriched` for tag-property traceability, `silver_tag_property_value_sources` for row-level provenance, `silver_snapshots` for publication freshness, and `silver_data_quality_results` for snapshot contract checks.
 - **What never gets indexed**: Bronze exports, raw measurements, documents, OT assets, and graph property values. Only Unity Catalog table and column metadata is embedded.
 
-## Local development
-
-Test the semantic map end to end against disposable local containers, with no real Neo4j or Databricks involved.
-
-With Docker running:
-
-```sh
-uv sync
-uv run ciphos-local
-```
-
-This one command starts the local containers, seeds test data, and runs the full acceptance flow (ingest, validate, retrieve). It sets `NEO4J_LOCAL=true` for itself, so your `.env` stays untouched.
-
-To run a single extra command against the same local stack, set the flag yourself:
-
-```sh
-NEO4J_LOCAL=true uv run ciphos-semantic-context
-```
-
-When you are done, remove the containers and their data:
-
-```sh
-uv run ciphos-local down
-```
-
-- **`make semantic-local-up`**, **`make semantic-local-test`**, and **`make semantic-local-down`** are shortcuts for the commands above.
-- **`CIPHOS_TEST_NEO4J_PASSWORD`** sets the password for these disposable containers only.
-- **One known gap**: the containers run Neo4j Community, so the local flow cannot test property-existence constraints. Those are Enterprise-only. Unit tests cover that case instead.
-
 ## Main commands
 
 | Command | What it does |
@@ -184,9 +198,8 @@ uv run ciphos-local down
 | `make validate-all` | Runs the contract check, lint, tests, and projection check together. |
 | `make lakehouse-plan` | Prints the Databricks load plan without writing anything. |
 | `make lakehouse-tables` | Loads CSV data into Databricks and builds Bronze and Silver tables. |
-| `make graph` | Builds and validates a candidate Neo4j graph, without activating it. |
-| `make graph-activate` | Builds, validates, and activates a candidate Neo4j graph. |
-| `make graph-clear` | Clears and reloads the candidate CIPHOS graph only. |
+| `make graph` | Loads CIPHOS data into the configured Neo4j graph. |
+| `make graph-clear` | Clears existing CIPHOS data, then rebuilds the graph. |
 | `make graph-counts` | Shows node and relationship counts in the graph. |
 | `make graph-verify` | Compares the graph with the source CSV data. |
 | `make semantic-ingest` | Builds the NeoCarta structural map, then indexes it for semantic search. |
@@ -210,7 +223,5 @@ uv run ciphos-local down
 | Silver table | Cleaned and typed data used for queries. |
 | Gold table | Final rows used for reports, paths, exposure, and lineage. |
 | Snapshot | A fixed version of the source data. |
-| Candidate graph | A separate Neo4j graph that gets checked before it goes live. |
-| Serving graph | The active Neo4j graph the demo reads. |
-| Projection | The source data copied into Neo4j. |
+| Projection | The source data copied into Neo4j. The demo reads this graph directly. |
 | Semantic store | A separate Neo4j database that holds graph structure only, not values. |

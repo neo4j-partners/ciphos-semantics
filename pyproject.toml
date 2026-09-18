@@ -9,6 +9,7 @@ dependencies = [
     "fastmcp>=2.14,<3",
     "neocarta[databricks,mcp]",
     "neo4j>=5.28,<7",
+    "neo4j-viz>=1.8.0",
     "openai>=2.54,<3",
     "pandas>=2",
     "python-dotenv>=1.0,<2",

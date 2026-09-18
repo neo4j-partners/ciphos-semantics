@@ -106,10 +106,25 @@ class SemanticQueryTests(unittest.TestCase):
 
     def test_grounding_accepts_qualified_retrieved_names_and_rejects_inventions(self) -> None:
         require_grounded_identifiers(
-            ("silver_tag_property_value_enriched", "catalog.ciphos.numeric_value"), trace()
+            ("silver_tag_property_value_enriched", "catalog.ciphos.numeric_value"),
+            trace(),
+            catalog="catalog",
+            schema="ciphos",
         )
         with self.assertRaisesRegex(RuntimeError, "not returned"):
-            require_grounded_identifiers(("invented_column",), trace())
+            require_grounded_identifiers(
+                ("invented_column",), trace(), catalog="catalog", schema="ciphos"
+            )
+
+    def test_grounding_accepts_the_catalog_and_schema_names_the_model_must_qualify_with(
+        self,
+    ) -> None:
+        require_grounded_identifiers(
+            ("catalog", "ciphos", "silver_tag_property_value_enriched"),
+            trace(),
+            catalog="catalog",
+            schema="ciphos",
+        )
 
     def test_search_tool_prefers_hybrid(self) -> None:
         self.assertEqual(

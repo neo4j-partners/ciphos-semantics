@@ -16,12 +16,7 @@ from databricks.sdk.core import Config
 from neo4j import GraphDatabase, RoutingControl
 
 from ciphos_semantics.semantic_cli import load_environment
-from ciphos_semantics.semantic_config import (
-    assert_no_operational_graph_nodes,
-    assert_safe_semantic_store_target,
-    load_operational_connection,
-    load_semantic_store_connection,
-)
+from ciphos_semantics.semantic_config import load_semantic_store_connection
 
 # The supported analytical surface intentionally excludes Bronze loader tables
 # and append-only history. These views cover traceability, provenance,
@@ -173,14 +168,11 @@ def ingest_metadata() -> tuple[str, str, tuple[str, ...]]:
     require_env("DATABRICKS_WAREHOUSE_ID")
     tables = indexed_table_names()
     model = embedding_endpoint_model(require_env("CIPHOS_SEMANTIC_EMBEDDING_MODEL"))
-    source = load_operational_connection()
     store = load_semantic_store_connection()
-    assert_safe_semantic_store_target(source, store)
     access_token = databricks_access_token()
     driver = GraphDatabase.driver(store.uri, auth=(store.username, store.password))
     try:
         driver.verify_connectivity()
-        assert_no_operational_graph_nodes(driver, store)
         with sql.connect(
             server_hostname=databricks_server_hostname(),
             http_path=databricks_http_path(),

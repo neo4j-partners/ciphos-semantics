@@ -10,8 +10,6 @@ from neo4j import RoutingControl
 from .semantic_config import (
     OperationalNeo4jConnection,
     SemanticStoreNeo4jConnection,
-    assert_no_operational_graph_nodes,
-    assert_safe_semantic_store_target,
 )
 from .semantic_map_contract import (
     NEOCARTA_VERSION,
@@ -290,19 +288,11 @@ def ingest_schema_map(
     store: SemanticStore,
     source: OperationalNeo4jConnection,
     schema_map: SchemaMap,
-    *,
-    candidate_database: str | None = None,
 ) -> None:
-    """Perform store-target guards before creating or replacing a semantic scope."""
+    """Create or replace a semantic scope from a freshly extracted schema map."""
     if schema_map.source_identity != source.identity:
         raise ValueError("Schema map source identity does not match the operational source.")
     if schema_map.source_scope != source_scope(source.identity):
         raise ValueError("Schema map source scope does not match the operational source.")
-    assert_safe_semantic_store_target(
-        source,
-        store.connection,
-        candidate_database=candidate_database,
-    )
-    assert_no_operational_graph_nodes(store._driver, store.connection)
     store.prepare()
     store.replace(schema_map)

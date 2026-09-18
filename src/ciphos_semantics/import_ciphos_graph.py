@@ -661,29 +661,6 @@ def record_projection(
         )
 
 
-def activate_projection(session: Any, graph_snapshot_id: str) -> None:
-    """Atomically make one already-validated snapshot the recorded active version.
-
-    Activation that matches nothing is a failure, not a quiet no-op.
-    """
-    result = session.run(
-        "MATCH (projection:CiphosProjection {graphSnapshotId: $graphSnapshotId}) "
-        "WHERE projection.status = 'VALIDATED' "
-        "OPTIONAL MATCH (active:CiphosProjection {status: 'ACTIVE'}) "
-        "WHERE active.graphSnapshotId <> projection.graphSnapshotId "
-        "SET active.status = 'SUPERSEDED', active.supersededAt = $recordedAt, "
-        "    projection.status = 'ACTIVE', projection.activatedAt = $recordedAt "
-        "RETURN count(DISTINCT projection) AS activated",
-        graphSnapshotId=graph_snapshot_id,
-        recordedAt=datetime.now(UTC).isoformat(),
-    ).single()
-    if result is None or result["activated"] == 0:
-        raise ValueError(
-            f"Graph snapshot {graph_snapshot_id!r} was not activated: no projection "
-            "with that ID is in the VALIDATED state."
-        )
-
-
 def clear_ciphos_data(session: Any) -> None:
     deleted = 0
     while True:
@@ -815,8 +792,6 @@ def main() -> int:
         raise ValueError("--counts cannot be combined with --clear")
     if args.counts and args.verify:
         raise ValueError("--counts cannot be combined with --verify")
-    if args.activate and (args.validate_only or args.counts or args.verify):
-        raise ValueError("--activate can only be used while importing a candidate.")
 
     silver_dir = os.getenv("CIPHOS_SILVER_SNAPSHOT_DIR", "").strip()
     data_dir, raw_source = resolve_source(args.data_dir, silver_dir)
@@ -857,9 +832,7 @@ def main() -> int:
         require_env("OPS_NEO4J_URI"),
         auth=(require_env("OPS_NEO4J_USERNAME"), require_env("OPS_NEO4J_PASSWORD")),
     )
-    database = resolve_database(
-        args.database, require_env("OPS_NEO4J_DATABASE"), read_only=args.counts or args.verify
-    )
+    database = require_env("OPS_NEO4J_DATABASE")
     try:
         driver.verify_connectivity()
         with driver.session(database=database) as session:
@@ -872,11 +845,6 @@ def main() -> int:
                 return 0
             assert manifest is not None
             metadata = projection_metadata_from_args(args, raw_source=raw_source)
-            if not metadata.candidate:
-                raise ValueError(
-                    "Projection imports must use --candidate and a separate candidate "
-                    "database or graph context before activation."
-                )
             create_schema(session)
             started_at = time.perf_counter()
             record_projection(
@@ -895,16 +863,14 @@ def main() -> int:
                 session,
                 manifest,
                 metadata,
-                status="VALIDATED",
+                status="LOADED",
                 report=report,
                 duration_ms=duration_ms,
             )
-            if args.activate:
-                activate_projection(session, metadata.graph_snapshot_id)
             print(
-                f"Candidate {metadata.graph_snapshot_id!r} validated in "
-                f"{duration_ms:,} ms and is "
-                f"{'active' if args.activate else 'ready for activation'}.")
+                f"Graph snapshot {metadata.graph_snapshot_id!r} loaded in "
+                f"{duration_ms:,} ms."
+            )
     finally:
         driver.close()
     return 0

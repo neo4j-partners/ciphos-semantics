@@ -18,7 +18,6 @@ from ciphos_semantics.import_ciphos_graph import (
     projection_metadata_from_args,
     relationship_batch,
     require_env,
-    resolve_database,
     resolve_source,
     validate_projection,
 )
@@ -122,8 +121,6 @@ class ProjectionManifestTest(unittest.TestCase):
             source_snapshot_id="silver-snapshot-001",
             graph_snapshot_id="graph-snapshot-001",
             application_revision="abc123",
-            candidate=True,
-            activate=False,
             allow_raw_source=False,
         )
         metadata = projection_metadata_from_args(args)
@@ -159,20 +156,6 @@ class IsolationTests(unittest.TestCase):
             self.assertRaisesRegex(ValueError, "moved to OPS_NEO4J"),
         ):
             demo_graph._require("OPS_NEO4J_DATABASE")
-
-    def test_candidate_cannot_target_the_serving_database(self) -> None:
-        with self.assertRaisesRegex(ValueError, "active serving database"):
-            resolve_database("neo4j", "neo4j", read_only=False)
-
-    def test_candidate_requires_an_explicit_database(self) -> None:
-        with (
-            patch.dict("os.environ", {"CIPHOS_CANDIDATE_DATABASE": ""}),
-            self.assertRaisesRegex(ValueError, "needs its own database"),
-        ):
-            resolve_database(None, "neo4j", read_only=False)
-
-    def test_read_only_commands_use_the_serving_database(self) -> None:
-        self.assertEqual("neo4j", resolve_database(None, "neo4j", read_only=True))
 
     def test_unrecognised_directory_counts_as_a_raw_export(self) -> None:
         with tempfile.TemporaryDirectory() as directory:

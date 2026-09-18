@@ -290,9 +290,16 @@ def generate_sql(
     return str(payload["sql"]), identifiers
 
 
-def require_grounded_identifiers(identifiers: Sequence[str], trace: RetrievalTrace) -> None:
-    """Reject declared identifiers that were absent from table or column retrieval."""
-    retrieved = trace.retrieved_names()
+def require_grounded_identifiers(
+    identifiers: Sequence[str], trace: RetrievalTrace, *, catalog: str, schema: str
+) -> None:
+    """Reject declared identifiers that were absent from table or column retrieval.
+
+    The catalog and schema names are static configuration the model is required to
+    qualify every table with, not something semantic retrieval returns, so they are
+    always grounded.
+    """
+    retrieved = trace.retrieved_names() | {catalog, schema}
     missing = sorted(
         {
             identifier
@@ -417,7 +424,7 @@ def main(argv: Sequence[str] | None = None) -> None:
         schema=schema,
         model=require_env("CIPHOS_SEMANTIC_LLM_ENDPOINT"),
     )
-    require_grounded_identifiers(identifiers, trace)
+    require_grounded_identifiers(identifiers, trace, catalog=catalog, schema=schema)
     print("Grounding: PASS")
     print(sql)
     print(json.dumps(execute_sql(sql, catalog=catalog, schema=schema), indent=2))

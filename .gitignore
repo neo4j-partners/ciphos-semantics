@@ -9,6 +9,10 @@
 .mcp.json
 .claude/settings.local.json
 
+# Local MCP server process tracking (make mcp / make mcp-stop)
+.mcp-search.pid
+.mcp-search.log
+
 # macOS
 .DS_Store
 ._*

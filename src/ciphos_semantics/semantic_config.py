@@ -1,4 +1,4 @@
-"""Configuration and safety checks for the CIPHOS semantic-map store.
+"""Configuration for the CIPHOS operational graph and NeoCarta semantic store.
 
 The operational projection and semantic store are intentionally represented by
 different types.  This makes it harder for a caller to accidentally pass an
@@ -10,9 +10,6 @@ from __future__ import annotations
 import os
 from collections.abc import Mapping
 from dataclasses import dataclass, field
-from typing import Any
-
-from neo4j import RoutingControl
 
 from .semantic_map_contract import SourceIdentity
 
@@ -28,13 +25,6 @@ SEMANTIC_STORE_ENV_NAMES = (
     "NEO4J_PASSWORD",
     "NEO4J_DATABASE",
 )
-
-OPERATIONAL_LABEL_CHECK_CYPHER = """
-MATCH (node)
-WHERE any(node_label IN labels(node) WHERE node_label IN $operational_labels)
-RETURN count(node) AS operational_node_count
-"""
-OPERATIONAL_GRAPH_LABELS = ("CiphosEntity", "CiphosProjection")
 
 
 @dataclass(frozen=True)
@@ -116,37 +106,3 @@ def load_semantic_store_connection(
         password=_require(values, "NEO4J_PASSWORD"),
         database=_require(values, "NEO4J_DATABASE"),
     )
-
-
-def assert_safe_semantic_store_target(
-    source: OperationalNeo4jConnection,
-    store: SemanticStoreNeo4jConnection,
-    *,
-    candidate_database: str | None = None,
-) -> None:
-    """Ensure the target is neither the serving nor configured candidate graph."""
-    if source.identity == store.identity:
-        raise ValueError("Semantic-store target must differ from the operational source identity.")
-    if candidate_database and candidate_database.strip():
-        candidate_identity = SourceIdentity.from_connection(source.uri, candidate_database)
-        if candidate_identity == store.identity:
-            raise ValueError(
-                "Semantic-store target must differ from the CIPHOS candidate identity."
-            )
-
-
-def assert_no_operational_graph_nodes(
-    target_driver: Any, target: SemanticStoreNeo4jConnection
-) -> None:
-    """Reject a store target that already contains known CIPHOS operational labels."""
-    records, _, _ = target_driver.execute_query(
-        query_=OPERATIONAL_LABEL_CHECK_CYPHER,
-        parameters_={"operational_labels": list(OPERATIONAL_GRAPH_LABELS)},
-        database_=target.database,
-        routing_=RoutingControl.READ,
-    )
-    if records:
-        first = records[0]
-        count = first["operational_node_count"] if hasattr(first, "__getitem__") else 0
-        if int(count) > 0:
-            raise ValueError("Semantic-store target contains CIPHOS operational graph nodes.")

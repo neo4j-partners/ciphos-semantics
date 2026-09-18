@@ -56,20 +56,18 @@ def connect() -> tuple[Driver, str]:
     return driver, database
 
 
-def run_query(
-    driver: Driver, database: str, query: str, **parameters: Any
-) -> list[dict[str, Any]]:
+def run_query(driver: Driver, database: str, query: str, **parameters: Any) -> list[dict[str, Any]]:
     """Run a read query and return plain row dictionaries."""
     records = driver.execute_query(query, database_=database, **parameters).records
     return [record.data() for record in records]
 
 
 def active_projection(driver: Driver, database: str) -> dict[str, Any] | None:
-    """Return lineage for the projection currently marked active, if any."""
+    """Return lineage for the most recently loaded graph snapshot, if any."""
     rows = run_query(
         driver,
         database,
-        "MATCH (projection:CiphosProjection {status: 'ACTIVE'}) "
+        "MATCH (projection:CiphosProjection {status: 'LOADED'}) "
         "RETURN projection.graphSnapshotId AS graph_snapshot_id, "
         "       projection.sourceSnapshotId AS source_snapshot_id, "
         "       projection.sourceBatchId AS source_batch_id, "
@@ -78,7 +76,7 @@ def active_projection(driver: Driver, database: str) -> dict[str, Any] | None:
         "       projection.manifestVersion AS manifest_version, "
         "       projection.nodeCount AS node_count, "
         "       projection.relationshipCount AS relationship_count "
-        "ORDER BY projection.activatedAt DESC LIMIT 1",
+        "ORDER BY projection.recordedAt DESC LIMIT 1",
     )
     return rows[0] if rows else None
 

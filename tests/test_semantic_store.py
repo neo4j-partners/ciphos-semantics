@@ -115,12 +115,10 @@ class DriverStub:
         self,
         transaction: TransactionStub | None = None,
         query_results: list[list[dict[str, Any]]] | None = None,
-        target_count: int = 0,
     ) -> None:
         self.transaction = transaction or TransactionStub()
         self.session_instance = SessionStub(self.transaction)
         self.query_results = query_results or []
-        self.target_count = target_count
         self.execute_calls: list[dict[str, Any]] = []
 
     def session(self, **kwargs: Any) -> SessionStub:
@@ -129,8 +127,6 @@ class DriverStub:
 
     def execute_query(self, **kwargs: Any) -> tuple[list[dict[str, Any]], None, None]:
         self.execute_calls.append(kwargs)
-        if kwargs["query_"].strip().startswith("MATCH (node)"):
-            return [{"operational_node_count": self.target_count}], None, None
         return (self.query_results.pop(0) if self.query_results else []), None, None
 
 
@@ -261,17 +257,6 @@ class SemanticStoreTests(unittest.TestCase):
         self.assertNotIn("OPS_NEO4J", LIST_SOURCE_SCOPES_CYPHER)
         self.assertIn("database.source_uri IS NOT NULL", LIST_SOURCE_SCOPES_CYPHER)
         self.assertIn("database.source_database IS NOT NULL", LIST_SOURCE_SCOPES_CYPHER)
-
-    def test_ingest_checks_target_before_any_write(self) -> None:
-        driver = DriverStub(target_count=1)
-        store = SemanticStore(driver, store_connection())
-
-        with self.assertRaisesRegex(ValueError, "operational graph nodes"):
-            ingest_schema_map(store, source_connection(), schema_map())
-
-        self.assertEqual(driver.session_instance.write_calls, 0)
-        self.assertEqual(len(driver.execute_calls), 1)
-        self.assertEqual(driver.execute_calls[0]["routing_"], RoutingControl.READ)
 
     def test_ingest_rejects_mismatched_map_identity_before_store_access(self) -> None:
         driver = DriverStub()

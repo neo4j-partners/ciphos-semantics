@@ -22,8 +22,6 @@ from ciphos_semantics.neo4j_schema_extract import (
 from ciphos_semantics.semantic_config import (
     OperationalNeo4jConnection,
     SemanticStoreNeo4jConnection,
-    assert_no_operational_graph_nodes,
-    assert_safe_semantic_store_target,
     load_operational_connection,
     load_semantic_store_connection,
 )
@@ -56,10 +54,6 @@ def _source_driver(connection: OperationalNeo4jConnection) -> Any:
         auth=(connection.username, connection.password),
         notifications_disabled_classifications=list(SUPPRESSED_SOURCE_NOTIFICATIONS),
     )
-
-
-def _candidate_database() -> str | None:
-    return os.environ.get("CIPHOS_CANDIDATE_DATABASE", "").strip() or None
 
 
 def resolve_source_scope(store: SemanticStore, requested: str | None = None) -> str:
@@ -118,12 +112,7 @@ def ingest_main() -> None:
         store_driver.verify_connectivity()
         schema_map = extract_schema_map(source_driver, source.identity)
         store = SemanticStore(store_driver, store_connection)
-        ingest_schema_map(
-            store,
-            source,
-            schema_map,
-            candidate_database=_candidate_database(),
-        )
+        ingest_schema_map(store, source, schema_map)
         validate_semantic_map(schema_map, store.read_context(schema_map.source_scope))
     finally:
         source_driver.close()
@@ -158,17 +147,11 @@ def validate_main() -> None:
     load_environment()
     source = load_operational_connection()
     store_connection = load_semantic_store_connection()
-    assert_safe_semantic_store_target(
-        source,
-        store_connection,
-        candidate_database=_candidate_database(),
-    )
     source_driver = _source_driver(source)
     store_driver = _driver(store_connection)
     try:
         source_driver.verify_connectivity()
         store_driver.verify_connectivity()
-        assert_no_operational_graph_nodes(store_driver, store_connection)
         schema_map = extract_schema_map(source_driver, source.identity)
         context = SemanticStore(store_driver, store_connection).read_context(
             schema_map.source_scope
