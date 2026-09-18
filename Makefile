@@ -12,10 +12,10 @@ SEMANTIC_INGEST := ciphos-semantic-ingest
 SEMANTIC_MCP := ciphos-semantic-mcp
 SEMANTIC_VALIDATE := ciphos-semantic-validate
 MCP_PORT ?= 8000
-DEMO_PORT ?= 8502
-## A separate default port for the backgrounded `make mcp` target, since 8000
-## may already be in use by another project's own MCP server.
-MCP_DEV_PORT ?= 8010
+# Leave empty to select the first available local port in the demo's range.
+DEMO_PORT ?=
+## Keep semantic search separate from the structural-map MCP server on 8000.
+MCP_SEARCH_PORT ?= 8010
 MCP_PID_FILE := .mcp-search.pid
 MCP_LOG_FILE := .mcp-search.log
 
@@ -38,14 +38,14 @@ help:
 	@echo "  make graph-verify  Compare graph counts, labels, and types with the CSV export."
 	@echo "  make lakehouse-plan  Inspect all Bronze and Silver work without external writes."
 	@echo "  make lakehouse-tables  Upload all CSVs and build Bronze/Silver Unity Catalog tables."
-	@echo "  make demo          Start the Streamlit explorer on DEMO_PORT (default 8502)."
+	@echo "  make demo          Start the Streamlit explorer on a free port (8503-8599)."
 	@echo "  make semantic-contract  Check local records against pinned NeoCarta LPG models."
 	@echo "  make semantic-ingest  Replace the source-scoped CIPHOS LPG map, then index curated Silver metadata and embeddings."
 	@echo "  make semantic-context  Print the persisted structural context as JSON."
 	@echo "  make semantic-validate  Compare persisted context with a fresh extraction."
 	@echo "  make semantic-mcp  Serve the read-only LPG context on loopback HTTP."
-	@echo "  make semantic-search-mcp  Serve NeoCarta search plus CIPHOS graph context."
-	@echo "  make mcp           Start the semantic search MCP in the background on MCP_DEV_PORT (default 8010)."
+	@echo "  make semantic-search-mcp  Serve semantic search on MCP_SEARCH_PORT (default 8010)."
+	@echo "  make mcp           Start semantic search in the background on MCP_SEARCH_PORT (default 8010)."
 	@echo "  make mcp-stop      Stop the MCP server started by make mcp."
 	@echo "  make semantic-query  Run the CIPHOS semantic-search showcase and grounded SQL query."
 	@echo "  make semantic-local-up  Start, seed, and accept disposable local Neo4j containers."
@@ -94,8 +94,8 @@ lakehouse-plan:
 	$(UV) run $(LAKEHOUSE_BUILDER) --dry-run
 
 demo:
-	@echo "==> Starting the CIPHOS lakehouse, graph, and traceability explorer at http://localhost:$(DEMO_PORT)"
-	$(UV) run ciphos-demo --server.port $(DEMO_PORT)
+	@echo "==> Starting the CIPHOS lakehouse, graph, and traceability explorer"
+	DEMO_PORT="$(DEMO_PORT)" $(UV) run ciphos-demo
 
 semantic-contract:
 	@echo "==> Checking the pinned NeoCarta 0.8.0 LPG contract"
@@ -121,15 +121,15 @@ semantic-mcp:
 	$(UV) run $(SEMANTIC_MCP) --transport streamable-http --port $(MCP_PORT)
 
 semantic-search-mcp:
-	@echo "==> Serving CIPHOS semantic search at http://127.0.0.1:$(MCP_PORT)/mcp"
-	$(UV) run ciphos-semantic-search-mcp --port $(MCP_PORT)
+	@echo "==> Serving CIPHOS semantic search at http://127.0.0.1:$(MCP_SEARCH_PORT)/mcp"
+	$(UV) run ciphos-semantic-search-mcp --port $(MCP_SEARCH_PORT)
 
 mcp:
 	@if [ -f $(MCP_PID_FILE) ] && kill -0 $$(cat $(MCP_PID_FILE)) 2>/dev/null; then \
-		echo "CIPHOS semantic search MCP is already running (pid $$(cat $(MCP_PID_FILE))) at http://127.0.0.1:$(MCP_DEV_PORT)/mcp"; \
+		echo "CIPHOS semantic search MCP is already running (pid $$(cat $(MCP_PID_FILE))) at http://127.0.0.1:$(MCP_SEARCH_PORT)/mcp"; \
 	else \
-		echo "==> Starting CIPHOS semantic search MCP at http://127.0.0.1:$(MCP_DEV_PORT)/mcp"; \
-		$(UV) run ciphos-semantic-search-mcp --port $(MCP_DEV_PORT) > $(MCP_LOG_FILE) 2>&1 & echo $$! > $(MCP_PID_FILE); \
+		echo "==> Starting CIPHOS semantic search MCP at http://127.0.0.1:$(MCP_SEARCH_PORT)/mcp"; \
+		$(UV) run ciphos-semantic-search-mcp --port $(MCP_SEARCH_PORT) > $(MCP_LOG_FILE) 2>&1 & echo $$! > $(MCP_PID_FILE); \
 		echo "Logs: $(MCP_LOG_FILE)"; \
 	fi
 
@@ -148,7 +148,7 @@ mcp-stop:
 
 semantic-query:
 	@echo "==> Running the CIPHOS semantic query showcase"
-	$(UV) run ciphos-semantic-query
+	$(UV) run ciphos-semantic-query --mcp-url http://127.0.0.1:$(MCP_SEARCH_PORT)/mcp
 
 semantic-local-up:
 	$(UV) run ciphos-local up

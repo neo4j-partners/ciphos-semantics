@@ -20,7 +20,7 @@ from ciphos_semantics.semantic_mcp import (
     semantic_store_context_reader,
 )
 
-DEFAULT_MCP_PORT = 8000
+DEFAULT_MCP_PORT = 8010
 
 
 async def run_server(*, port: int, source_scope: str | None) -> None:

@@ -26,7 +26,7 @@ from ciphos_semantics.semantic_index import (
     require_env,
 )
 
-DEFAULT_MCP_URL = "http://127.0.0.1:8000/mcp"
+DEFAULT_MCP_URL = "http://127.0.0.1:8010/mcp"
 DEFAULT_QUESTION = "Which tags have high pressure readings and which source documents support them?"
 RESULT_ROW_LIMIT = 10
 POLL_TIMEOUT_SECONDS = 180

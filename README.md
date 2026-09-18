@@ -71,7 +71,8 @@ The demo has two parts. Start the server first, then run the CLI in a second ter
 make semantic-search-mcp
 ```
 
-Leave this running. It serves NeoCarta search and CIPHOS graph context at `http://127.0.0.1:8000/mcp`.
+Leave this running. It serves NeoCarta search and CIPHOS graph context at `http://127.0.0.1:8010/mcp`.
+Choose a different available port with `make semantic-search-mcp MCP_SEARCH_PORT=8015`.
 
 ```sh
 uv run ciphos-semantic-query
@@ -145,8 +146,9 @@ This is a separate Neo4j database. It stores graph structure only, never operati
 make demo
 ```
 
-The explorer uses port **8502** by default, leaving Streamlit's standard 8501
-available for another app. Choose any other available port when needed:
+The explorer automatically selects the first available local port from
+**8503–8599**, leaving Streamlit's standard 8501 available for another app.
+Choose a fixed port when needed:
 
 ```sh
 make demo DEMO_PORT=8510
@@ -206,7 +208,7 @@ lakehouse page caps a sample at 10 rows.
 | `make semantic-context` | Prints the saved structural map as JSON. |
 | `make semantic-validate` | Compares the saved structural map with a fresh extraction. |
 | `make semantic-mcp` | Starts the read-only structural-map service at `http://127.0.0.1:8000/mcp`. |
-| `make semantic-search-mcp` | Starts the semantic search service at `http://127.0.0.1:8000/mcp`. |
+| `make semantic-search-mcp` | Starts the semantic search service at `http://127.0.0.1:8010/mcp`. |
 | `make semantic-query` | Runs the semantic-search showcase and a grounded SQL query. |
 | `make demo` | Starts the Streamlit traceability demo. |
 | `make semantic-local-test` | Runs the full semantic-map acceptance flow against disposable local Neo4j containers. |
