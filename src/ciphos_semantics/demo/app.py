@@ -12,6 +12,7 @@ import streamlit as st
 from ciphos_semantics.demo import (
     page_architecture,
     page_ask,
+    page_ask_flow,
     page_lakehouse,
     page_operational_graph,
     page_traceability,
@@ -81,7 +82,10 @@ def main() -> None:
             ],
             "BOTH SYSTEMS": [st.Page(_traceability_page, title="Traceability")],
             "ASK": [st.Page(_ask_page, title="Ask")],
-            "REFERENCE": [st.Page(page_architecture.render, title="Architecture & glossary")],
+            "REFERENCE": [
+                st.Page(page_architecture.render, title="Architecture & glossary"),
+                st.Page(page_ask_flow.render, title="How Ask works"),
+            ],
         }
     )
     pages.run()

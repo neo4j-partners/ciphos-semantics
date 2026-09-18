@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 900" font-family="-apple-system, Helvetica Neue, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4b6a88" />
+    </marker>
+    <marker id="arrowGreen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#3f8a53" />
+    </marker>
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="#1f2d3d" flood-opacity="0.18" />
+    </filter>
+  </defs>
+
+  <rect width="900" height="900" fill="#ffffff" />
+
+  <text x="450" y="30" text-anchor="middle" font-size="19" font-weight="700" fill="#1f2d3d">
+    How the Ask page turns a question into a grounded answer
+  </text>
+
+  <!-- Box 1: question -->
+  <rect x="120" y="70" width="660" height="70" rx="12" fill="#eef2f8" stroke="#4b6a88" stroke-width="1.5" filter="url(#softShadow)" />
+  <text x="450" y="98" text-anchor="middle" font-size="15" font-weight="600" fill="#1f2d3d">You type a question</text>
+  <text x="450" y="120" text-anchor="middle" font-size="12.5" fill="#51606f">Ask page text box, passed to retrieve() unmodified</text>
+
+  <line x1="450" y1="140" x2="450" y2="158" stroke="#4b6a88" stroke-width="1.5" marker-end="url(#arrow)" />
+
+  <!-- Phase A bar -->
+  <rect x="120" y="160" width="660" height="34" rx="8" fill="#eaf6ec" />
+  <text x="450" y="182" text-anchor="middle" font-size="12.5" font-weight="700" fill="#2f6b3f" letter-spacing="0.4">
+    PHASE 1: DETERMINISTIC RETRIEVAL, NO LLM INVOLVED
+  </text>
+
+  <!-- Box 2 -->
+  <rect x="120" y="204" width="660" height="70" rx="12" fill="#f4f9f5" stroke="#3f8a53" stroke-width="1.5" filter="url(#softShadow)" />
+  <text x="450" y="232" text-anchor="middle" font-size="15" font-weight="600" fill="#1f2d3d">retrieve() opens one MCP session</text>
+  <text x="450" y="254" text-anchor="middle" font-size="12.5" fill="#51606f">mcp_retrieval.py calls the NeoCarta MCP server fresh, per click</text>
+
+  <line x1="450" y1="274" x2="450" y2="292" stroke="#3f8a53" stroke-width="1.5" marker-end="url(#arrowGreen)" />
+
+  <!-- Box 3 -->
+  <rect x="120" y="294" width="660" height="70" rx="12" fill="#f4f9f5" stroke="#3f8a53" stroke-width="1.5" filter="url(#softShadow)" />
+  <text x="450" y="322" text-anchor="middle" font-size="15" font-weight="600" fill="#1f2d3d">A fixed priority list picks the tool</text>
+  <text x="450" y="344" text-anchor="middle" font-size="12.5" fill="#51606f">SEARCH_TOOL_PRIORITIES walks a hardcoded order, no LLM decides this</text>
+
+  <line x1="450" y1="364" x2="450" y2="378" stroke="#3f8a53" stroke-width="1.5" marker-end="url(#arrowGreen)" />
+
+  <!-- Mini pills: vector + full text -->
+  <rect x="130" y="374" width="290" height="42" rx="10" fill="#ffffff" stroke="#3f8a53" stroke-width="1.2" stroke-dasharray="4 3" />
+  <text x="275" y="391" text-anchor="middle" font-size="12.5" font-weight="600" fill="#2f6b3f">Vector index</text>
+  <text x="275" y="407" text-anchor="middle" font-size="11" fill="#51606f">embedding similarity via gte-large-en</text>
+
+  <rect x="460" y="374" width="290" height="42" rx="10" fill="#ffffff" stroke="#3f8a53" stroke-width="1.2" stroke-dasharray="4 3" />
+  <text x="605" y="391" text-anchor="middle" font-size="12.5" font-weight="600" fill="#2f6b3f">Full-text index</text>
+  <text x="605" y="407" text-anchor="middle" font-size="11" fill="#51606f">keyword match via Lucene</text>
+
+  <line x1="275" y1="416" x2="430" y2="428" stroke="#3f8a53" stroke-width="1.5" marker-end="url(#arrowGreen)" />
+  <line x1="605" y1="416" x2="470" y2="428" stroke="#3f8a53" stroke-width="1.5" marker-end="url(#arrowGreen)" />
+
+  <!-- Box 4: fusion -->
+  <rect x="120" y="424" width="660" height="110" rx="12" fill="#f4f9f5" stroke="#3f8a53" stroke-width="2" filter="url(#softShadow)" />
+  <text x="450" y="454" text-anchor="middle" font-size="15" font-weight="600" fill="#1f2d3d">Neo4j fuses both signals</text>
+  <text x="450" y="476" text-anchor="middle" font-size="12.5" fill="#51606f">Each hit takes the stronger of the two scores</text>
+  <text x="450" y="496" text-anchor="middle" font-size="12.5" fill="#51606f">then expands into full table and column metadata</text>
+  <text x="450" y="518" text-anchor="middle" font-size="11" font-style="italic" fill="#7a8894">get_context_by_table_hybrid_search / get_context_by_column_hybrid_search</text>
+
+  <line x1="450" y1="534" x2="450" y2="552" stroke="#3f8a53" stroke-width="1.5" marker-end="url(#arrowGreen)" />
+
+  <!-- Box 5 -->
+  <rect x="120" y="554" width="660" height="70" rx="12" fill="#f4f9f5" stroke="#3f8a53" stroke-width="1.5" filter="url(#softShadow)" />
+  <text x="450" y="582" text-anchor="middle" font-size="15" font-weight="600" fill="#1f2d3d">Trace comes back: tables, columns, graph schema</text>
+  <text x="450" y="604" text-anchor="middle" font-size="12.5" fill="#51606f">Rendered in the UI as the Retrieved from the map panel</text>
+
+  <line x1="450" y1="624" x2="450" y2="642" stroke="#4b6a88" stroke-width="1.5" marker-end="url(#arrow)" />
+
+  <!-- Phase B bar -->
+  <rect x="120" y="644" width="660" height="34" rx="8" fill="#f5edfa" />
+  <text x="450" y="666" text-anchor="middle" font-size="12.5" font-weight="700" fill="#6b3f8a" letter-spacing="0.4">
+    PHASE 2: GROUNDED GENERATION, EXACTLY ONE LLM CALL
+  </text>
+
+  <!-- Box 6 -->
+  <rect x="120" y="688" width="660" height="90" rx="12" fill="#f9f5fb" stroke="#8a4b9a" stroke-width="1.5" filter="url(#softShadow)" />
+  <text x="450" y="716" text-anchor="middle" font-size="15" font-weight="600" fill="#1f2d3d">generate_queries() calls the LLM</text>
+  <text x="450" y="738" text-anchor="middle" font-size="12.5" fill="#51606f">databricks-claude-sonnet-5, via a fixed grounding system prompt</text>
+  <text x="450" y="758" text-anchor="middle" font-size="12.5" fill="#51606f">instructed to use only names present in the retrieved context</text>
+
+  <line x1="450" y1="778" x2="450" y2="796" stroke="#8a4b9a" stroke-width="1.5" marker-end="url(#arrow)" />
+
+  <!-- Box 7 -->
+  <rect x="120" y="798" width="660" height="70" rx="12" fill="#f9f5fb" stroke="#8a4b9a" stroke-width="1.5" filter="url(#softShadow)" />
+  <text x="450" y="826" text-anchor="middle" font-size="15" font-weight="600" fill="#1f2d3d">Grounded SQL and Cypher shown to you</text>
+  <text x="450" y="848" text-anchor="middle" font-size="12.5" fill="#51606f">grounding.ground() rejects any name that was not retrieved</text>
+</svg>

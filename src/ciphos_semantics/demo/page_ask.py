@@ -19,9 +19,14 @@ from ciphos_semantics.demo.services import (
     query_rows,
 )
 from ciphos_semantics.semantic_index import indexed_table_names, require_env
-from ciphos_semantics.semantic_query import DEFAULT_MCP_URL, SHOWCASE_CASES, retrieve
+from ciphos_semantics.semantic_query import (
+    DEFAULT_MCP_URL,
+    DEFAULT_SHOWCASE_QUESTION,
+    SHOWCASE_CASES,
+    retrieve,
+)
 
-PRESETS = tuple(case.query for case in SHOWCASE_CASES)
+PRESETS = (DEFAULT_SHOWCASE_QUESTION, *(case.query for case in SHOWCASE_CASES[1:]))
 
 
 def _run_sql(warehouse: WarehouseConnection, sql: str) -> dict:

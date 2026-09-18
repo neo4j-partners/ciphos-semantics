@@ -397,12 +397,14 @@ def run_query_workflow(
 
     section_number += 1
     console.section(section_number, "Generating SQL from retrieved context")
+    model = require_env("CIPHOS_SEMANTIC_LLM_ENDPOINT")
+    print(f"Model: {model}", file=console.stream)
     generated = query_generation.generate_queries(
         question,
         trace,
         catalog=catalog,
         schema=schema,
-        model=require_env("CIPHOS_SEMANTIC_LLM_ENDPOINT"),
+        model=model,
     )
     print(generated.sql, file=console.stream)
 
