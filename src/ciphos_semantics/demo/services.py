@@ -13,11 +13,12 @@ from databricks.sdk import WorkspaceClient
 from databricks.sdk.core import Config
 from databricks.sdk.service.sql import ExecuteStatementRequestOnWaitTimeout, Format
 from dotenv import load_dotenv
-from neo4j import Driver
+from neo4j import Driver, GraphDatabase
 
 from ciphos_semantics import hybrid_data
 from ciphos_semantics.demo import graph
 from ciphos_semantics.local_neo4j import configure_local_neo4j
+from ciphos_semantics.semantic_config import load_semantic_store_connection
 
 PROJECT_DIR = Path(__file__).resolve().parents[3]
 IDENTIFIER_PATTERN = re.compile(r"^[A-Za-z_][A-Za-z0-9_-]*$")
@@ -38,6 +39,17 @@ class WarehouseConnection:
 @dataclass(frozen=True)
 class GraphConnection:
     """The configured CIPHOS serving graph, or a safe connection error."""
+
+    ok: bool
+    driver: Driver | None = None
+    database: str = ""
+    host: str = ""
+    error: str | None = None
+
+
+@dataclass(frozen=True)
+class SemanticStoreConnection:
+    """The configured NeoCarta semantic store, or a safe connection error."""
 
     ok: bool
     driver: Driver | None = None
@@ -101,6 +113,24 @@ def operational_graph_connection() -> GraphConnection:
         return GraphConnection(ok=False, error=str(error))
     return GraphConnection(
         ok=True, driver=driver, database=database, host=os.getenv("OPS_NEO4J_URI", "")
+    )
+
+
+@st.cache_resource(show_spinner="Connecting to the semantic store…")
+def semantic_store_connection() -> SemanticStoreConnection:
+    """Open the configured NeoCarta semantic store and verify it is reachable."""
+    try:
+        load_dotenv(PROJECT_DIR / ".env", override=False)
+        configure_local_neo4j()
+        connection = load_semantic_store_connection()
+        driver = GraphDatabase.driver(
+            connection.uri, auth=(connection.username, connection.password)
+        )
+        driver.verify_connectivity()
+    except Exception as error:
+        return SemanticStoreConnection(ok=False, error=str(error))
+    return SemanticStoreConnection(
+        ok=True, driver=driver, database=connection.database, host=connection.uri
     )
 
 

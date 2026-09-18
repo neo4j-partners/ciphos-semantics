@@ -11,11 +11,16 @@ import streamlit as st
 
 from ciphos_semantics.demo import (
     page_architecture,
+    page_ask,
     page_lakehouse,
     page_operational_graph,
     page_traceability,
 )
-from ciphos_semantics.demo.services import operational_graph_connection, warehouse_connection
+from ciphos_semantics.demo.services import (
+    operational_graph_connection,
+    semantic_store_connection,
+    warehouse_connection,
+)
 
 
 def _badge(label: str, ok: bool) -> str:
@@ -25,9 +30,11 @@ def _badge(label: str, ok: bool) -> str:
 def _render_sidebar() -> tuple:
     warehouse = warehouse_connection()
     operational_graph = operational_graph_connection()
+    semantic_store = semantic_store_connection()
 
     st.sidebar.markdown(_badge("SQL warehouse", warehouse.ok))
     st.sidebar.markdown(_badge("Operational graph", operational_graph.ok))
+    st.sidebar.markdown(_badge("Semantic store", semantic_store.ok))
 
     with st.sidebar.expander("Contract", expanded=False):
         page_architecture.render_contract_summary()
@@ -42,29 +49,38 @@ def _render_sidebar() -> tuple:
             f"Operational graph: `{operational_graph.host or '—'}` "
             f"/ `{operational_graph.database or '—'}`"
         )
+        st.write(
+            f"Semantic store: `{semantic_store.host or '—'}` "
+            f"/ `{semantic_store.database or '—'}`"
+        )
 
-    return warehouse, operational_graph
+    return warehouse, operational_graph, semantic_store
 
 
 def main() -> None:
     st.set_page_config(page_title="CIPHOS data explorer", page_icon="🔗", layout="wide")
-    warehouse, operational_graph = _render_sidebar()
+    warehouse, operational_graph, semantic_store = _render_sidebar()
+
+    def _lakehouse_page() -> None:
+        page_lakehouse.render(warehouse)
+
+    def _operational_graph_page() -> None:
+        page_operational_graph.render(operational_graph)
+
+    def _traceability_page() -> None:
+        page_traceability.render(warehouse, operational_graph)
+
+    def _ask_page() -> None:
+        page_ask.render(warehouse, operational_graph, semantic_store)
 
     pages = st.navigation(
         {
             "DATA": [
-                st.Page(lambda: page_lakehouse.render(warehouse), title="Lakehouse", default=True),
-                st.Page(
-                    lambda: page_operational_graph.render(operational_graph),
-                    title="Operational graph",
-                ),
+                st.Page(_lakehouse_page, title="Lakehouse", default=True),
+                st.Page(_operational_graph_page, title="Operational graph"),
             ],
-            "BOTH SYSTEMS": [
-                st.Page(
-                    lambda: page_traceability.render(warehouse, operational_graph),
-                    title="Traceability",
-                )
-            ],
+            "BOTH SYSTEMS": [st.Page(_traceability_page, title="Traceability")],
+            "ASK": [st.Page(_ask_page, title="Ask")],
             "REFERENCE": [st.Page(page_architecture.render, title="Architecture & glossary")],
         }
     )
