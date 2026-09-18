@@ -22,6 +22,8 @@ current-state subset used for traceability and connected-asset analysis.
 | Organizations | Not present | Operational graph |
 | Graph schema (labels, relationship types, properties, constraints, indexes) and curated table/column metadata | Not present | Semantic store (NeoCarta, separate database) |
 
+![What lives where: lakehouse vs. graph](src/ciphos_semantics/demo/assets/lakehouse_vs_graph.png)
+
 ```text
      DATABRICKS LAKEHOUSE (complete data history)                     NEO4J (current-state graph)
 
@@ -102,6 +104,8 @@ Tag-property values are **asset metadata and engineering facts**, not a
 high-frequency time-series telemetry feed. They are deliberately modeled at a
 separate grain in Databricks so the full value history and document provenance
 can be queried without making the operational Neo4j graph unnecessarily large.
+
+![How CIPHOS data flows from CSV export to the demo](src/ciphos_semantics/demo/assets/data_flow.png)
 
 ```text
                     CIPHOS CSV export
