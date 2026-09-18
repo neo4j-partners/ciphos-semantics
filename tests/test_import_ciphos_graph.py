@@ -9,6 +9,7 @@ from argparse import Namespace
 from pathlib import Path
 from unittest.mock import patch
 
+from ciphos_semantics.demo import graph as demo_graph
 from ciphos_semantics.import_ciphos_graph import (
     EXCLUDED_RELATIONSHIP_TYPES,
     CsvFile,
@@ -16,6 +17,7 @@ from ciphos_semantics.import_ciphos_graph import (
     load_projection_manifest,
     projection_metadata_from_args,
     relationship_batch,
+    require_env,
     resolve_database,
     resolve_source,
     validate_projection,
@@ -136,6 +138,28 @@ class ProjectionManifestTest(unittest.TestCase):
 
 
 class IsolationTests(unittest.TestCase):
+    def test_importer_refuses_a_pre_rename_operational_environment(self) -> None:
+        with (
+            patch.dict(
+                "os.environ",
+                {"NEO4J_URI": "neo4j+s://semantic.example.com"},
+                clear=True,
+            ),
+            self.assertRaisesRegex(ValueError, "moved to OPS_NEO4J"),
+        ):
+            require_env("OPS_NEO4J_URI")
+
+    def test_demo_refuses_a_pre_rename_operational_environment(self) -> None:
+        with (
+            patch.dict(
+                "os.environ",
+                {"NEO4J_DATABASE": "neo4j"},
+                clear=True,
+            ),
+            self.assertRaisesRegex(ValueError, "moved to OPS_NEO4J"),
+        ):
+            demo_graph._require("OPS_NEO4J_DATABASE")
+
     def test_candidate_cannot_target_the_serving_database(self) -> None:
         with self.assertRaisesRegex(ValueError, "active serving database"):
             resolve_database("neo4j", "neo4j", read_only=False)

@@ -15,8 +15,26 @@ PROJECT_DIR = Path(__file__).resolve().parent.parent.parent.parent
 def _require(name: str) -> str:
     value = os.getenv(name, "").strip()
     if not value or value.startswith("<"):
+        _reject_pre_rename_env(name)
         raise ValueError(f"Set {name} in {PROJECT_DIR / '.env'} before running the demo.")
     return value
+
+
+def _reject_pre_rename_env(name: str) -> None:
+    """Refuse a pre-rename .env instead of guessing which graph a bare name means.
+
+    The operational graph moved to OPS_NEO4J_*, and the bare NEO4J_* names now
+    select the NeoCarta semantic store. A stale .env would otherwise point the
+    demo at the metadata store, which holds no operational values.
+    """
+    legacy = name.removeprefix("OPS_")
+    if legacy == name or not os.getenv(legacy, "").strip():
+        return
+    raise ValueError(
+        f"{name} is unset but {legacy} is set. {legacy} now selects the NeoCarta semantic "
+        f"store, and the operational CIPHOS graph moved to OPS_NEO4J_*. Rename the "
+        f"operational keys in {PROJECT_DIR / '.env'} before running the demo."
+    )
 
 
 def connect() -> tuple[Driver, str]:
@@ -27,9 +45,10 @@ def connect() -> tuple[Driver, str]:
     """
     load_dotenv(PROJECT_DIR / ".env", override=False)
     driver = GraphDatabase.driver(
-        _require("NEO4J_URI"), auth=(_require("NEO4J_USERNAME"), _require("NEO4J_PASSWORD"))
+        _require("OPS_NEO4J_URI"),
+        auth=(_require("OPS_NEO4J_USERNAME"), _require("OPS_NEO4J_PASSWORD")),
     )
-    database = _require("NEO4J_DATABASE")
+    database = _require("OPS_NEO4J_DATABASE")
     driver.verify_connectivity()
     return driver, database
 

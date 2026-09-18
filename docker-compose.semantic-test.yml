@@ -1,0 +1,59 @@
+services:
+  source:
+    image: neo4j:5.26
+    environment:
+      NEO4J_AUTH: neo4j/${CIPHOS_TEST_NEO4J_PASSWORD:-ciphos-test-password}
+      CIPHOS_TEST_PASSWORD: ${CIPHOS_TEST_NEO4J_PASSWORD:-ciphos-test-password}
+    ports:
+      - "127.0.0.1:17688:7687"
+    volumes:
+      - ciphos_semantics_source_data:/data
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "cypher-shell -u neo4j -p \"$$CIPHOS_TEST_PASSWORD\" 'RETURN 1'",
+        ]
+      interval: 3s
+      timeout: 5s
+      retries: 20
+      start_period: 10s
+
+  store:
+    image: neo4j:5.26
+    environment:
+      NEO4J_AUTH: neo4j/${CIPHOS_TEST_NEO4J_PASSWORD:-ciphos-test-password}
+      CIPHOS_TEST_PASSWORD: ${CIPHOS_TEST_NEO4J_PASSWORD:-ciphos-test-password}
+    ports:
+      - "127.0.0.1:17689:7687"
+    volumes:
+      - ciphos_semantics_store_data:/data
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "cypher-shell -u neo4j -p \"$$CIPHOS_TEST_PASSWORD\" 'RETURN 1'",
+        ]
+      interval: 3s
+      timeout: 5s
+      retries: 20
+      start_period: 10s
+
+  seed-source:
+    image: neo4j:5.26
+    depends_on:
+      source:
+        condition: service_healthy
+    environment:
+      CIPHOS_TEST_PASSWORD: ${CIPHOS_TEST_NEO4J_PASSWORD:-ciphos-test-password}
+    volumes:
+      - ./docker/semantic-test/seed.cypher:/seed/seed.cypher:ro
+    entrypoint:
+      - /bin/bash
+      - -ec
+      - cypher-shell -a bolt://source:7687 -u neo4j -p "$$CIPHOS_TEST_PASSWORD" < /seed/seed.cypher
+    restart: "no"
+
+volumes:
+  ciphos_semantics_source_data:
+  ciphos_semantics_store_data:

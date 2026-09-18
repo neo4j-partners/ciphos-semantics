@@ -11,15 +11,18 @@ import re
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 from ciphos_semantics import contract
 from ciphos_semantics.build_lakehouse_tables import (
     SOURCE_ROW_COLUMN,
+    bronze_statements,
     build_plan,
     create_bronze_table_statement,
     default_batch_id,
     discover_source_tables,
     load_bronze_statement,
+    load_bronze_tables,
     quarantine_statement,
     remote_source_path,
     silver_statements,
@@ -198,6 +201,40 @@ class LakehouseContractTests(unittest.TestCase):
             self.assertIn(f"'{rule}' AS rule_name", statements)
         self.assertEqual(
             len(contract.quality_rules()), statements.count(" AS rule_name")
+        )
+
+    def test_bronze_load_parallelizes_only_independent_source_operations(self) -> None:
+        tables = self.tables[:2]
+        expected = {
+            table: bronze_statements(
+                "catalog", "schema", "/Volumes/catalog/schema/volume", table, self.batch_id
+            )
+            for table in tables
+        }
+        with patch("ciphos_semantics.build_lakehouse_tables.execute_sql") as execute:
+            load_bronze_tables(
+                object(),
+                "warehouse",
+                "catalog",
+                "schema",
+                "/Volumes/catalog/schema/volume",
+                tables,
+                self.batch_id,
+                worker_count=1,
+                timeout_seconds=60,
+            )
+
+        executed = [call.args[2] for call in execute.call_args_list]
+        self.assertEqual(
+            [
+                expected[tables[0]][0], expected[tables[1]][0],
+                expected[tables[0]][1], expected[tables[1]][1],
+                expected[tables[0]][2], expected[tables[1]][2],
+                expected[tables[0]][3], expected[tables[1]][3],
+                expected[tables[0]][4], expected[tables[1]][4],
+                expected[tables[0]][5], expected[tables[1]][5],
+            ],
+            executed,
         )
 
 

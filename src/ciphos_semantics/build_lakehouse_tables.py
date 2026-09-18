@@ -16,7 +16,8 @@ import re
 import sys
 import tempfile
 import time
-from collections.abc import Iterable, Sequence
+from collections.abc import Callable, Iterable, Sequence
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Literal
@@ -114,6 +115,18 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
         "--skip-silver",
         action="store_true",
         help="Load Bronze only; do not refresh typed TagPropertyValue models.",
+    )
+    parser.add_argument(
+        "--upload-workers",
+        type=int,
+        default=int(os.getenv("CIPHOS_UPLOAD_WORKERS", "4")),
+        help="Concurrent CSV uploads (default: CIPHOS_UPLOAD_WORKERS or 4).",
+    )
+    parser.add_argument(
+        "--bronze-workers",
+        type=int,
+        default=int(os.getenv("CIPHOS_BRONZE_WORKERS", "4")),
+        help="Concurrent independent Bronze operations (default: CIPHOS_BRONZE_WORKERS or 4).",
     )
     return parser.parse_args(argv)
 
@@ -334,6 +347,28 @@ def upload_source_csv(workspace: WorkspaceClient, table: SourceTable, remote_pat
 
 def remote_source_path(volume_path: str, table: SourceTable) -> str:
     return f"{volume_path}/source/{table.source_kind}s/{table.checksum}/{table.source_file}"
+
+
+def _validate_worker_count(value: int, *, label: str) -> None:
+    if value < 1:
+        raise ValueError(f"{label} must be at least 1.")
+
+
+def _run_parallel_tables(
+    tables: Sequence[SourceTable],
+    worker_count: int,
+    operation: Callable[[SourceTable], None],
+) -> None:
+    """Run independent per-source work with bounded concurrency.
+
+    Exceptions are surfaced after outstanding work finishes so the executor can
+    clean up cleanly. Shared Delta-table operations are intentionally excluded
+    from this helper and remain serialized by the caller.
+    """
+    with ThreadPoolExecutor(max_workers=worker_count) as executor:
+        futures = {executor.submit(operation, table): table for table in tables}
+        for future in as_completed(futures):
+            future.result()
 
 
 def control_table_statements(catalog: str, schema: str) -> list[str]:
@@ -741,9 +776,65 @@ def build_plan(
     return statements
 
 
+def load_bronze_tables(
+    workspace: WorkspaceClient,
+    warehouse_id: str,
+    catalog: str,
+    schema: str,
+    volume_path: str,
+    tables: Sequence[SourceTable],
+    batch_id: str,
+    *,
+    worker_count: int,
+    timeout_seconds: int,
+) -> None:
+    """Load all Bronze sources while serializing writes to shared Delta tables."""
+    statements_by_table = {
+        table: bronze_statements(catalog, schema, volume_path, table, batch_id)
+        for table in tables
+    }
+
+    def execute_for(table: SourceTable, statement_index: int) -> None:
+        execute_sql(
+            workspace,
+            warehouse_id,
+            statements_by_table[table][statement_index],
+            timeout_seconds=timeout_seconds,
+        )
+
+    # Each source owns its Bronze table, so these DDL statements can overlap.
+    _run_parallel_tables(tables, worker_count, lambda table: execute_for(table, 0))
+    print(f"created {len(tables)} Bronze tables")
+
+    # All sources update the same control table. Serializing prevents Delta
+    # optimistic-concurrency retries from erasing the gain from parallel work.
+    for table in tables:
+        execute_for(table, 1)
+    print(f"registered {len(tables)} Bronze sources")
+
+    # Schema checks are read-only and can safely share the warehouse.
+    _run_parallel_tables(tables, worker_count, lambda table: execute_for(table, 2))
+    print(f"validated {len(tables)} Bronze schemas")
+
+    # Quarantine and publication share Delta tables, so they stay ordered.
+    for table in tables:
+        execute_for(table, 3)
+    print(f"quarantined invalid rows for {len(tables)} Bronze sources")
+
+    # Every load has its own target Bronze table and may run independently.
+    _run_parallel_tables(tables, worker_count, lambda table: execute_for(table, 4))
+    print(f"loaded {len(tables)} Bronze tables")
+
+    for table in tables:
+        execute_for(table, 5)
+    print(f"published {len(tables)} Bronze ingestion records")
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     load_dotenv(PROJECT_DIR / ".env")
     args = parse_args(argv)
+    _validate_worker_count(args.upload_workers, label="--upload-workers")
+    _validate_worker_count(args.bronze_workers, label="--bronze-workers")
     for value, label in (
         (args.catalog, "catalog"),
         (args.schema, "schema"),
@@ -783,13 +874,34 @@ def main(argv: Sequence[str] | None = None) -> int:
     workspace = WorkspaceClient(profile=args.profile) if args.profile else WorkspaceClient()
     timeout = {"timeout_seconds": args.statement_timeout}
     ensure_volume(workspace, args.warehouse_id, args.catalog, args.schema, args.volume, **timeout)
-    for table in tables:
-        upload_source_csv(workspace, table, remote_source_path(volume_path, table))
-        print(f"uploaded {table.source_file} ({table.row_count:,} rows)")
-    for index, statement in enumerate(statements, start=1):
+    _run_parallel_tables(
+        tables,
+        args.upload_workers,
+        lambda table: upload_source_csv(workspace, table, remote_source_path(volume_path, table)),
+    )
+    print(f"uploaded {len(tables)} CSV sources")
+
+    for statement in control_table_statements(args.catalog, args.schema):
         execute_sql(workspace, args.warehouse_id, statement, **timeout)
-        print(f"[{index}/{len(statements)}] ok")
-    print(f"published silver snapshot {silver_snapshot_id(batch_id)}")
+    load_bronze_tables(
+        workspace,
+        args.warehouse_id,
+        args.catalog,
+        args.schema,
+        volume_path,
+        tables,
+        batch_id,
+        worker_count=args.bronze_workers,
+        timeout_seconds=args.statement_timeout,
+    )
+    if not args.skip_silver:
+        silver = silver_statements(args.catalog, args.schema, batch_id)
+        for index, statement in enumerate(silver, start=1):
+            execute_sql(workspace, args.warehouse_id, statement, **timeout)
+            print(f"silver [{index}/{len(silver)}] ok")
+        print(f"published silver snapshot {silver_snapshot_id(batch_id)}")
+    else:
+        print("Bronze load complete; Silver publication was skipped.")
     return 0
 
 

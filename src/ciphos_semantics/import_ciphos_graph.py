@@ -208,8 +208,26 @@ def load_environment() -> None:
 def require_env(name: str) -> str:
     value = os.getenv(name, "").strip()
     if not value or value.startswith("<"):
+        _reject_pre_rename_env(name)
         raise ValueError(f"Set {name} in {PROJECT_DIR / '.env'} before importing.")
     return value
+
+
+def _reject_pre_rename_env(name: str) -> None:
+    """Refuse a pre-rename .env instead of guessing which graph a bare name means.
+
+    The operational graph moved to OPS_NEO4J_*, and the bare NEO4J_* names now
+    select the NeoCarta semantic store. A stale .env would otherwise send an
+    operational write to the metadata store, or the reverse.
+    """
+    legacy = name.removeprefix("OPS_")
+    if legacy == name or not os.getenv(legacy, "").strip():
+        return
+    raise ValueError(
+        f"{name} is unset but {legacy} is set. {legacy} now selects the NeoCarta semantic "
+        f"store, and the operational CIPHOS graph moved to OPS_NEO4J_*. Rename the "
+        f"operational keys in {PROJECT_DIR / '.env'} before importing."
+    )
 
 
 def as_cypher_name(value: str, path: Path) -> str:
@@ -873,11 +891,11 @@ def main() -> int:
             return 0
 
     driver = GraphDatabase.driver(
-        require_env("NEO4J_URI"),
-        auth=(require_env("NEO4J_USERNAME"), require_env("NEO4J_PASSWORD")),
+        require_env("OPS_NEO4J_URI"),
+        auth=(require_env("OPS_NEO4J_USERNAME"), require_env("OPS_NEO4J_PASSWORD")),
     )
     database = resolve_database(
-        args.database, require_env("NEO4J_DATABASE"), read_only=args.counts or args.verify
+        args.database, require_env("OPS_NEO4J_DATABASE"), read_only=args.counts or args.verify
     )
     try:
         driver.verify_connectivity()
