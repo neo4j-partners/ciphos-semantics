@@ -5,6 +5,46 @@ validated current-state asset graph in Neo4j. The Streamlit explorer combines
 both systems for traceability. A separate NeoCarta store holds only structural
 metadata used for semantic retrieval.
 
+## What lives where: lakehouse vs. graph
+
+Databricks holds the complete data history. Neo4j holds a validated
+current-state subset used for traceability and connected-asset analysis.
+
+| Data | Databricks (lakehouse) | Neo4j (graph) |
+| --- | --- | --- |
+| Raw CSV rows and ingestion provenance | Bronze | Not present |
+| Typed facts, tag-property values, quality results | Silver | Not present |
+| Source documents and document provenance | Silver | Not present |
+| Current-state asset hierarchy (facility, plant, system, functional location, tag) | Not present | Operational graph |
+| Equipment classes and manufacturer models | Not present | Operational graph |
+| OT assets, network segments, asset zones, conduits | Not present | Operational graph |
+| Vulnerabilities, threats, cyber incidents, security controls, risk assessments, compliance frameworks | Not present | Operational graph |
+| Organizations | Not present | Operational graph |
+| Graph schema (labels, relationship types, properties, constraints, indexes) and curated table/column metadata | Not present | Semantic store (NeoCarta, separate database) |
+
+```text
+     DATABRICKS LAKEHOUSE (complete data history)                     NEO4J (current-state graph)
+
+                                                   projection
++------------------+      +--------------------+                +------------------------+
+|      Bronze      |      |       Silver       |                |   Operational graph    |
+|   raw rows and   |      |    typed facts,    |                |   assets, tags, OT,    |
+|    provenance    |      |    tag-property    |                |         zones,         |
+|                  |      |      values,       |                |    vulnerabilities,    |
+|                  | ---->|     documents,     | -------------->|  risk, organizations   |
+|                  |      |  quality results   |                |  (current state only)  |
++------------------+      +--------------------+                +------------------------+
+                                     |                                       |
+                     curated table/column                               schema only
+                                  metadata                                   |
+                                     |                                       v
+       +---------------------------------------------------------------------------------+
+       |                   NeoCarta semantic store (separate database)                   |
+       |                     labels, relationship types, properties,                     |
+       |                   constraints, indexes. No operational values.                  |
+       +---------------------------------------------------------------------------------+
+```
+
 ## Dataset and domain
 
 This is a **synthetic industrial-facility information dataset**, not a live

@@ -84,7 +84,7 @@ def main() -> None:
             "ASK": [st.Page(_ask_page, title="Ask")],
             "REFERENCE": [
                 st.Page(page_architecture.render, title="Architecture & glossary"),
-                st.Page(page_ask_flow.render, title="How Ask works"),
+                st.Page(page_ask_flow.render, title="How Ask works", url_path="ask-flow"),
             ],
         }
     )
