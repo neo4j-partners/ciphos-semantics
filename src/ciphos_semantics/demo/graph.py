@@ -9,6 +9,8 @@ from typing import Any
 from dotenv import load_dotenv
 from neo4j import Driver, GraphDatabase
 
+from ciphos_semantics.local_neo4j import configure_local_neo4j
+
 PROJECT_DIR = Path(__file__).resolve().parent.parent.parent.parent
 
 
@@ -44,6 +46,7 @@ def connect() -> tuple[Driver, str]:
     worse than refusing to start.
     """
     load_dotenv(PROJECT_DIR / ".env", override=False)
+    configure_local_neo4j()
     driver = GraphDatabase.driver(
         _require("OPS_NEO4J_URI"),
         auth=(_require("OPS_NEO4J_USERNAME"), _require("OPS_NEO4J_PASSWORD")),

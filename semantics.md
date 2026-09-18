@@ -504,9 +504,12 @@ projection, then resume the remaining acceptance checks.
 **Local acceptance (2026-09-18):** The reusable Docker Compose source/store
 environment completed ingestion, fresh drift validation, a second idempotent
 ingestion, semantic-store context retrieval, and an in-process FastMCP client
-call. It produced 8 nodes, 2 relationships, 6 properties, and 17 links with no
-operational values. Neo4j 5.26 returned virtual visualization rows without
-endpoint labels, so `endpoints_available` correctly recorded `false`.
+call. A deliberately invalid property write failed with `CypherTypeError`; a
+fresh comparison immediately afterward confirmed that the replacement
+transaction left no partial scope. It produced 8 nodes, 2 relationships, 6
+properties, and 17 links with no operational values. Neo4j 5.26 returned
+virtual visualization rows without endpoint labels, so `endpoints_available`
+correctly recorded `false`.
 
 ## Parallel implementation plan
 

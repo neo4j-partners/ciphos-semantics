@@ -165,6 +165,33 @@ class SchemaMap:
     edges: tuple[SemanticEdge, ...]
     endpoints_available: bool
 
+    def __post_init__(self) -> None:
+        """Reject maps whose links cannot be represented by the store writer.
+
+        ``UPSERT_EDGE_CYPHER`` deliberately uses ``MATCH`` so it can never
+        create an orphaned edge.  Without this check, however, a corrupt map
+        with a missing endpoint would make that ``MATCH`` yield no rows and
+        silently lose a declared link.  Reject it before the replacement
+        transaction begins instead.
+        """
+        record_ids: set[str] = set()
+        for record in self.records():
+            raw_id = record.metadata.get("id")
+            if not isinstance(raw_id, str) or not raw_id.strip():
+                raise ValueError(f"{record.kind} record must have a non-empty string id.")
+            if raw_id in record_ids:
+                raise ValueError(f"Schema map contains duplicate record id: {raw_id!r}.")
+            record_ids.add(raw_id)
+
+        for edge in self.edges:
+            missing = sorted({edge.source_id, edge.target_id}.difference(record_ids))
+            if missing:
+                raise ValueError(
+                    "Schema map edge references missing record id(s): "
+                    + ", ".join(repr(record_id) for record_id in missing)
+                    + "."
+                )
+
     def records(self) -> Iterator[SemanticRecord]:
         yield SemanticRecord("Database", self.database)
         yield SemanticRecord("Schema", self.schema)

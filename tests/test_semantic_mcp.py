@@ -6,6 +6,8 @@ import asyncio
 import inspect
 import unittest
 
+from fastmcp import Client
+
 from ciphos_semantics.semantic_map_contract import (
     SemanticContext,
     SemanticEdge,
@@ -14,6 +16,7 @@ from ciphos_semantics.semantic_map_contract import (
 )
 from ciphos_semantics.semantic_mcp import (
     TOOL_NAME,
+    create_ciphos_mcp_server,
     register_ciphos_context_tool,
     semantic_store_context_reader,
 )
@@ -72,6 +75,16 @@ class SemanticMcpTests(unittest.TestCase):
         tool = register_ciphos_context_tool(server, semantic_store_reader)
 
         self.assertEqual(asyncio.run(tool())["source_scope"], "neo4j:test-scope")
+
+    def test_in_process_fastmcp_client_receives_the_structural_context(self) -> None:
+        server = create_ciphos_mcp_server(build_context)
+
+        async def call_tool() -> object:
+            async with Client(server) as client:
+                return await client.call_tool(TOOL_NAME, {})
+
+        response = asyncio.run(call_tool())
+        self.assertEqual(response.data, build_context().as_dict())
 
     def test_store_adapter_uses_only_the_injected_store_read_path(self) -> None:
         class StoreFake:

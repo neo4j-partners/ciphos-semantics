@@ -23,6 +23,7 @@ from neo4j.exceptions import Neo4jError
 
 from ciphos_semantics import contract
 from ciphos_semantics.graph_projection_manifest import build_default_manifest
+from ciphos_semantics.local_neo4j import configure_local_neo4j
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 PROJECT_DIR = SCRIPT_DIR.parent.parent
@@ -203,6 +204,7 @@ def resolve_database(
 def load_environment() -> None:
     """Load local overrides without replacing explicitly exported variables."""
     load_dotenv(PROJECT_DIR / ".env", override=False)
+    configure_local_neo4j()
 
 
 def require_env(name: str) -> str:

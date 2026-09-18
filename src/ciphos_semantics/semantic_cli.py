@@ -14,6 +14,7 @@ from typing import Any
 from dotenv import load_dotenv
 from neo4j import GraphDatabase
 
+from ciphos_semantics.local_neo4j import configure_local_neo4j
 from ciphos_semantics.neo4j_schema_extract import extract_schema_map
 from ciphos_semantics.semantic_config import (
     OperationalNeo4jConnection,
@@ -35,6 +36,7 @@ DEFAULT_MCP_PORT = 8000
 def load_environment() -> None:
     """Load local values without replacing explicitly exported configuration."""
     load_dotenv(PROJECT_DIR / ".env", override=False)
+    configure_local_neo4j()
 
 
 def _driver(connection: OperationalNeo4jConnection | SemanticStoreNeo4jConnection) -> Any:

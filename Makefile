@@ -12,8 +12,6 @@ SEMANTIC_INGEST := ciphos-semantic-ingest
 SEMANTIC_MCP := ciphos-semantic-mcp
 SEMANTIC_VALIDATE := ciphos-semantic-validate
 MCP_PORT ?= 8000
-CIPHOS_TEST_NEO4J_PASSWORD ?= ciphos-test-password
-SEMANTIC_TEST_COMPOSE := docker compose -f docker-compose.semantic-test.yml
 
 .DEFAULT_GOAL := help
 .PHONY: help validate-contract validate validate-all graph graph-activate graph-clear \
@@ -40,8 +38,8 @@ help:
 	@echo "  make semantic-context  Print the persisted structural context as JSON."
 	@echo "  make semantic-validate  Compare persisted context with a fresh extraction."
 	@echo "  make semantic-mcp  Serve the read-only LPG context on loopback HTTP."
-	@echo "  make semantic-local-up  Start disposable local source and semantic-store Neo4j containers."
-	@echo "  make semantic-local-test  Run local ingest, drift validation, and context retrieval."
+	@echo "  make semantic-local-up  Start, seed, and populate disposable local Neo4j containers."
+	@echo "  make semantic-local-test  Alias for the complete local Neo4j workflow."
 	@echo "  make semantic-local-down  Remove disposable local semantic-test containers and volumes."
 	@echo "  make lint          Run ruff over the package and tests."
 	@echo "  make test          Run local unit tests."
@@ -115,20 +113,13 @@ semantic-mcp:
 	$(UV) run $(SEMANTIC_MCP) --transport streamable-http --port $(MCP_PORT)
 
 semantic-local-up:
-	@echo "==> Starting disposable local CIPHOS source and semantic-store Neo4j containers"
-	CIPHOS_TEST_NEO4J_PASSWORD=$(CIPHOS_TEST_NEO4J_PASSWORD) $(SEMANTIC_TEST_COMPOSE) up -d
+	$(UV) run ciphos-local up
 
-semantic-local-test: semantic-local-up
-	@echo "==> Waiting for the idempotent local CIPHOS source seed"
-	CIPHOS_TEST_NEO4J_PASSWORD=$(CIPHOS_TEST_NEO4J_PASSWORD) $(SEMANTIC_TEST_COMPOSE) wait seed-source
-	@echo "==> Running semantic-map acceptance against isolated local Neo4j containers"
-	OPS_NEO4J_URI=bolt://127.0.0.1:17688 OPS_NEO4J_USERNAME=neo4j OPS_NEO4J_PASSWORD=$(CIPHOS_TEST_NEO4J_PASSWORD) OPS_NEO4J_DATABASE=neo4j NEO4J_URI=bolt://127.0.0.1:17689 NEO4J_USERNAME=neo4j NEO4J_PASSWORD=$(CIPHOS_TEST_NEO4J_PASSWORD) NEO4J_DATABASE=neo4j $(UV) run $(SEMANTIC_INGEST)
-	OPS_NEO4J_URI=bolt://127.0.0.1:17688 OPS_NEO4J_USERNAME=neo4j OPS_NEO4J_PASSWORD=$(CIPHOS_TEST_NEO4J_PASSWORD) OPS_NEO4J_DATABASE=neo4j NEO4J_URI=bolt://127.0.0.1:17689 NEO4J_USERNAME=neo4j NEO4J_PASSWORD=$(CIPHOS_TEST_NEO4J_PASSWORD) NEO4J_DATABASE=neo4j $(UV) run $(SEMANTIC_VALIDATE)
-	NEO4J_URI=bolt://127.0.0.1:17689 NEO4J_USERNAME=neo4j NEO4J_PASSWORD=$(CIPHOS_TEST_NEO4J_PASSWORD) NEO4J_DATABASE=neo4j $(UV) run $(SEMANTIC_CONTEXT)
+semantic-local-test:
+	$(UV) run ciphos-local up
 
 semantic-local-down:
-	@echo "==> Removing disposable local CIPHOS semantic-test containers and volumes"
-	CIPHOS_TEST_NEO4J_PASSWORD=$(CIPHOS_TEST_NEO4J_PASSWORD) $(SEMANTIC_TEST_COMPOSE) down --volumes
+	$(UV) run ciphos-local down
 
 lint:
 	@echo "==> Linting src and tests"

@@ -103,22 +103,41 @@ Use separate `OPS_NEO4J_*` settings for the CIPHOS graph and `NEO4J_*` settings
 for the semantic store. This keeps the structural map separate from the live
 graph.
 
-### Reusable local Neo4j acceptance environment
+## Local development
 
 [`docker-compose.semantic-test.yml`](docker-compose.semantic-test.yml) starts
 an isolated CIPHOS-shaped source on port `17688`, an empty semantic store on
-port `17689`, and an idempotent seed job. It does not use the Neo4j values in
-your `.env`.
+port `17689`, and an idempotent seed job. The normal Neo4j values in `.env` are
+left in place. `NEO4J_LOCAL=true` switches only the running process to those
+two local endpoints, so switching back is simply removing the flag or setting
+it to `false`.
+
+With Docker running, this one command starts Compose, waits for the source to
+be seeded, ingests its structural map into the local semantic store, validates
+it, and prints the resulting context:
 
 ```sh
-make semantic-local-test
-make semantic-local-down  # remove the test containers and their Docker volumes
+uv sync
+uv run ciphos-local
 ```
 
-The local acceptance target performs ingestion, a fresh drift check, and a
-semantic-store-only context read. Run it a second time to prove scoped
-replacement is idempotent. `CIPHOS_TEST_NEO4J_PASSWORD` applies only to these
-disposable containers.
+Use the same disposable environment for an individual command by prefixing it
+with the flag. Your remote settings remain unchanged.
+
+```sh
+NEO4J_LOCAL=true uv run ciphos-semantic-context
+NEO4J_LOCAL=true uv run ciphos-semantic-mcp --transport streamable-http
+```
+
+Remove the local containers and their Docker volumes when finished:
+
+```sh
+uv run ciphos-local down
+```
+
+`CIPHOS_TEST_NEO4J_PASSWORD` applies only to these disposable containers. The
+existing `make semantic-local-up`, `make semantic-local-test`, and `make
+semantic-local-down` targets remain available as short aliases.
 
 ## Main commands
 

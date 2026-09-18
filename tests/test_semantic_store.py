@@ -195,6 +195,18 @@ class SemanticStoreTests(unittest.TestCase):
         for query in second_queries[1:]:
             self.assertIn("MERGE", query)
 
+    def test_map_rejects_an_edge_that_the_store_would_otherwise_silently_skip(self) -> None:
+        semantic_map = schema_map()
+
+        with self.assertRaisesRegex(ValueError, "references missing record id"):
+            replace(
+                semantic_map,
+                edges=(
+                    *semantic_map.edges,
+                    SemanticEdge(semantic_map.nodes[0]["id"], "HAS_PROPERTY", "missing-id"),
+                ),
+            )
+
     def test_context_round_trip_uses_read_routing_and_removes_persistence_only_fields(self) -> None:
         semantic_map = schema_map()
         persisted = [semantic_map.persisted_record(record) for record in semantic_map.records()]
