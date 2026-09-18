@@ -17,7 +17,7 @@ MCP_PORT ?= 8000
 .PHONY: help validate-contract validate validate-all graph graph-activate graph-clear \
         graph-counts graph-verify lakehouse-tables lakehouse-plan demo lint test \
         semantic-contract semantic-context semantic-ingest semantic-mcp semantic-validate \
-        semantic-index semantic-query semantic-search-mcp \
+        semantic-query semantic-search-mcp \
         semantic-local-down semantic-local-test semantic-local-up
 
 help:
@@ -35,11 +35,10 @@ help:
 	@echo "  make lakehouse-tables  Upload all CSVs and build Bronze/Silver Unity Catalog tables."
 	@echo "  make demo          Start the hybrid traceability Streamlit demo."
 	@echo "  make semantic-contract  Check local records against pinned NeoCarta LPG models."
-	@echo "  make semantic-ingest  Replace and verify the source-scoped CIPHOS LPG map."
+	@echo "  make semantic-ingest  Replace the source-scoped CIPHOS LPG map, then index curated Silver metadata and embeddings."
 	@echo "  make semantic-context  Print the persisted structural context as JSON."
 	@echo "  make semantic-validate  Compare persisted context with a fresh extraction."
 	@echo "  make semantic-mcp  Serve the read-only LPG context on loopback HTTP."
-	@echo "  make semantic-index  Index curated Silver table/column metadata and embeddings."
 	@echo "  make semantic-search-mcp  Serve NeoCarta search plus CIPHOS graph context."
 	@echo "  make semantic-query  Run the CIPHOS semantic-search showcase and grounded SQL query."
 	@echo "  make semantic-local-up  Start, seed, and accept disposable local Neo4j containers."
@@ -103,6 +102,8 @@ semantic-contract:
 semantic-ingest:
 	@echo "==> Replacing the source-scoped CIPHOS LPG metadata map"
 	$(UV) run $(SEMANTIC_INGEST)
+	@echo "==> Indexing CIPHOS Silver metadata and embeddings"
+	$(UV) run ciphos-semantic-index
 
 semantic-context:
 	@echo "==> Reading persisted CIPHOS LPG structural context"
@@ -115,10 +116,6 @@ semantic-validate:
 semantic-mcp:
 	@echo "==> Serving CIPHOS LPG context at http://127.0.0.1:$(MCP_PORT)/mcp"
 	$(UV) run $(SEMANTIC_MCP) --transport streamable-http --port $(MCP_PORT)
-
-semantic-index:
-	@echo "==> Indexing CIPHOS Silver metadata and embeddings"
-	$(UV) run ciphos-semantic-index
 
 semantic-search-mcp:
 	@echo "==> Serving CIPHOS semantic search at http://127.0.0.1:$(MCP_PORT)/mcp"

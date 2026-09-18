@@ -74,13 +74,12 @@ class ProjectionManifest:
 
 @dataclass(frozen=True)
 class ProjectionMetadata:
-    """Lineage attached to one candidate or active graph snapshot."""
+    """Lineage attached to one graph snapshot."""
 
     source_batch_id: str
     source_snapshot_id: str
     graph_snapshot_id: str
     application_revision: str
-    candidate: bool
     raw_source: bool = False
 
 
@@ -116,20 +115,6 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--application-revision",
         help="Application revision used to build the graph (default: CIPHOS_APPLICATION_REVISION).",
-    )
-    parser.add_argument(
-        "--candidate",
-        action="store_true",
-        help="Mark this build as a candidate; validate it before activation.",
-    )
-    parser.add_argument(
-        "--activate",
-        action="store_true",
-        help="Mark a successfully validated candidate snapshot as active.",
-    )
-    parser.add_argument(
-        "--database",
-        help="Candidate database to build into (default: CIPHOS_CANDIDATE_DATABASE).",
     )
     parser.add_argument(
         "--allow-raw-source",
@@ -179,26 +164,6 @@ def resolve_source(data_dir: Path | None, silver_dir: str) -> tuple[Path, bool]:
     if silver is not None:
         return silver, False
     return Path(os.getenv("CIPHOS_DATA_DIR", DEFAULT_DATA_DIR)).resolve(), True
-
-
-def resolve_database(
-    requested: str | None, serving_database: str, *, read_only: bool
-) -> str:
-    """Pick the target database, refusing to build a candidate over the served one."""
-    if read_only:
-        return requested or serving_database
-    database = (requested or os.getenv("CIPHOS_CANDIDATE_DATABASE", "")).strip()
-    if not database:
-        raise ValueError(
-            "A candidate import needs its own database. Pass --database or set "
-            f"CIPHOS_CANDIDATE_DATABASE to something other than {serving_database!r}."
-        )
-    if database == serving_database:
-        raise ValueError(
-            f"Candidate database {database!r} is the active serving database. "
-            "Build candidates in isolation, then activate."
-        )
-    return database
 
 
 def load_environment() -> None:
@@ -613,14 +578,11 @@ def projection_metadata_from_args(
             "--... option or CIPHOS_SOURCE_BATCH_ID, CIPHOS_SOURCE_SNAPSHOT_ID, "
             "CIPHOS_GRAPH_SNAPSHOT_ID, and CIPHOS_APPLICATION_REVISION."
         )
-    if args.activate and not args.candidate:
-        raise ValueError("--activate requires --candidate after candidate validation.")
     return ProjectionMetadata(
         source_batch_id=source_batch_id,
         source_snapshot_id=source_snapshot_id,
         graph_snapshot_id=graph_snapshot_id,
         application_revision=application_revision,
-        candidate=args.candidate,
         raw_source=args.allow_raw_source if raw_source is None else raw_source,
     )
 
@@ -651,7 +613,6 @@ def record_projection(
         "sourceMaterialization": "raw-export" if metadata.raw_source else "silver",
         "applicationRevision": metadata.application_revision,
         "status": status,
-        "candidate": metadata.candidate,
         "rejectedRows": rejected_rows,
         "recordedAt": datetime.now(UTC).isoformat(),
     }
