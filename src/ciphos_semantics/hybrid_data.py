@@ -128,8 +128,29 @@ ORDER BY property_name, tpv_id
             return ServiceResult((), None, str(exc))
 
 
+_NUMERIC_TYPE_NAMES = frozenset({"INT", "LONG", "SHORT", "BYTE"})
+_FLOAT_TYPE_NAMES = frozenset({"DOUBLE", "FLOAT", "DECIMAL"})
+
+
+def _cast_statement_value(value: Any, type_name: str | None) -> Any:
+    """Cast one JSON_ARRAY string cell to the native type its column reports.
+
+    The Statement Execution API's JSON_ARRAY format always encodes every cell
+    as a string; the manifest schema carries the real per-column type.
+    """
+    if value is None or type_name is None:
+        return value
+    if type_name in _NUMERIC_TYPE_NAMES:
+        return int(value)
+    if type_name in _FLOAT_TYPE_NAMES:
+        return float(value)
+    if type_name == "BOOLEAN":
+        return str(value).strip().lower() == "true"
+    return value
+
+
 def _statement_rows(response: Any) -> list[dict[str, Any]]:
-    """Convert a JSON-array statement response to named row dictionaries."""
+    """Convert a JSON-array statement response to named, natively-typed row dictionaries."""
     state = getattr(getattr(response, "status", None), "state", None)
     state_value = getattr(state, "value", state)
     if state_value != "SUCCEEDED":
@@ -140,8 +161,18 @@ def _statement_rows(response: Any) -> list[dict[str, Any]]:
     schema = getattr(manifest, "schema", None)
     columns = getattr(schema, "columns", None) or []
     names = [column.name for column in columns]
+    type_names = [
+        getattr(getattr(column, "type_name", None), "value", getattr(column, "type_name", None))
+        for column in columns
+    ]
     data = getattr(getattr(response, "result", None), "data_array", None) or []
-    return [dict(zip(names, values, strict=True)) for values in data]
+    return [
+        {
+            name: _cast_statement_value(value, type_name)
+            for name, value, type_name in zip(names, values, type_names, strict=True)
+        }
+        for values in data
+    ]
 
 
 def get_delta_traceability() -> DeltaTraceability:

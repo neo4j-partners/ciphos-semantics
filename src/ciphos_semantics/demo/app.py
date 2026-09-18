@@ -65,7 +65,7 @@ def main() -> None:
         page_lakehouse.render(warehouse)
 
     def _operational_graph_page() -> None:
-        page_operational_graph.render(operational_graph)
+        page_operational_graph.render(operational_graph, semantic_store)
 
     def _traceability_page() -> None:
         page_traceability.render(warehouse, operational_graph)

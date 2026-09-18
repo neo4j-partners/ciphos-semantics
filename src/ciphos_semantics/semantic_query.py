@@ -1,82 +1,55 @@
-"""Retrieve CIPHOS metadata semantically, generate grounded SQL, and run it."""
+"""Retrieve CIPHOS metadata, generate grounded queries, and execute SQL."""
 
 from __future__ import annotations
 
 import argparse
-import asyncio
 import json
 import os
 import subprocess
+import sys
 import tempfile
 import time
 from collections.abc import Sequence
 from dataclasses import dataclass
-from typing import Any
+from typing import Any, TextIO
 
-import httpx
-from mcp import ClientSession
-from mcp.client.streamable_http import streamable_http_client
-
+from ciphos_semantics import grounding, query_generation
+from ciphos_semantics.mcp_retrieval import (
+    DEFAULT_MCP_URL,
+    RetrievalTrace,
+    SemanticMcpUnavailableError,
+    retrieve,
+)
 from ciphos_semantics.semantic_cli import load_environment
 from ciphos_semantics.semantic_index import (
-    databricks_access_token,
     indexed_table_names,
     lakehouse_catalog,
     lakehouse_schema,
     require_env,
 )
 
-DEFAULT_MCP_URL = "http://127.0.0.1:8010/mcp"
-DEFAULT_QUESTION = "Which tags have high pressure readings and which source documents support them?"
-RESULT_ROW_LIMIT = 10
+RUNNING_STATES = frozenset({"PENDING", "RUNNING"})
+FAILURE_STATES = frozenset({"FAILED", "CANCELED", "CLOSED"})
 POLL_TIMEOUT_SECONDS = 180
-SEARCH_TOOL_PRIORITIES = {
-    "table": (
-        "get_context_by_table_business_term_hybrid_search",
-        "get_context_by_table_hybrid_search",
-        "get_context_by_table_vector_search",
-        "get_context_by_table_full_text_search",
-    ),
-    "column": (
-        "get_context_by_column_business_term_hybrid_search",
-        "get_context_by_column_hybrid_search",
-        "get_context_by_column_vector_search",
-        "get_context_by_column_full_text_search",
-    ),
-}
-
-
-@dataclass(frozen=True)
-class ToolCall:
-    """One semantic MCP invocation and the qualified CIPHOS records it returned."""
-
-    tool_name: str
-    result: Any
-    names: tuple[str, ...]
-
-
-@dataclass(frozen=True)
-class RetrievalTrace:
-    """The metadata that is permitted to ground one generated SQL statement."""
-
-    table_search: ToolCall
-    column_search: ToolCall
-    graph_context: ToolCall
-
-    def retrieved_names(self) -> set[str]:
-        """Return every table and column name sent to the SQL generator."""
-        return (
-            set(self.table_search.names)
-            | set(self.column_search.names)
-            | set(column_names(self.table_search.result))
-            | set(column_names(self.column_search.result))
-        )
+DATABRICKS_CLI_TIMEOUT_SECONDS = 65
+RESULT_ROW_LIMIT = 10
+DEFAULT_SHOWCASE_QUESTION = (
+    "Which tags have high pressure readings and which source documents support them?"
+)
+ANSI_RESET = "\033[0m"
+ANSI_BOLD_CYAN = "\033[1;36m"
+ANSI_BOLD_GREEN = "\033[1;32m"
+ANSI_BOLD_RED = "\033[1;31m"
+ANSI_YELLOW = "\033[33m"
 
 
 @dataclass(frozen=True)
 class ShowcaseCase:
+    """One semantic retrieval behavior demonstrated by the CLI showcase."""
+
     title: str
     query: str
+    demonstrates: str
     expected_table: str
     expected_column: str
 
@@ -85,349 +58,447 @@ SHOWCASE_CASES = (
     ShowcaseCase(
         "Literal identifier retrieval",
         "silver_tag_property_value_enriched tag_number property_name",
+        "the full-text signal inside hybrid search",
         "silver_tag_property_value_enriched",
         "tag_number",
     ),
     ShowcaseCase(
         "Conceptual retrieval",
         "approved engineering measurements and source-document traceability for process equipment",
+        "the vector similarity signal inside hybrid search",
         "silver_tag_property_value_sources",
         "document_number",
     ),
     ShowcaseCase(
         "Mixed semantic and literal retrieval",
         "high pressure tag assets property values and provenance document",
+        "hybrid fusion of conceptual language and an exact field name",
         "silver_tag_property_value_enriched",
         "tag_number",
     ),
 )
 
 
-def select_search_tool(tool_names: set[str], entity: str) -> str:
-    """Choose NeoCarta's strongest installed search mode for one metadata entity."""
+class Console:
+    """Small ANSI renderer for readable CLI sections."""
+
+    def __init__(self, *, stream: TextIO = sys.stdout) -> None:
+        self.stream = stream
+
+    def styled(self, text: str, ansi: str) -> str:
+        """Apply one ANSI style."""
+        return f"{ansi}{text}{ANSI_RESET}"
+
+    def section(self, number: int, title: str) -> None:
+        """Print a numbered section heading."""
+        print(self.styled(f"\n{number}. {title}", ANSI_BOLD_CYAN), file=self.stream, flush=True)
+
+    def pass_label(self) -> str:
+        """Return a colored pass marker."""
+        return self.styled("PASS", ANSI_BOLD_GREEN)
+
+    def fail_label(self) -> str:
+        """Return a colored fail marker."""
+        return self.styled("FAIL", ANSI_BOLD_RED)
+
+    def tool_name(self, name: str) -> str:
+        """Return a highlighted MCP tool name."""
+        return self.styled(name, ANSI_YELLOW)
+
+
+def _run_databricks_command(command: list[str]) -> dict[str, Any]:
+    """Run a Databricks CLI request and decode its JSON response."""
     try:
-        candidates = SEARCH_TOOL_PRIORITIES[entity]
-    except KeyError as error:
-        raise ValueError(f"Unsupported semantic search entity: {entity}") from error
-    for candidate in candidates:
-        if candidate in tool_names:
-            return candidate
-    raise RuntimeError(f"NeoCarta did not register a {entity} semantic-search tool.")
-
-
-def parse_tool_payload(result: Any) -> Any:
-    """Decode the first JSON text response from an MCP tool invocation."""
-    for content in result.content:
-        text = getattr(content, "text", None)
-        if text:
-            return json.loads(text)
-    return None
-
-
-def catalog_records(
-    records: Any, *, catalog: str, schema: str, allowed_tables: tuple[str, ...]
-) -> list[dict[str, Any]]:
-    """Keep only the configured CIPHOS Silver query surface from a tool payload."""
-    if not isinstance(records, list):
-        raise TypeError("NeoCarta catalog search returned a non-list payload.")
-    return [
-        record
-        for record in records
-        if isinstance(record, dict)
-        and record.get("database_name") == catalog
-        and record.get("schema_name") == schema
-        and record.get("table_name") in allowed_tables
-    ]
-
-
-def table_names(records: list[dict[str, Any]]) -> tuple[str, ...]:
-    return tuple(sorted({str(record["table_name"]) for record in records}))
-
-
-def column_names(records: list[dict[str, Any]]) -> tuple[str, ...]:
-    return tuple(
-        sorted(
-            {
-                str(column["column_name"])
-                for record in records
-                for column in record.get("columns", [])
-                if isinstance(column, dict) and column.get("column_name")
-            }
+        completed = subprocess.run(
+            command,
+            check=True,
+            capture_output=True,
+            text=True,
+            timeout=DATABRICKS_CLI_TIMEOUT_SECONDS,
         )
-    )
-
-
-async def _retrieve(
-    question: str,
-    *,
-    catalog: str,
-    schema: str,
-    allowed_tables: tuple[str, ...],
-    mcp_url: str,
-) -> RetrievalTrace:
-    try:
-        async with (
-            streamable_http_client(mcp_url) as (read, write, _),
-            ClientSession(read, write) as session,
-        ):
-            await session.initialize()
-            tools = {tool.name for tool in (await session.list_tools()).tools}
-            table_tool = select_search_tool(tools, "table")
-            column_tool = select_search_tool(tools, "column")
-            arguments = {"text_content": question, "max_tables": 5}
-            table_result = catalog_records(
-                parse_tool_payload(await session.call_tool(table_tool, arguments)),
-                catalog=catalog,
-                schema=schema,
-                allowed_tables=allowed_tables,
-            )
-            column_result = catalog_records(
-                parse_tool_payload(await session.call_tool(column_tool, arguments)),
-                catalog=catalog,
-                schema=schema,
-                allowed_tables=allowed_tables,
-            )
-            graph_result = parse_tool_payload(
-                await session.call_tool("get_ciphos_lpg_schema_context", {})
-            )
-    except* httpx.HTTPError as error:
+    except FileNotFoundError as error:
+        raise RuntimeError("The Databricks CLI is not installed or is not on PATH.") from error
+    except subprocess.CalledProcessError as error:
+        detail = error.stderr.strip() or error.stdout.strip() or str(error)
+        raise RuntimeError(f"Databricks CLI request failed: {detail}") from error
+    except subprocess.TimeoutExpired as error:
         raise RuntimeError(
-            f"CIPHOS semantic MCP is unavailable at {mcp_url}. Start it with "
-            "`make semantic-search-mcp` and leave it running."
+            f"Databricks CLI request exceeded {DATABRICKS_CLI_TIMEOUT_SECONDS} seconds."
         ) from error
-    return RetrievalTrace(
-        table_search=ToolCall(table_tool, table_result, table_names(table_result)),
-        column_search=ToolCall(column_tool, column_result, column_names(column_result)),
-        graph_context=ToolCall("get_ciphos_lpg_schema_context", graph_result, ()),
-    )
+
+    try:
+        payload = json.loads(completed.stdout)
+    except json.JSONDecodeError as error:
+        raise RuntimeError("Databricks CLI returned a non-JSON response.") from error
+    if not isinstance(payload, dict):
+        raise TypeError("Databricks CLI returned an unexpected JSON response.")
+    return payload
 
 
-def retrieve(
-    question: str,
-    *,
-    catalog: str,
-    schema: str,
-    allowed_tables: tuple[str, ...],
-    mcp_url: str,
-) -> RetrievalTrace:
-    """Run one retrieval in a fresh event loop for a conventional CLI invocation."""
-    return asyncio.run(
-        _retrieve(
-            question,
-            catalog=catalog,
-            schema=schema,
-            allowed_tables=allowed_tables,
-            mcp_url=mcp_url,
-        )
-    )
-
-
-def generate_sql(
-    question: str,
-    trace: RetrievalTrace,
-    *,
-    catalog: str,
-    schema: str,
-    model: str,
-) -> tuple[str, tuple[str, ...]]:
-    """Ask the configured Foundation Model for one SQL statement and its used names."""
-    from openai import OpenAI
-
-    prompt = {
-        "question": question,
-        "catalog": catalog,
-        "schema": schema,
-        "table_metadata": trace.table_search.result,
-        "column_metadata": trace.column_search.result,
-        "graph_structure": trace.graph_context.result,
-    }
-    response_schema = {
-        "type": "object",
-        "properties": {
-            "sql": {"type": "string"},
-            "identifiers": {"type": "array", "items": {"type": "string"}},
-        },
-        "required": ["sql", "identifiers"],
-        "additionalProperties": False,
-    }
-    host = os.environ.get("DATABRICKS_HOST", "").strip()
-    if not host:
-        from databricks.sdk.core import Config
-
-        host = str(Config(profile=os.environ.get("DATABRICKS_PROFILE") or None).host or "")
-    if not host:
-        raise ValueError("Set DATABRICKS_HOST or configure it in DATABRICKS_PROFILE.")
-    client = OpenAI(
-        base_url=f"{host.rstrip('/')}/serving-endpoints",
-        api_key=databricks_access_token(),
-    )
-    completion = client.chat.completions.create(
-        model=model,
-        messages=[
-            {
-                "role": "system",
-                "content": (
-                    "Write exactly one read-only Databricks SQL query using only table and "
-                    "column names in the supplied table_metadata and column_metadata. "
-                    "Use only the supplied catalog and schema, qualify every table, include "
-                    f"LIMIT {RESULT_ROW_LIMIT} or less, and never use DDL or DML. Return "
-                    "JSON with sql and every identifier used. Graph structure is explanatory "
-                    "context only: do not write Cypher or invent a graph property."
-                ),
-            },
-            {"role": "user", "content": json.dumps(prompt)},
-        ],
-        response_format={
-            "type": "json_schema",
-            "json_schema": {"name": "ciphos_sql", "schema": response_schema, "strict": True},
-        },
-    )
-    content = completion.choices[0].message.content
-    if not content:
-        raise RuntimeError("The configured Foundation Model returned no SQL response.")
-    payload = json.loads(content)
-    identifiers = tuple(str(name) for name in payload["identifiers"])
-    return str(payload["sql"]), identifiers
-
-
-def require_grounded_identifiers(
-    identifiers: Sequence[str], trace: RetrievalTrace, *, catalog: str, schema: str
-) -> None:
-    """Reject declared identifiers that were absent from table or column retrieval.
-
-    The catalog and schema names are static configuration the model is required to
-    qualify every table with, not something semantic retrieval returns, so they are
-    always grounded.
-    """
-    retrieved = trace.retrieved_names() | {catalog, schema}
-    missing = sorted(
-        {
-            identifier
-            for identifier in identifiers
-            if identifier not in retrieved and identifier.rsplit(".", 1)[-1] not in retrieved
-        }
-    )
-    if missing:
-        raise RuntimeError(
-            "Generated SQL used identifiers not returned by semantic retrieval: "
-            + ", ".join(missing)
-        )
-
-
-def _databricks_api(
+def databricks_api(
     method: str,
     path: str,
     *,
     profile: str,
     payload: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
+    """Call a workspace REST API through the authenticated Databricks CLI."""
     command = ["databricks", "api", method, path, "--profile", profile, "--output", "json"]
+    if payload is None:
+        return _run_databricks_command(command)
+
     with tempfile.NamedTemporaryFile(mode="w", suffix=".json") as request:
-        if payload is not None:
-            json.dump(payload, request)
-            request.flush()
-            command.extend(["--json", f"@{request.name}"])
-        completed = subprocess.run(command, check=True, capture_output=True, text=True, timeout=65)
-    response = json.loads(completed.stdout)
-    if not isinstance(response, dict):
-        raise TypeError("Databricks CLI returned an unexpected response.")
-    return response
+        json.dump(payload, request)
+        request.flush()
+        return _run_databricks_command([*command, "--json", f"@{request.name}"])
 
 
-def execute_sql(sql: str, *, catalog: str, schema: str) -> list[dict[str, Any]]:
-    """Execute one bounded statement through the authenticated Databricks CLI profile."""
-    profile = os.environ.get("DATABRICKS_PROFILE") or os.environ.get("DATABRICKS_CONFIG_PROFILE")
-    if not profile:
-        raise ValueError("Set DATABRICKS_PROFILE before executing a semantic query.")
-    response = _databricks_api(
+def _statement_state(response: dict[str, Any]) -> str:
+    """Return the required state from a Statement Execution response."""
+    state = response.get("status", {}).get("state")
+    if not isinstance(state, str) or not state:
+        raise RuntimeError("Databricks statement response did not contain a state.")
+    return state
+
+
+def _statement_id(response: dict[str, Any]) -> str:
+    """Return the required statement ID from a Statement Execution response."""
+    statement_id = response.get("statement_id")
+    if not isinstance(statement_id, str) or not statement_id:
+        raise RuntimeError("Databricks statement response did not contain a statement ID.")
+    return statement_id
+
+
+def execute_sql(
+    sql: str,
+    *,
+    profile: str,
+    warehouse_id: str,
+    catalog: str,
+    schema: str,
+) -> dict[str, Any]:
+    """Execute one bounded statement through the Databricks Statement Execution API."""
+    response = databricks_api(
         "post",
         "/api/2.0/sql/statements",
         profile=profile,
         payload={
-            "warehouse_id": require_env("DATABRICKS_WAREHOUSE_ID"),
+            "warehouse_id": warehouse_id,
             "catalog": catalog,
             "schema": schema,
             "statement": sql,
             "format": "JSON_ARRAY",
             "disposition": "INLINE",
             "row_limit": RESULT_ROW_LIMIT,
+            "byte_limit": 1_000_000,
             "wait_timeout": "50s",
+            "on_wait_timeout": "CONTINUE",
         },
     )
+
     deadline = time.monotonic() + POLL_TIMEOUT_SECONDS
-    while response.get("status", {}).get("state") in {"PENDING", "RUNNING"}:
-        statement_id = response.get("statement_id")
-        if not isinstance(statement_id, str) or time.monotonic() >= deadline:
-            raise RuntimeError("Databricks SQL statement did not complete within the allowed time.")
+    state = _statement_state(response)
+    statement_id = _statement_id(response) if state in RUNNING_STATES else None
+    while state in RUNNING_STATES:
+        if time.monotonic() >= deadline:
+            raise RuntimeError(
+                f"Databricks statement {statement_id} did not finish within "
+                f"{POLL_TIMEOUT_SECONDS} seconds."
+            )
         time.sleep(2)
-        response = _databricks_api(
-            "get", f"/api/2.0/sql/statements/{statement_id}", profile=profile
+        response = databricks_api(
+            "get",
+            f"/api/2.0/sql/statements/{statement_id}",
+            profile=profile,
         )
-    if response.get("status", {}).get("state") != "SUCCEEDED":
-        raise RuntimeError(f"Databricks SQL failed: {response.get('status', {}).get('error')}")
+        state = _statement_state(response)
+
+    if state in FAILURE_STATES:
+        error = response.get("status", {}).get("error", {})
+        raise RuntimeError(f"Databricks statement {state}: {error}")
+    if state != "SUCCEEDED":
+        raise RuntimeError(f"Databricks statement returned unexpected state: {state}")
+    return response
+
+
+def result_rows(response: dict[str, Any]) -> list[dict[str, Any]]:
+    """Convert an inline JSON_ARRAY result into named row objects."""
     columns = response.get("manifest", {}).get("schema", {}).get("columns", [])
-    names = [column.get("name") for column in columns if isinstance(column, dict)]
-    rows = response.get("result", {}).get("data_array", [])
-    if len(names) != len(columns) or not all(isinstance(name, str) for name in names):
-        raise RuntimeError("Databricks SQL returned invalid column metadata.")
-    return [dict(zip(names, values, strict=True)) for values in rows]
+    if not isinstance(columns, list):
+        raise TypeError("Databricks result columns must be a list.")
+    column_names = [column.get("name") for column in columns if isinstance(column, dict)]
+    if len(column_names) != len(columns) or not all(
+        isinstance(name, str) and name for name in column_names
+    ):
+        raise TypeError("Databricks result contained an invalid column definition.")
+
+    data = response.get("result", {}).get("data_array", [])
+    if not isinstance(data, list):
+        raise TypeError("Databricks result data must be a list.")
+    try:
+        return [dict(zip(column_names, row, strict=True)) for row in data]
+    except (TypeError, ValueError) as error:
+        raise RuntimeError("Databricks result row did not match the result schema.") from error
 
 
-def _showcase(catalog: str, schema: str, tables: tuple[str, ...], mcp_url: str) -> None:
-    for case in SHOWCASE_CASES:
-        trace = retrieve(
-            case.query,
-            catalog=catalog,
-            schema=schema,
-            allowed_tables=tables,
-            mcp_url=mcp_url,
+def result_is_truncated(response: dict[str, Any]) -> bool:
+    """Return whether Statement Execution applied a row or byte limit."""
+    return response.get("manifest", {}).get("truncated") is True
+
+
+def configure_databricks_profile(profile_override: str | None) -> str:
+    """Select one profile for both model generation and CLI SQL execution."""
+    profile = profile_override or require_env("DATABRICKS_PROFILE")
+    os.environ["DATABRICKS_PROFILE"] = profile
+    os.environ["DATABRICKS_CONFIG_PROFILE"] = profile
+    os.environ.pop("DATABRICKS_TOKEN", None)
+    return profile
+
+
+def search_strategy(tool_name: str) -> str:
+    """Return a human-readable strategy name from an MCP tool name."""
+    if "business_term_hybrid" in tool_name:
+        return "business-term hybrid"
+    if "hybrid" in tool_name:
+        return "hybrid (vector + full-text)"
+    if "vector" in tool_name:
+        return "vector similarity"
+    if "full_text" in tool_name:
+        return "full-text"
+    return "unknown"
+
+
+def showcase_case_passes(case: ShowcaseCase, trace: RetrievalTrace) -> bool:
+    """Return whether a showcase retrieval met its declared expectations."""
+    table_names = set(trace.table_search.names)
+    column_names = set(trace.column_search.names)
+    if not table_names and not column_names:
+        return False
+    return case.expected_table in table_names and case.expected_column in column_names
+
+
+def require_grounded_identifiers(
+    identifiers: Sequence[tuple[str, str]], retrieved_names: set[str]
+) -> list[grounding.GroundingRow]:
+    """Return grounding rows or reject identifiers absent from retrieved context."""
+    rows = grounding.ground(
+        [
+            grounding.DeclaredIdentifier(name=name, source_tool=source_tool)
+            for name, source_tool in identifiers
+        ],
+        retrieved_names,
+    )
+    missing = sorted({row.name for row in rows if not row.retrieved})
+    if missing:
+        raise RuntimeError(
+            "Generated query used identifiers that NeoCarta did not retrieve: " + ", ".join(missing)
         )
-        passed = (
-            case.expected_table in trace.table_search.names
-            and case.expected_column in trace.column_search.names
+    return rows
+
+
+def run_semantic_showcase(
+    *,
+    catalog: str,
+    schema: str,
+    tables: tuple[str, ...],
+    mcp_url: str,
+    console: Console,
+    section_number: int,
+) -> int:
+    """Exercise literal, conceptual, and hybrid CIPHOS retrieval."""
+    traces = [
+        (
+            case,
+            retrieve(
+                case.query,
+                catalog=catalog,
+                schema=schema,
+                allowed_tables=tables,
+                mcp_url=mcp_url,
+            ),
         )
-        print(f"{case.title}: {'PASS' if passed else 'FAIL'}")
-        print(f"  tables: {', '.join(trace.table_search.names) or '(none)'}")
-        print(f"  columns: {', '.join(trace.column_search.names) or '(none)'}")
+        for case in SHOWCASE_CASES
+    ]
+    first_trace = traces[0][1]
+    console.section(section_number, "Discovering NeoCarta capabilities")
+    print(
+        "Table retrieval: "
+        f"{search_strategy(first_trace.table_search.tool_name)} via "
+        f"{console.tool_name(first_trace.table_search.tool_name)}",
+        file=console.stream,
+    )
+    print(
+        "Column retrieval: "
+        f"{search_strategy(first_trace.column_search.tool_name)} via "
+        f"{console.tool_name(first_trace.column_search.tool_name)}",
+        file=console.stream,
+    )
+    print(
+        "NeoCarta registers the strongest available strategy per metadata label. "
+        "With vector and full-text indexes present, one hybrid tool exercises both signals.",
+        file=console.stream,
+    )
+
+    section_number += 1
+    console.section(section_number, "Running semantic retrieval tests")
+    failed_cases: list[str] = []
+    for index, (case, trace) in enumerate(traces, start=1):
+        passed = showcase_case_passes(case, trace)
+        status = console.pass_label() if passed else console.fail_label()
+        print(f"\n  Test {index}: {case.title} [{status}]", file=console.stream)
+        print(f"  Demonstrates: {case.demonstrates}", file=console.stream)
+        print(f"  Query: {case.query}", file=console.stream)
+        print(f"  Tables: {', '.join(trace.table_search.names) or '(none)'}", file=console.stream)
+        print(f"  Columns: {', '.join(trace.column_search.names) or '(none)'}", file=console.stream)
         if not passed:
-            raise RuntimeError(f"Semantic showcase failed: {case.title}")
+            failed_cases.append(case.title)
+
+    print(
+        f"\n  Graph schema context: {len(first_trace.graph_context.names)} "
+        "labels, relationship types, and properties retrieved",
+        file=console.stream,
+    )
+    print(f"  Source boundary: {catalog}.{schema}", file=console.stream)
+    if failed_cases:
+        raise RuntimeError("Semantic showcase failed: " + ", ".join(failed_cases))
+    return section_number + 1
 
 
-def main(argv: Sequence[str] | None = None) -> None:
-    """Run the CIPHOS semantic-search showcase or one grounded SQL question."""
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("question", nargs="?", help="CIPHOS lakehouse question to answer.")
-    parser.add_argument("--mcp-url", default=DEFAULT_MCP_URL)
-    parser.add_argument("--showcase", action="store_true")
-    args = parser.parse_args(argv)
-    load_environment()
-    catalog = lakehouse_catalog()
-    schema = lakehouse_schema()
-    tables = indexed_table_names()
-    if args.showcase or args.question is None:
-        _showcase(catalog, schema, tables, args.mcp_url)
-    question = args.question or DEFAULT_QUESTION
+def run_query_workflow(
+    question: str,
+    *,
+    profile: str,
+    catalog: str,
+    schema: str,
+    tables: tuple[str, ...],
+    mcp_url: str,
+    console: Console,
+    section_number: int,
+) -> None:
+    """Run retrieval, source-attributed generation, grounding, and SQL execution."""
+    console.section(section_number, "Retrieving the SQL shape from NeoCarta MCP")
     trace = retrieve(
         question,
         catalog=catalog,
         schema=schema,
         allowed_tables=tables,
-        mcp_url=args.mcp_url,
+        mcp_url=mcp_url,
     )
-    print(f"Question: {question}")
-    print(f"Tables: {', '.join(trace.table_search.names) or '(none)'}")
-    print(f"Columns: {', '.join(trace.column_search.names) or '(none)'}")
-    sql, identifiers = generate_sql(
+    print(f"Question: {question}", file=console.stream)
+    print(
+        f"Table tool:  {console.tool_name(trace.table_search.tool_name)}", file=console.stream
+    )
+    print(
+        f"Column tool: {console.tool_name(trace.column_search.tool_name)}", file=console.stream
+    )
+    print(f"Tables:  {', '.join(trace.table_search.names) or '(none)'}", file=console.stream)
+    print(f"Columns: {', '.join(trace.column_search.names) or '(none)'}", file=console.stream)
+
+    section_number += 1
+    console.section(section_number, "Generating SQL from retrieved context")
+    generated = query_generation.generate_queries(
         question,
         trace,
         catalog=catalog,
         schema=schema,
         model=require_env("CIPHOS_SEMANTIC_LLM_ENDPOINT"),
     )
-    require_grounded_identifiers(identifiers, trace, catalog=catalog, schema=schema)
-    print("Grounding: PASS")
-    print(sql)
-    print(json.dumps(execute_sql(sql, catalog=catalog, schema=schema), indent=2))
+    print(generated.sql, file=console.stream)
+
+    grounding_rows = require_grounded_identifiers(generated.identifiers, trace.retrieved_names())
+    section_number += 1
+    console.section(section_number, "Grounding validation")
+    print(
+        console.styled("All generated identifiers came from NeoCarta.", ANSI_BOLD_GREEN),
+        file=console.stream,
+    )
+    for row in grounding_rows:
+        print(f"  [ok] {row.name} <- {row.source_tool}", file=console.stream)
+
+    section_number += 1
+    console.section(section_number, "Executing SQL through the Databricks CLI")
+    response = execute_sql(
+        generated.sql,
+        profile=profile,
+        warehouse_id=require_env("DATABRICKS_WAREHOUSE_ID"),
+        catalog=catalog,
+        schema=schema,
+    )
+
+    rows = result_rows(response)
+    section_number += 1
+    console.section(section_number, f"Lakehouse results: {len(rows)} row(s)")
+    print(json.dumps(rows, indent=2), file=console.stream)
+    if result_is_truncated(response):
+        print(
+            f"\nResult was truncated to the first {RESULT_ROW_LIMIT} rows "
+            "or by the 1 MB response limit.",
+            file=console.stream,
+        )
+
+
+def _parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(
+        description="Use CIPHOS NeoCarta MCP context to generate and run a grounded SQL query."
+    )
+    parser.add_argument("question", nargs="?", help="Natural-language CIPHOS lakehouse question.")
+    parser.add_argument("--profile", help="Databricks CLI profile; defaults to DATABRICKS_PROFILE.")
+    parser.add_argument(
+        "--mcp-url",
+        default=DEFAULT_MCP_URL,
+        help=f"Persistent CIPHOS NeoCarta MCP URL (default: {DEFAULT_MCP_URL})",
+    )
+    parser.add_argument(
+        "--showcase",
+        action="store_true",
+        help="Run literal, conceptual, and hybrid retrieval tests before the SQL workflow.",
+    )
+    return parser
+
+
+def _run(argv: Sequence[str] | None = None) -> None:
+    args = _parser().parse_args(argv)
+    load_environment()
+    profile = configure_databricks_profile(args.profile)
+    catalog = lakehouse_catalog()
+    schema = lakehouse_schema()
+    tables = indexed_table_names()
+    question = args.question or DEFAULT_SHOWCASE_QUESTION
+    console = Console()
+
+    section_number = 1
+    if args.showcase or args.question is None:
+        section_number = run_semantic_showcase(
+            catalog=catalog,
+            schema=schema,
+            tables=tables,
+            mcp_url=args.mcp_url,
+            console=console,
+            section_number=section_number,
+        )
+    run_query_workflow(
+        question,
+        profile=profile,
+        catalog=catalog,
+        schema=schema,
+        tables=tables,
+        mcp_url=args.mcp_url,
+        console=console,
+        section_number=section_number,
+    )
+
+
+def main(argv: Sequence[str] | None = None) -> None:
+    """Run the CIPHOS semantic-query workflow with concise expected failures."""
+    try:
+        _run(argv)
+    except SemanticMcpUnavailableError as error:
+        print(f"\n{error}", file=sys.stderr)
+        raise SystemExit(2) from error
+    except (RuntimeError, ValueError) as error:
+        console = Console(stream=sys.stderr)
+        print(console.styled(f"\nError: {error}", ANSI_BOLD_RED), file=sys.stderr)
+        raise SystemExit(2) from error
 
 
 if __name__ == "__main__":
