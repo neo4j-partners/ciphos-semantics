@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "contract_version": "ciphos-v1",
+  "purpose": "Authoritative placement, identity, snapshot, and reconciliation contract for the CIPHOS lakehouse and graph projection.",
+  "identifiers": {
+    "source_batch_id": "A deterministic SHA-256 digest of the ordered source-file checksums for one ingestion run.",
+    "silver_snapshot_id": "The published source_batch_id from which a graph projection is constructed.",
+    "graph_snapshot_id": "A unique immutable graph-release identifier that records silver_snapshot_id, manifest_version, and application_revision.",
+    "run_id": "A caller-supplied idempotency key for a graph calculation and its Gold publication.",
+    "business_keys": {
+      "Tag": "tagNumber",
+      "OTAsset": "otAssetId",
+      "Document": "documentNumber",
+      "Vulnerability": "cveId",
+      "TagPropertyValue": "tpvId",
+      "Property": "propertyId",
+      "UnitOfMeasure": "uomId"
+    }
+  },
+  "snapshot_rules": [
+    "A graph can be built only from one published Silver snapshot.",
+    "Gold rows must carry compatible source_snapshot_id and graph_snapshot_id.",
+    "The supplied export is a current-source snapshot. It does not establish business-effective history or a latest-value claim.",
+    "A graph build records a content digest of the files it actually loaded so declared lineage can be verified rather than trusted."
+  ],
+  "bronze": {
+    "required_metadata": [
+      "source_file",
+      "source_row_number",
+      "source_checksum",
+      "schema_version",
+      "ingested_at",
+      "source_batch_id"
+    ],
+    "source_row_number_semantics": "The 1-based data row number in the original CSV, excluding the header. It is stamped during upload, not inferred from file order in the query engine.",
+    "source_nodes": [
+      "AssetZone", "ComplianceFramework", "Conduit", "CorrosionLoop", "CyberIncident", "Discipline", "Document", "DocumentType", "EquipmentClass", "Facility", "FunctionalLocation", "MaintainableItem", "ManufacturerModel", "NetworkSegment", "OTAsset", "Organization", "Plant", "Property", "RiskAssessment", "SecurityControl", "SparePart", "System", "Tag", "TagPropertyValue", "Threat", "UnitOfMeasure", "Vulnerability"
+    ],
+    "source_relationships": [
+      "AFFECTS_ASSET", "APPLIED_TO_ASSET", "APPLIED_TO_ZONE", "ASSESSES", "AUTHORED_BY", "BELONGS_TO_DISCIPLINE", "CAUSED_BY", "CLASSIFIED_AS", "CONNECTED_TO", "CONNECTED_VIA", "CONNECTS_TO_ZONE", "CONSIDERS", "CONTAINS_TAG", "DEFAULT_UNIT", "EVALUATES", "EXPLOITED_BY", "EXPLOITS", "GOVERNED_BY", "HAS_APPLICABLE_PROPERTY", "HAS_CONDUIT", "HAS_DOCUMENT_TYPE", "HAS_FACILITY", "HAS_FUNCTIONAL_LOCATION", "HAS_MAINTAINABLE_ITEM", "HAS_MODEL", "HAS_OT_REPRESENTATION", "HAS_PROPERTY_VALUE", "HAS_SYSTEM", "HAS_VULNERABILITY", "LOCATED_AT", "MEASURED_IN", "MEMBER_OF_ZONE", "MITIGATES", "OPERATED_BY", "PARENT_OF", "PART_OF_LOOP", "RECOMMENDS_SPARE", "REFERENCED_IN", "REPLACES", "REPORTED_UNDER", "RESPONSIBLE_FOR_REPORTING", "SATISFIES_REQUIREMENT", "SOURCED_FROM", "SUBCLASS_OF", "TARGETS_ZONE", "VALUE_OF", "WITHIN_ZONE"
+    ]
+  },
+  "silver": {
+    "tag_property_value_columns": [
+      "tpv_id", "tag_number", "property_id", "raw_value", "value_type", "numeric_value", "text_value", "unit_of_measure_id", "source_batch_id", "parse_status", "is_current"
+    ],
+    "provenance_grain": "one row per tag-property value and source document",
+    "enriched_grain": "one row per tag-property value; source documents are aggregated so the enriched view never fans out",
+    "quality_rules": [
+      "tag_property_value_required_identifiers",
+      "tag_property_value_numeric_parse",
+      "tag_property_value_tag_endpoint",
+      "tag_property_value_property_endpoint",
+      "tag_property_value_unit_endpoint",
+      "tag_property_value_provenance"
+    ]
+  },
+  "graph_projection": {
+    "manifest_version": "1.0.0",
+    "projection_name": "ciphos-current-state",
+    "source_layer": "silver",
+    "excluded_nodes": ["TagPropertyValue"],
+    "excluded_relationships": ["HAS_PROPERTY_VALUE", "VALUE_OF", "MEASURED_IN", "SOURCED_FROM"],
+    "retained_ontology": ["EquipmentClass", "Property", "UnitOfMeasure", "HAS_APPLICABLE_PROPERTY", "DEFAULT_UNIT"],
+    "endpoint_policy": "reject projection candidates with any relationship endpoint absent from the allowlisted nodes",
+    "relationship_identity": "one relationship per source node, target node, and relationship type; properties are updated in place and never create a parallel edge",
+    "isolation_policy": "a candidate projection is built in a database that is not the active serving database, and is activated only after validation"
+  },
+  "gold": {
+    "asset_cyber_exposure_grain": "one row per source asset, impacted asset, calculation path or score, and run_id",
+    "path_hop_grain": "one row per run_id, path, and hop number",
+    "required_lineage": ["source_snapshot_id", "graph_snapshot_id", "algorithm_version", "run_id", "computed_at"]
+  },
+  "baseline": {
+    "node_count": 197735,
+    "relationship_count": 826724,
+    "projected_node_count": 77686,
+    "projected_relationship_count": 373908
+  }
+}

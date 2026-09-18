@@ -1,0 +1,960 @@
+@prefix cfihos: <http://neo4j.com/voc/cfihos-ot-cyber#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+
+<http://neo4j.com/voc/cfihos-ot-cyber> a owl:Ontology ;
+    dct:title "CFIHOS 2.0 + OT/Cybersecurity Graph Ontology" ;
+    rdfs:comment "OWL/RDFS vocabulary for the CFIHOS 2.0 asset backbone plus an IEC 62443 / NIS2 OT-cybersecurity extension, generated to match the Neo4j graph actually produced by synthetic_dataset.cypher / generate_synthetic_dataset.py in this repo. Import with n10s.onto.import.fetch / n10s.onto.import.inline." ;
+    owl:versionInfo "1.0.0" .
+
+#################################################################
+# Domain groupings (documentation-only superclasses; the graph
+# itself does not apply these as Neo4j labels -- see SCHEMA.md's
+# four node groups: Asset, Classification, Document, OT_Cybersecurity)
+#################################################################
+
+cfihos:AssetEntity a owl:Class ;
+    rdfs:label "AssetEntity" ;
+    rdfs:comment "Physical/organizational backbone: plants, facilities, functional locations, tags and their physical sub-components." .
+
+cfihos:ClassificationEntity a owl:Class ;
+    rdfs:label "ClassificationEntity" ;
+    rdfs:comment "CFIHOS Reference Data Library vocabulary: equipment classes, properties, units of measure and other classification/reference data." .
+
+cfihos:DocumentEntity a owl:Class ;
+    rdfs:label "DocumentEntity" ;
+    rdfs:comment "Handover documents and deliverables." .
+
+cfihos:OTCybersecurityEntity a owl:Class ;
+    rdfs:label "OTCybersecurityEntity" ;
+    rdfs:comment "IEC 62443 / NIS2-style OT cybersecurity extension: zones, conduits, OT assets, vulnerabilities, threats, controls, risk and incidents. Not part of the official CFIHOS 2.0 RDL." .
+
+#################################################################
+# Classes (one per Neo4j node label actually used by this dataset)
+#################################################################
+
+cfihos:Organization a owl:Class ;
+    rdfs:label "Organization" ;
+    rdfs:subClassOf cfihos:AssetEntity ;
+    cfihos:cfihosRefId "CFIHOS-00000003" ;
+    rdfs:comment "Owner, EPC, contractor or manufacturer organization involved in the asset lifecycle." .
+
+cfihos:Plant a owl:Class ;
+    rdfs:label "Plant" ;
+    rdfs:subClassOf cfihos:AssetEntity ;
+    cfihos:cfihosRefId "CFIHOS-00000125" ;
+    rdfs:comment "Top-level site / operator boundary." .
+
+cfihos:Facility a owl:Class ;
+    rdfs:label "Facility" ;
+    rdfs:subClassOf cfihos:AssetEntity ;
+    cfihos:cfihosRefId "CFIHOS-00000060" ;
+    rdfs:comment "A discrete facility within a plant." .
+
+cfihos:System a owl:Class ;
+    rdfs:label "System" ;
+    rdfs:subClassOf cfihos:AssetEntity ;
+    cfihos:cfihosRefId "CFIHOS-00000119" ;
+    rdfs:comment "Engineering system grouping, e.g. a process unit." .
+
+cfihos:FunctionalLocation a owl:Class ;
+    rdfs:label "FunctionalLocation" ;
+    rdfs:subClassOf cfihos:AssetEntity ;
+    cfihos:cfihosRefId "CFIHOS-00000074" ;
+    rdfs:comment "Hierarchical physical/functional breakdown location; self-referencing for nesting." .
+
+cfihos:Tag a owl:Class ;
+    rdfs:label "Tag" ;
+    rdfs:subClassOf cfihos:AssetEntity ;
+    cfihos:cfihosRefId "CFIHOS-00000028" ;
+    rdfs:comment "The central entity: an individually identified physical asset." .
+
+cfihos:SparePart a owl:Class ;
+    rdfs:label "SparePart" ;
+    rdfs:subClassOf cfihos:AssetEntity ;
+    cfihos:cfihosRefId "CFIHOS-00000200" ;
+    rdfs:comment "A recommended spare part for a tag." .
+
+cfihos:MaintainableItem a owl:Class ;
+    rdfs:label "MaintainableItem" ;
+    rdfs:subClassOf cfihos:AssetEntity ;
+    cfihos:cfihosRefId "CFIHOS-00000089" ;
+    rdfs:comment "A sub-component of a tag relevant to maintenance / failure modes." .
+
+cfihos:CorrosionLoop a owl:Class ;
+    rdfs:label "CorrosionLoop" ;
+    rdfs:subClassOf cfihos:AssetEntity ;
+    cfihos:cfihosRefId "CFIHOS-00000043" ;
+    rdfs:comment "Cross-cutting corrosion-monitoring grouping, independent of the location hierarchy." .
+
+cfihos:EquipmentClass a owl:Class ;
+    rdfs:label "EquipmentClass" ;
+    rdfs:subClassOf cfihos:ClassificationEntity ;
+    cfihos:cfihosRefId "CFIHOS-00000037" ;
+    rdfs:comment "Taxonomy a tag is classified against; self-referencing for subclassing." .
+
+cfihos:Property a owl:Class ;
+    rdfs:label "Property" ;
+    rdfs:subClassOf cfihos:ClassificationEntity ;
+    cfihos:cfihosRefId "CFIHOS-00000017" ;
+    rdfs:comment "A definable attribute, e.g. design pressure." .
+
+cfihos:TagPropertyValue a owl:Class ;
+    rdfs:label "TagPropertyValue" ;
+    rdfs:subClassOf cfihos:ClassificationEntity ;
+    cfihos:cfihosRefId "CFIHOS-00000030" ;
+    rdfs:comment "Join entity holding an actual value for a tag + property pair." .
+
+cfihos:UnitOfMeasure a owl:Class ;
+    rdfs:label "UnitOfMeasure" ;
+    rdfs:subClassOf cfihos:ClassificationEntity ;
+    rdfs:comment "Energistics-aligned unit of measure, referenced by Property and TagPropertyValue." .
+
+cfihos:ManufacturerModel a owl:Class ;
+    rdfs:label "ManufacturerModel" ;
+    rdfs:subClassOf cfihos:ClassificationEntity ;
+    cfihos:cfihosRefId "CFIHOS-00000094" ;
+    rdfs:comment "Make/model reference data." .
+
+cfihos:DocumentType a owl:Class ;
+    rdfs:label "DocumentType" ;
+    rdfs:subClassOf cfihos:ClassificationEntity ;
+    cfihos:cfihosRefId "CFIHOS-00000011" ;
+    rdfs:comment "Classifies documents, e.g. drawing, datasheet, certificate." .
+
+cfihos:Discipline a owl:Class ;
+    rdfs:label "Discipline" ;
+    rdfs:subClassOf cfihos:ClassificationEntity ;
+    cfihos:cfihosRefId "CFIHOS-00000009" ;
+    rdfs:comment "Engineering discipline a document type belongs to." .
+
+cfihos:Document a owl:Class ;
+    rdfs:label "Document" ;
+    rdfs:subClassOf cfihos:DocumentEntity ;
+    cfihos:cfihosRefId "CFIHOS-00000010" ;
+    rdfs:comment "A handover deliverable, e.g. drawing, datasheet, P&ID." .
+
+cfihos:AssetZone a owl:Class ;
+    rdfs:label "AssetZone" ;
+    rdfs:subClassOf cfihos:OTCybersecurityEntity ;
+    rdfs:comment "IEC 62443 zone: logical grouping by trust / criticality level, with Purdue level." .
+
+cfihos:Conduit a owl:Class ;
+    rdfs:label "Conduit" ;
+    rdfs:subClassOf cfihos:OTCybersecurityEntity ;
+    rdfs:comment "IEC 62443 conduit: the only legitimate communication path between two zones." .
+
+cfihos:OTAsset a owl:Class ;
+    rdfs:label "OTAsset" ;
+    rdfs:subClassOf cfihos:OTCybersecurityEntity ;
+    rdfs:comment "The cyber-physical twin of a Tag: IP, firmware, vendor, Purdue level." .
+
+cfihos:NetworkSegment a owl:Class ;
+    rdfs:label "NetworkSegment" ;
+    rdfs:subClassOf cfihos:OTCybersecurityEntity ;
+    rdfs:comment "VLAN/subnet: a more granular network construct nested within a zone." .
+
+cfihos:Vulnerability a owl:Class ;
+    rdfs:label "Vulnerability" ;
+    rdfs:subClassOf cfihos:OTCybersecurityEntity ;
+    rdfs:comment "A CVE or weakness affecting an OT asset." .
+
+cfihos:Threat a owl:Class ;
+    rdfs:label "Threat" ;
+    rdfs:subClassOf cfihos:OTCybersecurityEntity ;
+    rdfs:comment "A threat actor / technique, MITRE ATT&CK for ICS style." .
+
+cfihos:SecurityControl a owl:Class ;
+    rdfs:label "SecurityControl" ;
+    rdfs:subClassOf cfihos:OTCybersecurityEntity ;
+    rdfs:comment "A mitigating control, mapped to an IEC 62443 requirement." .
+
+cfihos:RiskAssessment a owl:Class ;
+    rdfs:label "RiskAssessment" ;
+    rdfs:subClassOf cfihos:OTCybersecurityEntity ;
+    rdfs:comment "A point-in-time evaluation combining zone, vulnerability and threat." .
+
+cfihos:CyberIncident a owl:Class ;
+    rdfs:label "CyberIncident" ;
+    rdfs:subClassOf cfihos:OTCybersecurityEntity ;
+    rdfs:comment "An actual cybersecurity event, with NIS2 reportability flagged." .
+
+cfihos:ComplianceFramework a owl:Class ;
+    rdfs:label "ComplianceFramework" ;
+    rdfs:subClassOf cfihos:OTCybersecurityEntity ;
+    rdfs:comment "A named framework (IEC 62443, NIS2) that controls/zones/incidents are governed by or reported under." .
+
+#################################################################
+# Annotation property used above to cross-reference the official
+# CFIHOS 2.0 RDL entity id, where the class corresponds to one.
+#################################################################
+
+cfihos:cfihosRefId a owl:AnnotationProperty ;
+    rdfs:label "cfihosRefId" ;
+    rdfs:comment "The CFIHOS 2.0 Reference Data Library entity id this class corresponds to, e.g. CFIHOS-00000028 for Tag." .
+
+#################################################################
+# Object properties (one per Neo4j relationship type)
+#################################################################
+
+cfihos:AFFECTS_ASSET a owl:ObjectProperty ;
+    rdfs:label "AFFECTS_ASSET" ;
+    rdfs:domain cfihos:CyberIncident ;
+    rdfs:range cfihos:OTAsset .
+
+cfihos:APPLIED_TO_ASSET a owl:ObjectProperty ;
+    rdfs:label "APPLIED_TO_ASSET" ;
+    rdfs:domain cfihos:SecurityControl ;
+    rdfs:range cfihos:OTAsset .
+
+cfihos:APPLIED_TO_ZONE a owl:ObjectProperty ;
+    rdfs:label "APPLIED_TO_ZONE" ;
+    rdfs:domain cfihos:SecurityControl ;
+    rdfs:range cfihos:AssetZone .
+
+cfihos:ASSESSES a owl:ObjectProperty ;
+    rdfs:label "ASSESSES" ;
+    rdfs:domain cfihos:RiskAssessment ;
+    rdfs:range cfihos:AssetZone .
+
+cfihos:AUTHORED_BY a owl:ObjectProperty ;
+    rdfs:label "AUTHORED_BY" ;
+    rdfs:domain cfihos:Document ;
+    rdfs:range cfihos:Organization .
+
+cfihos:BELONGS_TO_DISCIPLINE a owl:ObjectProperty ;
+    rdfs:label "BELONGS_TO_DISCIPLINE" ;
+    rdfs:domain cfihos:DocumentType ;
+    rdfs:range cfihos:Discipline ;
+    a owl:FunctionalProperty .
+
+cfihos:CAUSED_BY a owl:ObjectProperty ;
+    rdfs:label "CAUSED_BY" ;
+    rdfs:domain cfihos:CyberIncident ;
+    rdfs:range cfihos:Threat .
+
+cfihos:CLASSIFIED_AS a owl:ObjectProperty ;
+    rdfs:label "CLASSIFIED_AS" ;
+    rdfs:domain cfihos:Tag ;
+    rdfs:range cfihos:EquipmentClass ;
+    a owl:FunctionalProperty .
+
+cfihos:CONNECTED_TO a owl:ObjectProperty ;
+    rdfs:label "CONNECTED_TO" ;
+    rdfs:domain cfihos:Tag ;
+    rdfs:range cfihos:Tag ;
+    rdfs:comment "Relationship carries its own properties, which OWL/SHACL via neosemantics cannot constrain directly (LPG-only feature): connectionType (string): e.g. on-line, upstream-of, downstream-of, feeds, discharges-to." .
+
+cfihos:CONNECTED_VIA a owl:ObjectProperty ;
+    rdfs:label "CONNECTED_VIA" ;
+    rdfs:domain cfihos:OTAsset ;
+    rdfs:range cfihos:NetworkSegment .
+
+cfihos:CONNECTS_TO_ZONE a owl:ObjectProperty ;
+    rdfs:label "CONNECTS_TO_ZONE" ;
+    rdfs:domain cfihos:Conduit ;
+    rdfs:range cfihos:AssetZone ;
+    a owl:FunctionalProperty .
+
+cfihos:CONSIDERS a owl:ObjectProperty ;
+    rdfs:label "CONSIDERS" ;
+    rdfs:domain cfihos:RiskAssessment ;
+    rdfs:range cfihos:Vulnerability .
+
+cfihos:CONTAINS_TAG a owl:ObjectProperty ;
+    rdfs:label "CONTAINS_TAG" ;
+    rdfs:domain cfihos:System ;
+    rdfs:range cfihos:Tag .
+
+cfihos:DEFAULT_UNIT a owl:ObjectProperty ;
+    rdfs:label "DEFAULT_UNIT" ;
+    rdfs:domain cfihos:Property ;
+    rdfs:range cfihos:UnitOfMeasure ;
+    a owl:FunctionalProperty .
+
+cfihos:EVALUATES a owl:ObjectProperty ;
+    rdfs:label "EVALUATES" ;
+    rdfs:domain cfihos:RiskAssessment ;
+    rdfs:range cfihos:Threat .
+
+cfihos:EXPLOITED_BY a owl:ObjectProperty ;
+    rdfs:label "EXPLOITED_BY" ;
+    rdfs:domain cfihos:Vulnerability ;
+    rdfs:range cfihos:Threat .
+
+cfihos:EXPLOITS a owl:ObjectProperty ;
+    rdfs:label "EXPLOITS" ;
+    rdfs:domain cfihos:CyberIncident ;
+    rdfs:range cfihos:Vulnerability .
+
+cfihos:GOVERNED_BY a owl:ObjectProperty ;
+    rdfs:label "GOVERNED_BY" ;
+    rdfs:domain cfihos:AssetZone ;
+    rdfs:range cfihos:ComplianceFramework .
+
+cfihos:HAS_APPLICABLE_PROPERTY a owl:ObjectProperty ;
+    rdfs:label "HAS_APPLICABLE_PROPERTY" ;
+    rdfs:domain cfihos:EquipmentClass ;
+    rdfs:range cfihos:Property .
+
+cfihos:HAS_CONDUIT a owl:ObjectProperty ;
+    rdfs:label "HAS_CONDUIT" ;
+    rdfs:domain cfihos:AssetZone ;
+    rdfs:range cfihos:Conduit ;
+    rdfs:comment "Relationship carries its own properties, which OWL/SHACL via neosemantics cannot constrain directly (LPG-only feature): direction (string): inbound/outbound." .
+
+cfihos:HAS_DOCUMENT_TYPE a owl:ObjectProperty ;
+    rdfs:label "HAS_DOCUMENT_TYPE" ;
+    rdfs:domain cfihos:Document ;
+    rdfs:range cfihos:DocumentType ;
+    a owl:FunctionalProperty .
+
+cfihos:HAS_FACILITY a owl:ObjectProperty ;
+    rdfs:label "HAS_FACILITY" ;
+    rdfs:domain cfihos:Plant ;
+    rdfs:range cfihos:Facility .
+
+cfihos:HAS_FUNCTIONAL_LOCATION a owl:ObjectProperty ;
+    rdfs:label "HAS_FUNCTIONAL_LOCATION" ;
+    rdfs:domain cfihos:Facility ;
+    rdfs:range cfihos:FunctionalLocation .
+
+cfihos:HAS_MAINTAINABLE_ITEM a owl:ObjectProperty ;
+    rdfs:label "HAS_MAINTAINABLE_ITEM" ;
+    rdfs:domain cfihos:Tag ;
+    rdfs:range cfihos:MaintainableItem .
+
+cfihos:HAS_MODEL a owl:ObjectProperty ;
+    rdfs:label "HAS_MODEL" ;
+    rdfs:domain cfihos:Tag ;
+    rdfs:range cfihos:ManufacturerModel .
+
+cfihos:HAS_OT_REPRESENTATION a owl:ObjectProperty ;
+    rdfs:label "HAS_OT_REPRESENTATION" ;
+    rdfs:domain cfihos:Tag ;
+    rdfs:range cfihos:OTAsset .
+
+cfihos:HAS_PROPERTY_VALUE a owl:ObjectProperty ;
+    rdfs:label "HAS_PROPERTY_VALUE" ;
+    rdfs:domain cfihos:Tag ;
+    rdfs:range cfihos:TagPropertyValue .
+
+cfihos:HAS_SYSTEM a owl:ObjectProperty ;
+    rdfs:label "HAS_SYSTEM" ;
+    rdfs:domain cfihos:Facility ;
+    rdfs:range cfihos:System .
+
+cfihos:HAS_VULNERABILITY a owl:ObjectProperty ;
+    rdfs:label "HAS_VULNERABILITY" ;
+    rdfs:domain cfihos:OTAsset ;
+    rdfs:range cfihos:Vulnerability .
+
+cfihos:LOCATED_AT a owl:ObjectProperty ;
+    rdfs:label "LOCATED_AT" ;
+    rdfs:domain cfihos:Tag ;
+    rdfs:range cfihos:FunctionalLocation ;
+    a owl:FunctionalProperty .
+
+cfihos:MEASURED_IN a owl:ObjectProperty ;
+    rdfs:label "MEASURED_IN" ;
+    rdfs:domain cfihos:TagPropertyValue ;
+    rdfs:range cfihos:UnitOfMeasure ;
+    a owl:FunctionalProperty .
+
+cfihos:MEMBER_OF_ZONE a owl:ObjectProperty ;
+    rdfs:label "MEMBER_OF_ZONE" ;
+    rdfs:domain cfihos:OTAsset ;
+    rdfs:range cfihos:AssetZone ;
+    a owl:FunctionalProperty .
+
+cfihos:MITIGATES a owl:ObjectProperty ;
+    rdfs:label "MITIGATES" ;
+    rdfs:domain cfihos:SecurityControl ;
+    rdfs:range cfihos:Vulnerability .
+
+cfihos:OPERATED_BY a owl:ObjectProperty ;
+    rdfs:label "OPERATED_BY" ;
+    rdfs:domain cfihos:Plant ;
+    rdfs:range cfihos:Organization .
+
+cfihos:PARENT_OF a owl:ObjectProperty ;
+    rdfs:label "PARENT_OF" ;
+    rdfs:domain cfihos:FunctionalLocation ;
+    rdfs:range cfihos:FunctionalLocation .
+
+cfihos:PART_OF_LOOP a owl:ObjectProperty ;
+    rdfs:label "PART_OF_LOOP" ;
+    rdfs:domain cfihos:Tag ;
+    rdfs:range cfihos:CorrosionLoop .
+
+cfihos:RECOMMENDS_SPARE a owl:ObjectProperty ;
+    rdfs:label "RECOMMENDS_SPARE" ;
+    rdfs:domain cfihos:Tag ;
+    rdfs:range cfihos:SparePart .
+
+cfihos:REFERENCED_IN a owl:ObjectProperty ;
+    rdfs:label "REFERENCED_IN" ;
+    rdfs:domain cfihos:Tag ;
+    rdfs:range cfihos:Document .
+
+cfihos:REPLACES a owl:ObjectProperty ;
+    rdfs:label "REPLACES" ;
+    rdfs:domain cfihos:Tag ;
+    rdfs:range cfihos:Tag ;
+    rdfs:comment "Relationship carries its own properties, which OWL/SHACL via neosemantics cannot constrain directly (LPG-only feature): revampDate (string): ISO date string, brownfield/revamp lifecycle." .
+
+cfihos:REPORTED_UNDER a owl:ObjectProperty ;
+    rdfs:label "REPORTED_UNDER" ;
+    rdfs:domain cfihos:CyberIncident ;
+    rdfs:range cfihos:ComplianceFramework ;
+    rdfs:comment "Relationship carries its own properties, which OWL/SHACL via neosemantics cannot constrain directly (LPG-only feature): reportingDeadlineHours (long): NIS2-style reporting clock, e.g. 24." .
+
+cfihos:RESPONSIBLE_FOR_REPORTING a owl:ObjectProperty ;
+    rdfs:label "RESPONSIBLE_FOR_REPORTING" ;
+    rdfs:domain cfihos:Organization ;
+    rdfs:range cfihos:CyberIncident .
+
+cfihos:SATISFIES_REQUIREMENT a owl:ObjectProperty ;
+    rdfs:label "SATISFIES_REQUIREMENT" ;
+    rdfs:domain cfihos:SecurityControl ;
+    rdfs:range cfihos:ComplianceFramework .
+
+cfihos:SOURCED_FROM a owl:ObjectProperty ;
+    rdfs:label "SOURCED_FROM" ;
+    rdfs:domain cfihos:TagPropertyValue ;
+    rdfs:range cfihos:Document .
+
+cfihos:SUBCLASS_OF a owl:ObjectProperty ;
+    rdfs:label "SUBCLASS_OF" ;
+    rdfs:domain cfihos:EquipmentClass ;
+    rdfs:range cfihos:EquipmentClass .
+
+cfihos:TARGETS_ZONE a owl:ObjectProperty ;
+    rdfs:label "TARGETS_ZONE" ;
+    rdfs:domain cfihos:Threat ;
+    rdfs:range cfihos:AssetZone .
+
+cfihos:VALUE_OF a owl:ObjectProperty ;
+    rdfs:label "VALUE_OF" ;
+    rdfs:domain cfihos:TagPropertyValue ;
+    rdfs:range cfihos:Property ;
+    a owl:FunctionalProperty .
+
+cfihos:WITHIN_ZONE a owl:ObjectProperty ;
+    rdfs:label "WITHIN_ZONE" ;
+    rdfs:domain cfihos:NetworkSegment ;
+    rdfs:range cfihos:AssetZone ;
+    a owl:FunctionalProperty .
+
+#################################################################
+# Datatype properties (one per Neo4j node property key actually
+# written by synthetic_dataset.cypher / generate_synthetic_dataset.py)
+#################################################################
+
+cfihos:affectedFirmwareVersion a owl:DatatypeProperty ;
+    rdfs:label "affectedFirmwareVersion" ;
+    rdfs:domain cfihos:Vulnerability ;
+    rdfs:range xsd:string .
+
+cfihos:applicableSector a owl:DatatypeProperty ;
+    rdfs:label "applicableSector" ;
+    rdfs:domain cfihos:ComplianceFramework ;
+    rdfs:range xsd:string .
+
+cfihos:assessmentDate a owl:DatatypeProperty ;
+    rdfs:label "assessmentDate" ;
+    rdfs:domain cfihos:RiskAssessment ;
+    rdfs:range xsd:string .
+
+cfihos:assessmentId a owl:DatatypeProperty ;
+    rdfs:label "assessmentId" ;
+    rdfs:domain cfihos:RiskAssessment ;
+    rdfs:range xsd:string .
+
+cfihos:cfihosId a owl:DatatypeProperty ;
+    rdfs:label "cfihosId" ;
+    rdfs:domain cfihos:CorrosionLoop ;
+    rdfs:domain cfihos:Document ;
+    rdfs:domain cfihos:DocumentType ;
+    rdfs:domain cfihos:EquipmentClass ;
+    rdfs:domain cfihos:Facility ;
+    rdfs:domain cfihos:FunctionalLocation ;
+    rdfs:domain cfihos:MaintainableItem ;
+    rdfs:domain cfihos:ManufacturerModel ;
+    rdfs:domain cfihos:Plant ;
+    rdfs:domain cfihos:Property ;
+    rdfs:domain cfihos:SparePart ;
+    rdfs:domain cfihos:System ;
+    rdfs:domain cfihos:Tag ;
+    rdfs:domain cfihos:TagPropertyValue ;
+    rdfs:range xsd:string .
+
+cfihos:classId a owl:DatatypeProperty ;
+    rdfs:label "classId" ;
+    rdfs:domain cfihos:EquipmentClass ;
+    rdfs:range xsd:string .
+
+cfihos:className a owl:DatatypeProperty ;
+    rdfs:label "className" ;
+    rdfs:domain cfihos:EquipmentClass ;
+    rdfs:range xsd:string .
+
+cfihos:conduitId a owl:DatatypeProperty ;
+    rdfs:label "conduitId" ;
+    rdfs:domain cfihos:Conduit ;
+    rdfs:range xsd:string .
+
+cfihos:controlId a owl:DatatypeProperty ;
+    rdfs:label "controlId" ;
+    rdfs:domain cfihos:SecurityControl ;
+    rdfs:range xsd:string .
+
+cfihos:controlType a owl:DatatypeProperty ;
+    rdfs:label "controlType" ;
+    rdfs:domain cfihos:SecurityControl ;
+    rdfs:range xsd:string .
+
+cfihos:country a owl:DatatypeProperty ;
+    rdfs:label "country" ;
+    rdfs:domain cfihos:Plant ;
+    rdfs:range xsd:string .
+
+cfihos:criticality a owl:DatatypeProperty ;
+    rdfs:label "criticality" ;
+    rdfs:domain cfihos:AssetZone ;
+    rdfs:domain cfihos:SparePart ;
+    rdfs:range xsd:string .
+
+cfihos:criticalityClass a owl:DatatypeProperty ;
+    rdfs:label "criticalityClass" ;
+    rdfs:domain cfihos:Tag ;
+    rdfs:range xsd:string .
+
+cfihos:cveId a owl:DatatypeProperty ;
+    rdfs:label "cveId" ;
+    rdfs:domain cfihos:Vulnerability ;
+    rdfs:range xsd:string .
+
+cfihos:cvssScore a owl:DatatypeProperty ;
+    rdfs:label "cvssScore" ;
+    rdfs:domain cfihos:Vulnerability ;
+    rdfs:range xsd:double .
+
+cfihos:dataType a owl:DatatypeProperty ;
+    rdfs:label "dataType" ;
+    rdfs:domain cfihos:Property ;
+    rdfs:range xsd:string .
+
+cfihos:description a owl:DatatypeProperty ;
+    rdfs:label "description" ;
+    rdfs:domain cfihos:CorrosionLoop ;
+    rdfs:domain cfihos:Vulnerability ;
+    rdfs:range xsd:string .
+
+cfihos:detectedDate a owl:DatatypeProperty ;
+    rdfs:label "detectedDate" ;
+    rdfs:domain cfihos:CyberIncident ;
+    rdfs:range xsd:string .
+
+cfihos:deviceType a owl:DatatypeProperty ;
+    rdfs:label "deviceType" ;
+    rdfs:domain cfihos:OTAsset ;
+    rdfs:range xsd:string .
+
+cfihos:disciplineId a owl:DatatypeProperty ;
+    rdfs:label "disciplineId" ;
+    rdfs:domain cfihos:Discipline ;
+    rdfs:domain cfihos:DocumentType ;
+    rdfs:range xsd:string .
+
+cfihos:disciplineName a owl:DatatypeProperty ;
+    rdfs:label "disciplineName" ;
+    rdfs:domain cfihos:Discipline ;
+    rdfs:range xsd:string .
+
+cfihos:documentNumber a owl:DatatypeProperty ;
+    rdfs:label "documentNumber" ;
+    rdfs:domain cfihos:Document ;
+    rdfs:range xsd:string .
+
+cfihos:documentTitle a owl:DatatypeProperty ;
+    rdfs:label "documentTitle" ;
+    rdfs:domain cfihos:Document ;
+    rdfs:range xsd:string .
+
+cfihos:documentTypeId a owl:DatatypeProperty ;
+    rdfs:label "documentTypeId" ;
+    rdfs:domain cfihos:Document ;
+    rdfs:range xsd:string .
+
+cfihos:encryption a owl:DatatypeProperty ;
+    rdfs:label "encryption" ;
+    rdfs:domain cfihos:Conduit ;
+    rdfs:range xsd:boolean .
+
+cfihos:equipmentClassId a owl:DatatypeProperty ;
+    rdfs:label "equipmentClassId" ;
+    rdfs:domain cfihos:Tag ;
+    rdfs:range xsd:string .
+
+cfihos:facilityId a owl:DatatypeProperty ;
+    rdfs:label "facilityId" ;
+    rdfs:domain cfihos:Facility ;
+    rdfs:range xsd:string .
+
+cfihos:facilityType a owl:DatatypeProperty ;
+    rdfs:label "facilityType" ;
+    rdfs:domain cfihos:Facility ;
+    rdfs:range xsd:string .
+
+cfihos:failureModeClass a owl:DatatypeProperty ;
+    rdfs:label "failureModeClass" ;
+    rdfs:domain cfihos:MaintainableItem ;
+    rdfs:range xsd:string .
+
+cfihos:firmwareVersion a owl:DatatypeProperty ;
+    rdfs:label "firmwareVersion" ;
+    rdfs:domain cfihos:OTAsset ;
+    rdfs:range xsd:string .
+
+cfihos:frameworkId a owl:DatatypeProperty ;
+    rdfs:label "frameworkId" ;
+    rdfs:domain cfihos:ComplianceFramework ;
+    rdfs:range xsd:string .
+
+cfihos:frameworkName a owl:DatatypeProperty ;
+    rdfs:label "frameworkName" ;
+    rdfs:domain cfihos:ComplianceFramework ;
+    rdfs:range xsd:string .
+
+cfihos:functionalLocationId a owl:DatatypeProperty ;
+    rdfs:label "functionalLocationId" ;
+    rdfs:domain cfihos:FunctionalLocation ;
+    rdfs:range xsd:string .
+
+cfihos:hierarchyLevel a owl:DatatypeProperty ;
+    rdfs:label "hierarchyLevel" ;
+    rdfs:domain cfihos:FunctionalLocation ;
+    rdfs:range xsd:long .
+
+cfihos:iec62443Level a owl:DatatypeProperty ;
+    rdfs:label "iec62443Level" ;
+    rdfs:domain cfihos:AssetZone ;
+    rdfs:range xsd:string .
+
+cfihos:iec62443Requirement a owl:DatatypeProperty ;
+    rdfs:label "iec62443Requirement" ;
+    rdfs:domain cfihos:SecurityControl ;
+    rdfs:range xsd:string .
+
+cfihos:impact a owl:DatatypeProperty ;
+    rdfs:label "impact" ;
+    rdfs:domain cfihos:RiskAssessment ;
+    rdfs:range xsd:string .
+
+cfihos:implementationStatus a owl:DatatypeProperty ;
+    rdfs:label "implementationStatus" ;
+    rdfs:domain cfihos:SecurityControl ;
+    rdfs:range xsd:string .
+
+cfihos:incidentId a owl:DatatypeProperty ;
+    rdfs:label "incidentId" ;
+    rdfs:domain cfihos:CyberIncident ;
+    rdfs:range xsd:string .
+
+cfihos:incidentType a owl:DatatypeProperty ;
+    rdfs:label "incidentType" ;
+    rdfs:domain cfihos:CyberIncident ;
+    rdfs:range xsd:string .
+
+cfihos:installationDate a owl:DatatypeProperty ;
+    rdfs:label "installationDate" ;
+    rdfs:domain cfihos:Tag ;
+    rdfs:range xsd:string .
+
+cfihos:ipAddress a owl:DatatypeProperty ;
+    rdfs:label "ipAddress" ;
+    rdfs:domain cfihos:OTAsset ;
+    rdfs:range xsd:string .
+
+cfihos:isInternetFacing a owl:DatatypeProperty ;
+    rdfs:label "isInternetFacing" ;
+    rdfs:domain cfihos:OTAsset ;
+    rdfs:range xsd:boolean .
+
+cfihos:itemId a owl:DatatypeProperty ;
+    rdfs:label "itemId" ;
+    rdfs:domain cfihos:MaintainableItem ;
+    rdfs:range xsd:string .
+
+cfihos:likelihood a owl:DatatypeProperty ;
+    rdfs:label "likelihood" ;
+    rdfs:domain cfihos:RiskAssessment ;
+    rdfs:range xsd:string .
+
+cfihos:loopId a owl:DatatypeProperty ;
+    rdfs:label "loopId" ;
+    rdfs:domain cfihos:CorrosionLoop ;
+    rdfs:range xsd:string .
+
+cfihos:macAddress a owl:DatatypeProperty ;
+    rdfs:label "macAddress" ;
+    rdfs:domain cfihos:OTAsset ;
+    rdfs:range xsd:string .
+
+cfihos:manufacturer a owl:DatatypeProperty ;
+    rdfs:label "manufacturer" ;
+    rdfs:domain cfihos:Tag ;
+    rdfs:range xsd:string .
+
+cfihos:manufacturerName a owl:DatatypeProperty ;
+    rdfs:label "manufacturerName" ;
+    rdfs:domain cfihos:ManufacturerModel ;
+    rdfs:range xsd:string .
+
+cfihos:mitreAttIckTechniqueId a owl:DatatypeProperty ;
+    rdfs:label "mitreAttIckTechniqueId" ;
+    rdfs:domain cfihos:Threat ;
+    rdfs:range xsd:string .
+
+cfihos:modelId a owl:DatatypeProperty ;
+    rdfs:label "modelId" ;
+    rdfs:domain cfihos:ManufacturerModel ;
+    rdfs:range xsd:string .
+
+cfihos:modelNumber a owl:DatatypeProperty ;
+    rdfs:label "modelNumber" ;
+    rdfs:domain cfihos:ManufacturerModel ;
+    rdfs:range xsd:string .
+
+cfihos:name a owl:DatatypeProperty ;
+    rdfs:label "name" ;
+    rdfs:domain cfihos:Conduit ;
+    rdfs:domain cfihos:Facility ;
+    rdfs:domain cfihos:FunctionalLocation ;
+    rdfs:domain cfihos:MaintainableItem ;
+    rdfs:domain cfihos:Plant ;
+    rdfs:domain cfihos:SecurityControl ;
+    rdfs:domain cfihos:System ;
+    rdfs:domain cfihos:Threat ;
+    rdfs:range xsd:string .
+
+cfihos:nis2Reportable a owl:DatatypeProperty ;
+    rdfs:label "nis2Reportable" ;
+    rdfs:domain cfihos:CyberIncident ;
+    rdfs:range xsd:boolean .
+
+cfihos:organizationId a owl:DatatypeProperty ;
+    rdfs:label "organizationId" ;
+    rdfs:domain cfihos:Organization ;
+    rdfs:range xsd:string .
+
+cfihos:organizationName a owl:DatatypeProperty ;
+    rdfs:label "organizationName" ;
+    rdfs:domain cfihos:Organization ;
+    rdfs:range xsd:string .
+
+cfihos:organizationRole a owl:DatatypeProperty ;
+    rdfs:label "organizationRole" ;
+    rdfs:domain cfihos:Organization ;
+    rdfs:range xsd:string .
+
+cfihos:otAssetId a owl:DatatypeProperty ;
+    rdfs:label "otAssetId" ;
+    rdfs:domain cfihos:OTAsset ;
+    rdfs:range xsd:string .
+
+cfihos:partDescription a owl:DatatypeProperty ;
+    rdfs:label "partDescription" ;
+    rdfs:domain cfihos:SparePart ;
+    rdfs:range xsd:string .
+
+cfihos:partNumber a owl:DatatypeProperty ;
+    rdfs:label "partNumber" ;
+    rdfs:domain cfihos:SparePart ;
+    rdfs:range xsd:string .
+
+cfihos:plantId a owl:DatatypeProperty ;
+    rdfs:label "plantId" ;
+    rdfs:domain cfihos:Plant ;
+    rdfs:range xsd:string .
+
+cfihos:propertyId a owl:DatatypeProperty ;
+    rdfs:label "propertyId" ;
+    rdfs:domain cfihos:Property ;
+    rdfs:domain cfihos:TagPropertyValue ;
+    rdfs:range xsd:string .
+
+cfihos:propertyName a owl:DatatypeProperty ;
+    rdfs:label "propertyName" ;
+    rdfs:domain cfihos:Property ;
+    rdfs:range xsd:string .
+
+cfihos:protocol a owl:DatatypeProperty ;
+    rdfs:label "protocol" ;
+    rdfs:domain cfihos:Conduit ;
+    rdfs:range xsd:string .
+
+cfihos:publishedDate a owl:DatatypeProperty ;
+    rdfs:label "publishedDate" ;
+    rdfs:domain cfihos:Vulnerability ;
+    rdfs:range xsd:string .
+
+cfihos:purdueLevel a owl:DatatypeProperty ;
+    rdfs:label "purdueLevel" ;
+    rdfs:domain cfihos:AssetZone ;
+    rdfs:domain cfihos:NetworkSegment ;
+    rdfs:domain cfihos:OTAsset ;
+    rdfs:range xsd:long .
+
+cfihos:recommendedQuantity a owl:DatatypeProperty ;
+    rdfs:label "recommendedQuantity" ;
+    rdfs:domain cfihos:SparePart ;
+    rdfs:range xsd:long .
+
+cfihos:reportedToAuthorityDate a owl:DatatypeProperty ;
+    rdfs:label "reportedToAuthorityDate" ;
+    rdfs:domain cfihos:CyberIncident ;
+    rdfs:range xsd:string .
+
+cfihos:residualRisk a owl:DatatypeProperty ;
+    rdfs:label "residualRisk" ;
+    rdfs:domain cfihos:RiskAssessment ;
+    rdfs:range xsd:string .
+
+cfihos:revision a owl:DatatypeProperty ;
+    rdfs:label "revision" ;
+    rdfs:domain cfihos:Document ;
+    rdfs:range xsd:string .
+
+cfihos:riskScore a owl:DatatypeProperty ;
+    rdfs:label "riskScore" ;
+    rdfs:domain cfihos:RiskAssessment ;
+    rdfs:range xsd:double .
+
+cfihos:segmentId a owl:DatatypeProperty ;
+    rdfs:label "segmentId" ;
+    rdfs:domain cfihos:NetworkSegment ;
+    rdfs:range xsd:string .
+
+cfihos:severity a owl:DatatypeProperty ;
+    rdfs:label "severity" ;
+    rdfs:domain cfihos:CyberIncident ;
+    rdfs:domain cfihos:Vulnerability ;
+    rdfs:range xsd:string .
+
+cfihos:status a owl:DatatypeProperty ;
+    rdfs:label "status" ;
+    rdfs:domain cfihos:Document ;
+    rdfs:range xsd:string .
+
+cfihos:subnet a owl:DatatypeProperty ;
+    rdfs:label "subnet" ;
+    rdfs:domain cfihos:NetworkSegment ;
+    rdfs:range xsd:string .
+
+cfihos:systemId a owl:DatatypeProperty ;
+    rdfs:label "systemId" ;
+    rdfs:domain cfihos:System ;
+    rdfs:range xsd:string .
+
+cfihos:systemType a owl:DatatypeProperty ;
+    rdfs:label "systemType" ;
+    rdfs:domain cfihos:System ;
+    rdfs:range xsd:string .
+
+cfihos:tagDescription a owl:DatatypeProperty ;
+    rdfs:label "tagDescription" ;
+    rdfs:domain cfihos:Tag ;
+    rdfs:range xsd:string .
+
+cfihos:tagNumber a owl:DatatypeProperty ;
+    rdfs:label "tagNumber" ;
+    rdfs:domain cfihos:OTAsset ;
+    rdfs:domain cfihos:Tag ;
+    rdfs:domain cfihos:TagPropertyValue ;
+    rdfs:range xsd:string .
+
+cfihos:tagStatus a owl:DatatypeProperty ;
+    rdfs:label "tagStatus" ;
+    rdfs:domain cfihos:Tag ;
+    rdfs:range xsd:string .
+
+cfihos:threatActorType a owl:DatatypeProperty ;
+    rdfs:label "threatActorType" ;
+    rdfs:domain cfihos:Threat ;
+    rdfs:range xsd:string .
+
+cfihos:threatId a owl:DatatypeProperty ;
+    rdfs:label "threatId" ;
+    rdfs:domain cfihos:Threat ;
+    rdfs:range xsd:string .
+
+cfihos:tpvId a owl:DatatypeProperty ;
+    rdfs:label "tpvId" ;
+    rdfs:domain cfihos:TagPropertyValue ;
+    rdfs:range xsd:string .
+
+cfihos:typeId a owl:DatatypeProperty ;
+    rdfs:label "typeId" ;
+    rdfs:domain cfihos:DocumentType ;
+    rdfs:range xsd:string .
+
+cfihos:typeName a owl:DatatypeProperty ;
+    rdfs:label "typeName" ;
+    rdfs:domain cfihos:DocumentType ;
+    rdfs:range xsd:string .
+
+cfihos:unitOfMeasureId a owl:DatatypeProperty ;
+    rdfs:label "unitOfMeasureId" ;
+    rdfs:domain cfihos:Property ;
+    rdfs:domain cfihos:TagPropertyValue ;
+    rdfs:range xsd:string .
+
+cfihos:uomId a owl:DatatypeProperty ;
+    rdfs:label "uomId" ;
+    rdfs:domain cfihos:UnitOfMeasure ;
+    rdfs:range xsd:string .
+
+cfihos:uomName a owl:DatatypeProperty ;
+    rdfs:label "uomName" ;
+    rdfs:domain cfihos:UnitOfMeasure ;
+    rdfs:range xsd:string .
+
+cfihos:uomSymbol a owl:DatatypeProperty ;
+    rdfs:label "uomSymbol" ;
+    rdfs:domain cfihos:UnitOfMeasure ;
+    rdfs:range xsd:string .
+
+cfihos:value a owl:DatatypeProperty ;
+    rdfs:label "value" ;
+    rdfs:domain cfihos:TagPropertyValue ;
+    rdfs:range xsd:string .
+
+cfihos:vendor a owl:DatatypeProperty ;
+    rdfs:label "vendor" ;
+    rdfs:domain cfihos:OTAsset ;
+    rdfs:range xsd:string .
+
+cfihos:version a owl:DatatypeProperty ;
+    rdfs:label "version" ;
+    rdfs:domain cfihos:ComplianceFramework ;
+    rdfs:range xsd:string .
+
+cfihos:vlanId a owl:DatatypeProperty ;
+    rdfs:label "vlanId" ;
+    rdfs:domain cfihos:NetworkSegment ;
+    rdfs:range xsd:string .
+
+cfihos:zoneId a owl:DatatypeProperty ;
+    rdfs:label "zoneId" ;
+    rdfs:domain cfihos:AssetZone ;
+    rdfs:range xsd:string .
+
+cfihos:zoneName a owl:DatatypeProperty ;
+    rdfs:label "zoneName" ;
+    rdfs:domain cfihos:AssetZone ;
+    rdfs:range xsd:string .

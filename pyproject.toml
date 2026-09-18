@@ -1,0 +1,40 @@
+[project]
+name = "ciphos-semantics"
+version = "0.1.0"
+description = "CIPHOS Databricks lakehouse loader, Neo4j graph projection, and hybrid demo"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "databricks-sdk>=0.77,<1",
+    "neo4j>=5.28,<7",
+    "pandas>=2",
+    "python-dotenv>=1.0,<2",
+    "streamlit>=1.40",
+]
+
+[dependency-groups]
+dev = ["ruff>=0.14"]
+
+[project.scripts]
+ciphos-contract = "ciphos_semantics.validate_contract:main"
+ciphos-demo = "ciphos_semantics.run_demo:main"
+ciphos-graph = "ciphos_semantics.import_ciphos_graph:main"
+ciphos-lakehouse = "ciphos_semantics.build_lakehouse_tables:main"
+
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "RUF"]

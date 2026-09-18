@@ -1,0 +1,468 @@
+incidentId,detectedDate,incidentType,severity,nis2Reportable,reportedToAuthorityDate
+INC-000001,2025-08-08T22:12:16,Suspicious Firmware Modification,High,true,2025-08-11T07:12:16
+INC-000002,2025-08-11T12:36:12,Denial of Service,Medium,false,
+INC-000003,2025-01-15T23:19:01,Anomalous Network Traffic,Medium,false,
+INC-000004,2024-09-14T22:10:31,Malware Detection,Critical,true,2024-09-16T07:10:31
+INC-000005,2026-05-15T08:36:13,Anomalous Network Traffic,Medium,false,
+INC-000006,2024-12-05T17:32:04,Malware Detection,High,true,2024-12-06T17:32:04
+INC-000007,2025-03-03T06:26:55,Unauthorized Access Attempt,Low,false,
+INC-000008,2025-01-16T11:13:13,Suspicious Firmware Modification,Medium,false,
+INC-000009,2025-02-04T11:34:25,Malware Detection,Low,false,
+INC-000010,2024-11-10T12:10:30,Configuration Tampering,Critical,true,2024-11-11T06:10:30
+INC-000011,2025-05-20T21:05:47,Denial of Service,High,true,2025-05-21T22:05:47
+INC-000012,2025-12-18T13:24:50,Anomalous Network Traffic,Medium,false,
+INC-000013,2025-05-02T21:04:53,Malware Detection,High,true,2025-05-05T12:04:53
+INC-000014,2025-05-04T13:58:34,Denial of Service,Medium,false,
+INC-000015,2024-10-21T13:01:28,Suspicious Firmware Modification,Critical,true,2024-10-23T13:01:28
+INC-000016,2025-11-19T12:14:13,Configuration Tampering,Critical,true,2025-11-21T14:14:13
+INC-000017,2025-01-11T04:53:55,Malware Detection,High,true,2025-01-11T09:53:55
+INC-000018,2025-12-27T14:37:56,Configuration Tampering,Low,false,
+INC-000019,2024-07-12T08:24:39,Configuration Tampering,Critical,true,2024-07-13T16:24:39
+INC-000020,2026-01-18T14:35:29,Anomalous Network Traffic,High,true,2026-01-20T10:35:29
+INC-000021,2024-12-29T19:46:02,Denial of Service,Medium,false,
+INC-000022,2024-02-17T18:46:39,Malware Detection,Medium,false,
+INC-000023,2024-01-13T22:46:37,Unauthorized Access Attempt,Critical,true,2024-01-14T01:46:37
+INC-000024,2025-03-18T14:07:04,Unauthorized Access Attempt,High,true,2025-03-18T17:07:04
+INC-000025,2024-08-07T17:56:25,Suspicious Firmware Modification,Medium,false,
+INC-000026,2024-04-26T04:23:36,Denial of Service,High,true,2024-04-28T14:23:36
+INC-000027,2024-10-23T01:55:00,Suspicious Firmware Modification,Low,false,
+INC-000028,2024-12-30T10:48:04,Configuration Tampering,Medium,false,
+INC-000029,2026-04-21T04:56:34,Configuration Tampering,Medium,false,
+INC-000030,2024-02-19T16:08:28,Suspicious Firmware Modification,Critical,true,2024-02-21T11:08:28
+INC-000031,2026-04-18T09:37:54,Suspicious Firmware Modification,High,true,2026-04-20T19:37:54
+INC-000032,2024-04-18T15:22:37,Unauthorized Access Attempt,High,true,2024-04-20T21:22:37
+INC-000033,2024-07-21T10:15:19,Suspicious Firmware Modification,Low,false,
+INC-000034,2024-06-08T21:46:28,Malware Detection,Low,false,
+INC-000035,2025-02-23T23:00:22,Malware Detection,Medium,false,
+INC-000036,2024-10-14T15:43:32,Denial of Service,Medium,false,
+INC-000037,2026-06-24T17:50:04,Anomalous Network Traffic,High,true,2026-06-27T01:50:04
+INC-000038,2025-04-22T20:49:20,Configuration Tampering,Medium,false,
+INC-000039,2026-04-03T02:34:09,Configuration Tampering,High,true,2026-04-05T04:34:09
+INC-000040,2024-11-26T05:21:49,Configuration Tampering,Low,false,
+INC-000041,2024-07-30T08:18:12,Unauthorized Access Attempt,Medium,false,
+INC-000042,2026-03-26T03:15:42,Configuration Tampering,Medium,false,
+INC-000043,2024-08-12T22:49:40,Anomalous Network Traffic,Medium,false,
+INC-000044,2025-11-05T03:23:26,Denial of Service,Low,false,
+INC-000045,2024-08-30T14:44:35,Suspicious Firmware Modification,Critical,true,2024-09-01T13:44:35
+INC-000046,2024-11-14T23:10:43,Anomalous Network Traffic,High,true,2024-11-15T20:10:43
+INC-000047,2025-09-30T10:13:58,Suspicious Firmware Modification,High,true,2025-10-01T11:13:58
+INC-000048,2026-02-12T06:41:54,Configuration Tampering,Critical,true,2026-02-14T13:41:54
+INC-000049,2025-08-21T21:03:47,Anomalous Network Traffic,Medium,false,
+INC-000050,2025-08-23T06:09:05,Anomalous Network Traffic,Low,false,
+INC-000051,2025-05-29T03:32:10,Configuration Tampering,High,true,2025-05-29T13:32:10
+INC-000052,2024-08-04T10:08:18,Unauthorized Access Attempt,Critical,true,2024-08-05T21:08:18
+INC-000053,2026-02-24T14:54:29,Anomalous Network Traffic,High,true,2026-02-26T17:54:29
+INC-000054,2025-03-23T12:30:52,Unauthorized Access Attempt,Medium,false,
+INC-000055,2024-02-01T07:31:03,Malware Detection,Critical,true,2024-02-04T04:31:03
+INC-000056,2025-03-13T18:03:56,Anomalous Network Traffic,High,true,2025-03-15T05:03:56
+INC-000057,2024-07-26T01:03:48,Anomalous Network Traffic,Medium,false,
+INC-000058,2024-05-07T07:20:05,Malware Detection,Medium,false,
+INC-000059,2024-01-31T10:54:20,Unauthorized Access Attempt,Critical,true,2024-02-01T04:54:20
+INC-000060,2024-06-08T03:14:41,Unauthorized Access Attempt,Medium,false,
+INC-000061,2024-02-05T10:52:00,Configuration Tampering,Critical,true,2024-02-06T08:52:00
+INC-000062,2025-02-26T18:50:13,Anomalous Network Traffic,High,true,2025-03-01T10:50:13
+INC-000063,2025-06-04T19:27:50,Unauthorized Access Attempt,Critical,true,2025-06-05T21:27:50
+INC-000064,2024-04-20T20:11:49,Malware Detection,Low,false,
+INC-000065,2024-04-05T14:30:19,Anomalous Network Traffic,Critical,true,2024-04-08T10:30:19
+INC-000066,2025-10-15T23:52:14,Unauthorized Access Attempt,High,true,2025-10-18T14:52:14
+INC-000067,2026-06-11T09:32:03,Unauthorized Access Attempt,Low,false,
+INC-000068,2025-07-20T22:47:02,Configuration Tampering,Medium,false,
+INC-000069,2025-01-13T22:45:04,Malware Detection,Critical,true,2025-01-16T09:45:04
+INC-000070,2026-03-26T09:49:32,Unauthorized Access Attempt,Medium,false,
+INC-000071,2025-06-26T20:31:59,Denial of Service,High,true,2025-06-29T17:31:59
+INC-000072,2024-10-01T17:59:00,Malware Detection,Critical,true,2024-10-03T17:59:00
+INC-000073,2025-07-29T00:14:55,Anomalous Network Traffic,High,true,2025-07-30T17:14:55
+INC-000074,2025-02-12T01:13:59,Suspicious Firmware Modification,Critical,true,2025-02-15T01:13:59
+INC-000075,2025-07-21T17:36:20,Malware Detection,Critical,true,2025-07-23T09:36:20
+INC-000076,2024-12-16T18:33:25,Unauthorized Access Attempt,Critical,true,2024-12-17T02:33:25
+INC-000077,2024-05-13T14:13:52,Unauthorized Access Attempt,Critical,true,2024-05-16T00:13:52
+INC-000078,2026-06-27T09:42:19,Malware Detection,Medium,false,
+INC-000079,2024-12-29T13:41:00,Malware Detection,Medium,false,
+INC-000080,2024-06-13T02:59:28,Denial of Service,High,true,2024-06-15T11:59:28
+INC-000081,2026-03-01T22:44:12,Configuration Tampering,Low,false,
+INC-000082,2024-02-15T08:48:08,Anomalous Network Traffic,Low,false,
+INC-000083,2024-08-01T05:29:00,Denial of Service,Critical,true,2024-08-01T20:29:00
+INC-000084,2024-05-12T02:36:57,Malware Detection,Low,false,
+INC-000085,2026-03-22T12:11:16,Configuration Tampering,Critical,true,2026-03-23T23:11:16
+INC-000086,2026-04-01T11:51:27,Unauthorized Access Attempt,Critical,true,2026-04-03T17:51:27
+INC-000087,2024-01-25T13:54:24,Unauthorized Access Attempt,Low,false,
+INC-000088,2024-09-16T09:06:25,Configuration Tampering,Critical,true,2024-09-16T14:06:25
+INC-000089,2024-01-23T08:40:47,Configuration Tampering,Low,false,
+INC-000090,2025-04-15T05:42:01,Denial of Service,Low,false,
+INC-000091,2024-10-30T03:18:30,Malware Detection,High,true,2024-10-30T11:18:30
+INC-000092,2025-07-01T16:37:47,Unauthorized Access Attempt,Medium,false,
+INC-000093,2024-09-05T12:15:14,Malware Detection,Low,false,
+INC-000094,2024-03-22T18:41:06,Unauthorized Access Attempt,Critical,true,2024-03-23T20:41:06
+INC-000095,2025-03-04T05:26:38,Denial of Service,High,true,2025-03-04T19:26:38
+INC-000096,2025-02-04T08:49:53,Configuration Tampering,Medium,false,
+INC-000097,2025-01-24T05:44:12,Denial of Service,Critical,true,2025-01-24T12:44:12
+INC-000098,2024-11-27T02:32:28,Malware Detection,Medium,false,
+INC-000099,2024-10-10T20:39:18,Suspicious Firmware Modification,Critical,true,2024-10-13T17:39:18
+INC-000100,2025-12-26T08:44:54,Suspicious Firmware Modification,Critical,true,2025-12-27T19:44:54
+INC-000101,2025-10-21T06:10:28,Malware Detection,High,true,2025-10-22T19:10:28
+INC-000102,2026-03-23T16:16:05,Configuration Tampering,Low,false,
+INC-000103,2025-12-05T13:50:36,Suspicious Firmware Modification,Low,false,
+INC-000104,2025-12-08T19:07:23,Denial of Service,Low,false,
+INC-000105,2024-08-07T11:57:12,Unauthorized Access Attempt,Critical,true,2024-08-08T13:57:12
+INC-000106,2024-04-01T07:51:08,Configuration Tampering,Low,false,
+INC-000107,2025-05-20T12:30:31,Anomalous Network Traffic,Low,false,
+INC-000108,2024-03-09T20:29:55,Configuration Tampering,Low,false,
+INC-000109,2025-04-22T22:32:07,Denial of Service,Low,false,
+INC-000110,2025-11-13T20:49:42,Configuration Tampering,High,true,2025-11-15T08:49:42
+INC-000111,2025-08-20T07:37:40,Anomalous Network Traffic,Low,false,
+INC-000112,2024-02-21T19:41:12,Anomalous Network Traffic,High,true,2024-02-22T18:41:12
+INC-000113,2026-05-10T15:26:49,Denial of Service,Critical,true,2026-05-11T21:26:49
+INC-000114,2025-02-18T09:33:15,Configuration Tampering,Medium,false,
+INC-000115,2024-07-28T07:54:42,Denial of Service,Medium,false,
+INC-000116,2025-08-20T08:02:25,Malware Detection,Critical,true,2025-08-22T10:02:25
+INC-000117,2024-05-02T23:37:32,Malware Detection,Medium,false,
+INC-000118,2024-10-04T09:27:00,Configuration Tampering,Medium,false,
+INC-000119,2024-01-19T14:33:27,Configuration Tampering,High,true,2024-01-20T12:33:27
+INC-000120,2026-05-20T00:46:02,Unauthorized Access Attempt,Low,false,
+INC-000121,2026-03-05T00:12:13,Anomalous Network Traffic,Medium,false,
+INC-000122,2025-05-04T18:55:23,Suspicious Firmware Modification,Medium,false,
+INC-000123,2025-06-18T22:15:52,Configuration Tampering,Low,false,
+INC-000124,2025-02-28T15:12:17,Unauthorized Access Attempt,Medium,false,
+INC-000125,2026-04-25T21:44:30,Suspicious Firmware Modification,High,true,2026-04-27T23:44:30
+INC-000126,2024-02-10T16:11:03,Unauthorized Access Attempt,Critical,true,2024-02-13T01:11:03
+INC-000127,2026-04-05T23:19:43,Unauthorized Access Attempt,Low,false,
+INC-000128,2024-06-01T02:55:14,Malware Detection,Medium,false,
+INC-000129,2025-08-01T00:57:06,Suspicious Firmware Modification,Low,false,
+INC-000130,2024-12-27T18:09:52,Configuration Tampering,Medium,false,
+INC-000131,2026-02-23T15:37:19,Malware Detection,Critical,true,2026-02-23T17:37:19
+INC-000132,2024-12-03T22:11:18,Suspicious Firmware Modification,Critical,true,2024-12-06T08:11:18
+INC-000133,2025-04-21T18:48:52,Denial of Service,Critical,true,2025-04-22T11:48:52
+INC-000134,2025-05-16T00:29:28,Configuration Tampering,Medium,false,
+INC-000135,2026-05-11T16:27:37,Anomalous Network Traffic,High,true,2026-05-12T14:27:37
+INC-000136,2024-02-05T05:15:04,Suspicious Firmware Modification,Low,false,
+INC-000137,2026-05-08T12:46:25,Malware Detection,Medium,false,
+INC-000138,2024-11-08T06:05:49,Suspicious Firmware Modification,Low,false,
+INC-000139,2024-02-28T03:05:35,Unauthorized Access Attempt,Critical,true,2024-03-01T13:05:35
+INC-000140,2025-02-05T20:39:12,Unauthorized Access Attempt,Critical,true,2025-02-07T22:39:12
+INC-000141,2026-06-10T03:17:01,Suspicious Firmware Modification,Low,false,
+INC-000142,2024-10-18T19:54:31,Anomalous Network Traffic,Critical,true,2024-10-21T10:54:31
+INC-000143,2024-07-11T23:58:58,Malware Detection,Critical,true,2024-07-13T17:58:58
+INC-000144,2025-11-25T18:21:03,Anomalous Network Traffic,Low,false,
+INC-000145,2025-06-05T07:12:47,Denial of Service,Low,false,
+INC-000146,2025-02-22T10:25:36,Anomalous Network Traffic,Medium,false,
+INC-000147,2026-04-27T13:58:45,Anomalous Network Traffic,High,true,2026-04-28T21:58:45
+INC-000148,2024-08-05T00:55:10,Denial of Service,Medium,false,
+INC-000149,2026-03-23T07:13:02,Configuration Tampering,Low,false,
+INC-000150,2024-11-04T02:23:31,Configuration Tampering,Critical,true,2024-11-07T02:23:31
+INC-000151,2025-07-21T22:36:15,Malware Detection,Medium,false,
+INC-000152,2025-01-25T19:26:54,Suspicious Firmware Modification,Medium,false,
+INC-000153,2025-04-01T06:52:40,Denial of Service,Low,false,
+INC-000154,2026-05-29T03:35:02,Denial of Service,Medium,false,
+INC-000155,2026-05-30T07:40:31,Anomalous Network Traffic,High,true,2026-06-01T02:40:31
+INC-000156,2024-02-06T16:53:49,Anomalous Network Traffic,High,true,2024-02-09T03:53:49
+INC-000157,2024-04-03T15:10:08,Configuration Tampering,Medium,false,
+INC-000158,2026-03-01T02:21:56,Malware Detection,Critical,true,2026-03-02T23:21:56
+INC-000159,2025-06-13T12:27:40,Denial of Service,Medium,false,
+INC-000160,2025-04-16T07:40:14,Configuration Tampering,Critical,true,2025-04-16T10:40:14
+INC-000161,2024-08-28T20:22:02,Unauthorized Access Attempt,Low,false,
+INC-000162,2025-02-16T01:16:28,Denial of Service,Low,false,
+INC-000163,2025-01-30T01:24:51,Configuration Tampering,Critical,true,2025-02-01T19:24:51
+INC-000164,2026-01-26T06:32:51,Unauthorized Access Attempt,Low,false,
+INC-000165,2024-03-13T21:04:34,Malware Detection,Medium,false,
+INC-000166,2025-08-21T05:13:48,Anomalous Network Traffic,High,true,2025-08-24T01:13:48
+INC-000167,2025-06-09T11:15:02,Suspicious Firmware Modification,High,true,2025-06-10T07:15:02
+INC-000168,2024-01-27T14:25:26,Denial of Service,High,true,2024-01-29T00:25:26
+INC-000169,2024-04-27T10:02:22,Configuration Tampering,Critical,true,2024-04-30T03:02:22
+INC-000170,2024-07-19T04:24:40,Denial of Service,High,true,2024-07-19T22:24:40
+INC-000171,2024-11-29T09:06:09,Malware Detection,Medium,false,
+INC-000172,2024-05-03T06:13:07,Denial of Service,Critical,true,2024-05-04T20:13:07
+INC-000173,2025-12-01T06:37:52,Suspicious Firmware Modification,Low,false,
+INC-000174,2026-03-22T03:30:57,Unauthorized Access Attempt,Critical,true,2026-03-23T00:30:57
+INC-000175,2026-01-11T11:28:30,Configuration Tampering,Low,false,
+INC-000176,2024-01-08T17:59:40,Configuration Tampering,Medium,false,
+INC-000177,2024-01-09T16:41:55,Denial of Service,High,true,2024-01-12T12:41:55
+INC-000178,2024-02-10T20:49:01,Configuration Tampering,Critical,true,2024-02-12T19:49:01
+INC-000179,2025-09-11T15:13:38,Suspicious Firmware Modification,Low,false,
+INC-000180,2024-12-06T14:34:45,Denial of Service,Low,false,
+INC-000181,2025-09-29T17:00:36,Malware Detection,High,true,2025-09-30T13:00:36
+INC-000182,2025-06-10T12:55:45,Configuration Tampering,High,true,2025-06-12T01:55:45
+INC-000183,2025-03-22T05:18:54,Suspicious Firmware Modification,Critical,true,2025-03-23T20:18:54
+INC-000184,2025-10-03T08:16:16,Suspicious Firmware Modification,Low,false,
+INC-000185,2026-05-19T10:55:11,Configuration Tampering,High,true,2026-05-20T00:55:11
+INC-000186,2026-05-23T17:15:53,Unauthorized Access Attempt,High,true,2026-05-25T08:15:53
+INC-000187,2024-06-16T15:29:57,Suspicious Firmware Modification,Low,false,
+INC-000188,2025-04-13T12:09:43,Suspicious Firmware Modification,Low,false,
+INC-000189,2025-05-02T12:51:08,Malware Detection,High,true,2025-05-03T10:51:08
+INC-000190,2025-06-27T10:14:03,Suspicious Firmware Modification,Critical,true,2025-06-29T19:14:03
+INC-000191,2024-11-23T19:38:19,Unauthorized Access Attempt,Medium,false,
+INC-000192,2024-07-07T03:35:40,Anomalous Network Traffic,Critical,true,2024-07-07T17:35:40
+INC-000193,2024-02-20T04:12:35,Malware Detection,High,true,2024-02-22T04:12:35
+INC-000194,2026-01-14T20:39:56,Malware Detection,Critical,true,2026-01-15T17:39:56
+INC-000195,2025-11-08T13:31:45,Malware Detection,Medium,false,
+INC-000196,2025-02-10T20:51:53,Denial of Service,Medium,false,
+INC-000197,2025-09-05T15:18:16,Anomalous Network Traffic,Medium,false,
+INC-000198,2025-05-24T13:37:03,Suspicious Firmware Modification,Medium,false,
+INC-000199,2024-12-07T11:13:15,Suspicious Firmware Modification,Low,false,
+INC-000200,2026-01-31T05:59:16,Malware Detection,Medium,false,
+INC-000201,2025-04-30T12:20:28,Suspicious Firmware Modification,Low,false,
+INC-000202,2025-09-06T19:57:35,Suspicious Firmware Modification,Critical,true,2025-09-08T19:57:35
+INC-000203,2024-07-19T16:28:00,Anomalous Network Traffic,Low,false,
+INC-000204,2024-03-23T14:12:19,Malware Detection,Critical,true,2024-03-24T21:12:19
+INC-000205,2025-08-05T03:57:11,Suspicious Firmware Modification,Medium,false,
+INC-000206,2024-05-19T03:00:30,Suspicious Firmware Modification,Medium,false,
+INC-000207,2025-06-03T18:16:29,Denial of Service,Critical,true,2025-06-06T16:16:29
+INC-000208,2024-04-22T05:09:17,Anomalous Network Traffic,High,true,2024-04-22T07:09:17
+INC-000209,2025-12-17T07:23:28,Configuration Tampering,Critical,true,2025-12-18T07:23:28
+INC-000210,2026-01-14T22:51:23,Anomalous Network Traffic,Medium,false,
+INC-000211,2025-10-10T06:52:13,Unauthorized Access Attempt,Medium,false,
+INC-000212,2025-12-13T04:30:29,Unauthorized Access Attempt,Critical,true,2025-12-13T18:30:29
+INC-000213,2025-03-31T01:38:13,Configuration Tampering,Critical,true,2025-04-02T20:38:13
+INC-000214,2025-01-19T21:37:02,Denial of Service,High,true,2025-01-22T15:37:02
+INC-000215,2024-01-20T07:16:31,Denial of Service,Low,false,
+INC-000216,2026-06-28T22:44:55,Malware Detection,Low,false,
+INC-000217,2025-01-09T16:42:22,Unauthorized Access Attempt,Medium,false,
+INC-000218,2025-05-03T10:07:47,Unauthorized Access Attempt,High,true,2025-05-04T01:07:47
+INC-000219,2026-01-17T15:48:55,Unauthorized Access Attempt,High,true,2026-01-20T00:48:55
+INC-000220,2025-11-22T05:00:46,Suspicious Firmware Modification,Critical,true,2025-11-22T22:00:46
+INC-000221,2025-12-22T19:59:26,Denial of Service,Low,false,
+INC-000222,2025-04-27T04:29:13,Configuration Tampering,Medium,false,
+INC-000223,2024-11-21T00:47:11,Denial of Service,High,true,2024-11-23T04:47:11
+INC-000224,2025-12-31T01:49:15,Configuration Tampering,Medium,false,
+INC-000225,2025-05-09T13:28:19,Anomalous Network Traffic,High,true,2025-05-10T08:28:19
+INC-000226,2025-11-05T17:51:10,Unauthorized Access Attempt,High,true,2025-11-06T10:51:10
+INC-000227,2025-09-24T22:28:54,Denial of Service,Medium,false,
+INC-000228,2026-06-06T00:41:24,Suspicious Firmware Modification,Low,false,
+INC-000229,2024-05-19T02:50:45,Denial of Service,Medium,false,
+INC-000230,2025-10-18T17:48:18,Denial of Service,Low,false,
+INC-000231,2026-02-02T11:40:59,Malware Detection,Low,false,
+INC-000232,2024-02-06T10:52:00,Malware Detection,Critical,true,2024-02-08T18:52:00
+INC-000233,2025-07-16T23:35:02,Malware Detection,Low,false,
+INC-000234,2024-12-15T00:26:33,Malware Detection,High,true,2024-12-16T01:26:33
+INC-000235,2025-07-11T20:57:09,Suspicious Firmware Modification,Low,false,
+INC-000236,2024-08-27T00:25:26,Unauthorized Access Attempt,Low,false,
+INC-000237,2024-10-07T14:52:11,Suspicious Firmware Modification,Critical,true,2024-10-07T21:52:11
+INC-000238,2024-10-18T16:09:57,Anomalous Network Traffic,High,true,2024-10-19T09:09:57
+INC-000239,2026-01-25T05:08:27,Denial of Service,Critical,true,2026-01-27T20:08:27
+INC-000240,2025-03-07T01:46:32,Configuration Tampering,High,true,2025-03-09T10:46:32
+INC-000241,2026-06-23T04:09:17,Suspicious Firmware Modification,High,true,2026-06-25T01:09:17
+INC-000242,2024-09-13T06:44:12,Denial of Service,High,true,2024-09-14T22:44:12
+INC-000243,2024-09-15T11:52:28,Suspicious Firmware Modification,Critical,true,2024-09-15T21:52:28
+INC-000244,2024-04-16T16:50:47,Malware Detection,Critical,true,2024-04-18T12:50:47
+INC-000245,2024-04-22T08:33:08,Unauthorized Access Attempt,High,true,2024-04-22T22:33:08
+INC-000246,2026-04-02T19:29:55,Unauthorized Access Attempt,High,true,2026-04-05T18:29:55
+INC-000247,2024-06-05T17:25:57,Anomalous Network Traffic,Medium,false,
+INC-000248,2025-09-18T06:34:56,Unauthorized Access Attempt,Critical,true,2025-09-20T14:34:56
+INC-000249,2026-04-13T18:47:56,Malware Detection,Low,false,
+INC-000250,2025-02-25T17:22:19,Configuration Tampering,Low,false,
+INC-000251,2024-11-29T21:48:10,Malware Detection,Low,false,
+INC-000252,2026-06-08T22:13:37,Suspicious Firmware Modification,Medium,false,
+INC-000253,2024-06-30T12:38:14,Malware Detection,Critical,true,2024-07-01T05:38:14
+INC-000254,2024-10-24T10:39:27,Configuration Tampering,Medium,false,
+INC-000255,2025-11-29T04:08:30,Denial of Service,Low,false,
+INC-000256,2025-12-23T00:05:54,Suspicious Firmware Modification,Medium,false,
+INC-000257,2024-02-12T12:40:07,Unauthorized Access Attempt,Critical,true,2024-02-15T01:40:07
+INC-000258,2025-04-12T11:06:19,Anomalous Network Traffic,High,true,2025-04-15T09:06:19
+INC-000259,2024-11-29T08:35:36,Configuration Tampering,Critical,true,2024-12-02T08:35:36
+INC-000260,2025-08-17T06:49:41,Suspicious Firmware Modification,Critical,true,2025-08-19T13:49:41
+INC-000261,2026-01-02T17:08:02,Suspicious Firmware Modification,High,true,2026-01-04T17:08:02
+INC-000262,2025-01-21T03:45:23,Malware Detection,High,true,2025-01-22T08:45:23
+INC-000263,2026-06-05T11:43:28,Denial of Service,High,true,2026-06-08T06:43:28
+INC-000264,2024-09-09T18:54:44,Malware Detection,High,true,2024-09-10T12:54:44
+INC-000265,2026-02-11T18:19:20,Unauthorized Access Attempt,Medium,false,
+INC-000266,2025-09-28T05:28:17,Unauthorized Access Attempt,Critical,true,2025-09-29T00:28:17
+INC-000267,2025-06-08T09:12:20,Malware Detection,Low,false,
+INC-000268,2025-12-18T12:59:37,Unauthorized Access Attempt,Low,false,
+INC-000269,2024-10-01T01:40:25,Configuration Tampering,Low,false,
+INC-000270,2025-02-06T10:18:47,Configuration Tampering,High,true,2025-02-08T10:18:47
+INC-000271,2026-03-17T10:55:33,Suspicious Firmware Modification,Medium,false,
+INC-000272,2025-06-21T21:59:28,Malware Detection,Low,false,
+INC-000273,2024-12-03T09:04:31,Unauthorized Access Attempt,High,true,2024-12-05T03:04:31
+INC-000274,2025-12-03T07:30:53,Configuration Tampering,Low,false,
+INC-000275,2024-11-09T14:04:30,Anomalous Network Traffic,High,true,2024-11-12T01:04:30
+INC-000276,2024-02-03T11:42:32,Denial of Service,Medium,false,
+INC-000277,2024-03-06T07:46:59,Suspicious Firmware Modification,Medium,false,
+INC-000278,2025-06-24T07:22:18,Anomalous Network Traffic,Medium,false,
+INC-000279,2024-03-11T07:45:31,Suspicious Firmware Modification,Critical,true,2024-03-13T03:45:31
+INC-000280,2026-01-11T03:24:00,Anomalous Network Traffic,High,true,2026-01-12T12:24:00
+INC-000281,2024-08-20T11:52:25,Unauthorized Access Attempt,Critical,true,2024-08-20T23:52:25
+INC-000282,2024-07-19T14:00:41,Denial of Service,Medium,false,
+INC-000283,2024-03-12T21:54:20,Denial of Service,Critical,true,2024-03-13T20:54:20
+INC-000284,2025-09-17T15:57:40,Denial of Service,High,true,2025-09-18T18:57:40
+INC-000285,2025-08-09T21:11:58,Denial of Service,Critical,true,2025-08-12T05:11:58
+INC-000286,2025-01-20T20:30:27,Configuration Tampering,Critical,true,2025-01-23T05:30:27
+INC-000287,2025-09-17T13:01:46,Configuration Tampering,Low,false,
+INC-000288,2025-03-09T05:35:36,Suspicious Firmware Modification,Low,false,
+INC-000289,2025-09-17T11:57:04,Suspicious Firmware Modification,Critical,true,2025-09-19T06:57:04
+INC-000290,2025-11-22T14:28:26,Malware Detection,High,true,2025-11-24T16:28:26
+INC-000291,2025-06-16T21:18:38,Denial of Service,High,true,2025-06-19T09:18:38
+INC-000292,2025-05-01T14:55:31,Configuration Tampering,Low,false,
+INC-000293,2024-08-18T22:03:07,Suspicious Firmware Modification,Critical,true,2024-08-21T18:03:07
+INC-000294,2025-03-10T14:35:54,Anomalous Network Traffic,Medium,false,
+INC-000295,2025-11-10T07:06:28,Malware Detection,Critical,true,2025-11-11T02:06:28
+INC-000296,2024-11-28T00:27:11,Unauthorized Access Attempt,Critical,true,2024-11-30T01:27:11
+INC-000297,2025-08-26T13:04:31,Unauthorized Access Attempt,Medium,false,
+INC-000298,2024-02-24T23:30:48,Anomalous Network Traffic,Critical,true,2024-02-25T03:30:48
+INC-000299,2026-05-10T09:12:57,Configuration Tampering,Low,false,
+INC-000300,2024-06-20T15:44:52,Anomalous Network Traffic,Critical,true,2024-06-21T21:44:52
+INC-000301,2025-01-24T03:23:09,Unauthorized Access Attempt,High,true,2025-01-24T13:23:09
+INC-000302,2024-05-12T14:21:54,Suspicious Firmware Modification,Low,false,
+INC-000303,2024-10-14T11:34:57,Suspicious Firmware Modification,Low,false,
+INC-000304,2024-04-13T15:23:24,Configuration Tampering,Medium,false,
+INC-000305,2025-04-22T07:05:48,Configuration Tampering,Low,false,
+INC-000306,2024-04-29T09:25:41,Anomalous Network Traffic,High,true,2024-04-30T22:25:41
+INC-000307,2025-07-23T17:18:36,Anomalous Network Traffic,Medium,false,
+INC-000308,2025-02-18T23:59:43,Malware Detection,Medium,false,
+INC-000309,2024-04-13T10:57:18,Anomalous Network Traffic,Critical,true,2024-04-13T14:57:18
+INC-000310,2024-08-20T19:28:55,Suspicious Firmware Modification,High,true,2024-08-21T20:28:55
+INC-000311,2024-04-29T03:56:20,Unauthorized Access Attempt,High,true,2024-05-01T04:56:20
+INC-000312,2025-05-19T06:49:38,Configuration Tampering,Low,false,
+INC-000313,2024-01-19T08:24:58,Denial of Service,Medium,false,
+INC-000314,2024-06-01T06:31:59,Unauthorized Access Attempt,Low,false,
+INC-000315,2024-05-17T03:25:59,Unauthorized Access Attempt,Critical,true,2024-05-18T20:25:59
+INC-000316,2025-03-21T06:35:13,Unauthorized Access Attempt,Critical,true,2025-03-23T10:35:13
+INC-000317,2024-06-12T08:42:32,Anomalous Network Traffic,Low,false,
+INC-000318,2024-09-04T00:01:51,Suspicious Firmware Modification,Low,false,
+INC-000319,2025-01-03T01:06:07,Malware Detection,Medium,false,
+INC-000320,2025-12-11T15:21:58,Denial of Service,Medium,false,
+INC-000321,2025-04-10T08:43:32,Configuration Tampering,Low,false,
+INC-000322,2026-05-27T06:58:20,Denial of Service,Low,false,
+INC-000323,2024-12-04T08:12:04,Malware Detection,Medium,false,
+INC-000324,2025-12-21T21:37:28,Malware Detection,Medium,false,
+INC-000325,2024-08-17T03:13:32,Suspicious Firmware Modification,Medium,false,
+INC-000326,2024-09-19T11:33:54,Malware Detection,Critical,true,2024-09-22T05:33:54
+INC-000327,2025-12-11T22:21:33,Denial of Service,High,true,2025-12-13T22:21:33
+INC-000328,2024-09-15T08:43:42,Denial of Service,Low,false,
+INC-000329,2026-01-15T22:50:34,Suspicious Firmware Modification,High,true,2026-01-18T22:50:34
+INC-000330,2024-10-11T23:36:45,Unauthorized Access Attempt,High,true,2024-10-14T15:36:45
+INC-000331,2024-01-28T13:46:11,Unauthorized Access Attempt,Critical,true,2024-01-29T23:46:11
+INC-000332,2024-12-13T03:04:38,Unauthorized Access Attempt,High,true,2024-12-14T18:04:38
+INC-000333,2025-12-03T16:22:29,Suspicious Firmware Modification,Medium,false,
+INC-000334,2024-11-22T11:55:20,Suspicious Firmware Modification,Low,false,
+INC-000335,2024-10-12T14:25:51,Malware Detection,High,true,2024-10-13T01:25:51
+INC-000336,2026-06-16T03:34:55,Malware Detection,Low,false,
+INC-000337,2025-05-09T21:58:25,Malware Detection,Medium,false,
+INC-000338,2026-05-10T19:08:10,Anomalous Network Traffic,Critical,true,2026-05-13T12:08:10
+INC-000339,2024-05-30T15:52:30,Unauthorized Access Attempt,High,true,2024-06-01T19:52:30
+INC-000340,2025-06-07T02:39:34,Unauthorized Access Attempt,Medium,false,
+INC-000341,2025-04-22T00:55:59,Malware Detection,Low,false,
+INC-000342,2025-03-16T05:13:19,Anomalous Network Traffic,Low,false,
+INC-000343,2024-02-07T02:20:14,Configuration Tampering,Low,false,
+INC-000344,2025-09-02T06:21:34,Suspicious Firmware Modification,Medium,false,
+INC-000345,2026-04-15T14:26:10,Unauthorized Access Attempt,High,true,2026-04-17T04:26:10
+INC-000346,2024-11-26T09:32:03,Malware Detection,Medium,false,
+INC-000347,2026-02-15T04:14:18,Malware Detection,High,true,2026-02-17T16:14:18
+INC-000348,2025-03-05T16:45:45,Malware Detection,High,true,2025-03-06T02:45:45
+INC-000349,2025-01-18T07:31:28,Configuration Tampering,Critical,true,2025-01-18T12:31:28
+INC-000350,2026-01-09T10:23:05,Unauthorized Access Attempt,High,true,2026-01-10T20:23:05
+INC-000351,2024-12-13T02:59:24,Denial of Service,Critical,true,2024-12-15T12:59:24
+INC-000352,2025-07-05T20:47:01,Malware Detection,High,true,2025-07-08T04:47:01
+INC-000353,2025-03-23T09:51:45,Unauthorized Access Attempt,Medium,false,
+INC-000354,2024-09-10T11:56:52,Unauthorized Access Attempt,Critical,true,2024-09-11T09:56:52
+INC-000355,2026-02-14T00:10:03,Malware Detection,Low,false,
+INC-000356,2026-03-16T20:25:29,Anomalous Network Traffic,Medium,false,
+INC-000357,2025-09-15T14:56:30,Suspicious Firmware Modification,High,true,2025-09-15T21:56:30
+INC-000358,2025-01-06T16:27:15,Unauthorized Access Attempt,Medium,false,
+INC-000359,2026-06-06T03:56:26,Configuration Tampering,Medium,false,
+INC-000360,2024-02-29T21:23:13,Malware Detection,High,true,2024-03-01T15:23:13
+INC-000361,2025-05-27T13:22:01,Malware Detection,Medium,false,
+INC-000362,2024-06-22T12:08:21,Anomalous Network Traffic,Medium,false,
+INC-000363,2025-05-28T06:20:10,Suspicious Firmware Modification,Critical,true,2025-05-31T06:20:10
+INC-000364,2024-09-19T16:33:48,Unauthorized Access Attempt,Low,false,
+INC-000365,2025-01-20T22:05:15,Configuration Tampering,Low,false,
+INC-000366,2025-04-09T22:01:39,Anomalous Network Traffic,Medium,false,
+INC-000367,2024-11-26T08:58:10,Anomalous Network Traffic,High,true,2024-11-27T00:58:10
+INC-000368,2024-07-06T11:02:09,Denial of Service,Critical,true,2024-07-09T11:02:09
+INC-000369,2025-07-02T09:30:39,Anomalous Network Traffic,High,true,2025-07-02T16:30:39
+INC-000370,2025-03-17T14:42:32,Suspicious Firmware Modification,High,true,2025-03-19T00:42:32
+INC-000371,2025-04-14T13:42:00,Anomalous Network Traffic,Critical,true,2025-04-15T23:42:00
+INC-000372,2026-04-15T05:15:00,Configuration Tampering,Low,false,
+INC-000373,2024-01-08T20:41:17,Suspicious Firmware Modification,Critical,true,2024-01-10T12:41:17
+INC-000374,2025-05-18T19:21:52,Malware Detection,Low,false,
+INC-000375,2024-12-04T01:58:34,Configuration Tampering,Low,false,
+INC-000376,2025-05-20T17:51:46,Anomalous Network Traffic,Critical,true,2025-05-23T16:51:46
+INC-000377,2026-01-27T14:41:56,Suspicious Firmware Modification,Critical,true,2026-01-27T18:41:56
+INC-000378,2024-09-24T04:51:59,Malware Detection,Critical,true,2024-09-24T08:51:59
+INC-000379,2025-04-10T02:18:10,Unauthorized Access Attempt,High,true,2025-04-13T00:18:10
+INC-000380,2025-10-21T11:16:59,Suspicious Firmware Modification,High,true,2025-10-23T02:16:59
+INC-000381,2024-07-24T19:36:11,Configuration Tampering,Critical,true,2024-07-25T10:36:11
+INC-000382,2026-04-11T10:03:39,Anomalous Network Traffic,Critical,true,2026-04-11T12:03:39
+INC-000383,2025-11-15T21:21:52,Malware Detection,Medium,false,
+INC-000384,2024-07-07T11:17:00,Denial of Service,Low,false,
+INC-000385,2026-02-19T07:59:04,Configuration Tampering,Low,false,
+INC-000386,2025-10-01T02:39:17,Suspicious Firmware Modification,High,true,2025-10-01T10:39:17
+INC-000387,2024-11-01T05:34:34,Unauthorized Access Attempt,Medium,false,
+INC-000388,2026-01-17T17:58:41,Malware Detection,Medium,false,
+INC-000389,2024-10-02T02:46:03,Denial of Service,High,true,2024-10-02T09:46:03
+INC-000390,2024-04-27T04:43:46,Suspicious Firmware Modification,Low,false,
+INC-000391,2024-01-14T00:01:20,Suspicious Firmware Modification,Medium,false,
+INC-000392,2026-04-28T06:31:21,Denial of Service,Medium,false,
+INC-000393,2026-02-03T08:26:06,Configuration Tampering,High,true,2026-02-05T10:26:06
+INC-000394,2024-01-26T06:37:21,Suspicious Firmware Modification,High,true,2024-01-27T21:37:21
+INC-000395,2024-06-13T03:03:12,Suspicious Firmware Modification,Low,false,
+INC-000396,2024-06-23T07:53:27,Unauthorized Access Attempt,High,true,2024-06-24T21:53:27
+INC-000397,2025-06-25T19:08:58,Anomalous Network Traffic,Critical,true,2025-06-26T17:08:58
+INC-000398,2024-02-06T18:08:10,Malware Detection,High,true,2024-02-07T06:08:10
+INC-000399,2025-12-19T09:05:28,Configuration Tampering,Critical,true,2025-12-22T01:05:28
+INC-000400,2025-08-31T05:25:49,Configuration Tampering,Critical,true,2025-09-02T19:25:49
+INC-000401,2025-06-30T19:09:52,Configuration Tampering,Critical,true,2025-07-01T11:09:52
+INC-000402,2024-08-14T20:27:00,Unauthorized Access Attempt,Medium,false,
+INC-000403,2026-04-09T20:35:22,Unauthorized Access Attempt,Critical,true,2026-04-12T01:35:22
+INC-000404,2025-09-21T15:37:55,Malware Detection,High,true,2025-09-22T10:37:55
+INC-000405,2024-10-14T13:46:19,Unauthorized Access Attempt,Critical,true,2024-10-15T13:46:19
+INC-000406,2024-02-14T03:50:10,Malware Detection,High,true,2024-02-15T16:50:10
+INC-000407,2024-11-10T10:41:24,Denial of Service,Low,false,
+INC-000408,2025-04-06T11:13:28,Anomalous Network Traffic,Low,false,
+INC-000409,2025-08-26T04:32:42,Configuration Tampering,Low,false,
+INC-000410,2024-06-29T05:36:44,Anomalous Network Traffic,Critical,true,2024-07-01T05:36:44
+INC-000411,2025-03-28T16:30:50,Denial of Service,Low,false,
+INC-000412,2025-05-21T21:28:22,Denial of Service,Low,false,
+INC-000413,2026-01-10T10:32:02,Anomalous Network Traffic,Low,false,
+INC-000414,2024-01-17T20:09:51,Denial of Service,Low,false,
+INC-000415,2024-08-07T15:34:54,Malware Detection,Medium,false,
+INC-000416,2025-12-05T18:16:52,Denial of Service,Medium,false,
+INC-000417,2025-07-27T12:26:42,Denial of Service,High,true,2025-07-28T05:26:42
+INC-000418,2025-07-30T21:19:08,Denial of Service,Medium,false,
+INC-000419,2025-09-24T02:21:53,Unauthorized Access Attempt,Low,false,
+INC-000420,2025-10-31T18:39:21,Malware Detection,Critical,true,2025-11-01T05:39:21
+INC-000421,2025-12-06T22:14:17,Anomalous Network Traffic,Medium,false,
+INC-000422,2024-05-21T16:39:00,Malware Detection,Low,false,
+INC-000423,2025-07-11T04:08:33,Anomalous Network Traffic,Low,false,
+INC-000424,2025-06-18T19:10:17,Suspicious Firmware Modification,Low,false,
+INC-000425,2024-03-11T01:30:18,Malware Detection,Low,false,
+INC-000426,2024-04-18T16:50:40,Unauthorized Access Attempt,High,true,2024-04-19T18:50:40
+INC-000427,2025-10-22T02:57:40,Suspicious Firmware Modification,High,true,2025-10-24T17:57:40
+INC-000428,2024-04-10T10:52:46,Configuration Tampering,Low,false,
+INC-000429,2024-03-02T10:14:12,Suspicious Firmware Modification,High,true,2024-03-04T05:14:12
+INC-000430,2026-05-09T20:14:04,Suspicious Firmware Modification,Low,false,
+INC-000431,2025-10-30T01:33:32,Anomalous Network Traffic,Low,false,
+INC-000432,2024-12-23T06:43:16,Unauthorized Access Attempt,Low,false,
+INC-000433,2024-07-16T16:35:46,Anomalous Network Traffic,Low,false,
+INC-000434,2024-10-09T09:28:18,Malware Detection,Critical,true,2024-10-10T22:28:18
+INC-000435,2025-01-20T03:10:13,Configuration Tampering,Low,false,
+INC-000436,2024-01-17T01:40:35,Anomalous Network Traffic,Critical,true,2024-01-19T17:40:35
+INC-000437,2025-09-25T08:48:52,Denial of Service,Low,false,
+INC-000438,2024-01-06T22:07:40,Malware Detection,Critical,true,2024-01-09T17:07:40
+INC-000439,2024-08-11T14:27:45,Suspicious Firmware Modification,High,true,2024-08-14T13:27:45
+INC-000440,2024-05-01T13:03:27,Suspicious Firmware Modification,Low,false,
+INC-000441,2025-09-24T14:11:30,Denial of Service,Low,false,
+INC-000442,2026-06-01T22:12:41,Unauthorized Access Attempt,Medium,false,
+INC-000443,2025-08-11T05:20:48,Suspicious Firmware Modification,Critical,true,2025-08-12T09:20:48
+INC-000444,2024-02-20T07:36:55,Anomalous Network Traffic,Low,false,
+INC-000445,2025-02-04T11:32:42,Configuration Tampering,Critical,true,2025-02-05T00:32:42
+INC-000446,2024-07-19T23:14:18,Denial of Service,Low,false,
+INC-000447,2026-01-15T12:53:15,Configuration Tampering,Critical,true,2026-01-16T06:53:15
+INC-000448,2024-08-09T15:14:04,Suspicious Firmware Modification,Low,false,
+INC-000449,2024-04-15T11:29:46,Anomalous Network Traffic,Low,false,
+INC-000450,2025-02-21T03:15:05,Configuration Tampering,High,true,2025-02-21T10:15:05
+INC-000451,2025-03-12T14:43:52,Anomalous Network Traffic,Medium,false,
+INC-000452,2025-12-24T08:06:11,Configuration Tampering,Low,false,
+INC-000453,2024-11-12T17:49:02,Malware Detection,Low,false,
+INC-000454,2025-02-17T03:21:07,Malware Detection,Medium,false,
+INC-000455,2024-06-18T09:44:35,Suspicious Firmware Modification,Medium,false,
+INC-000456,2024-11-01T13:51:21,Suspicious Firmware Modification,Critical,true,2024-11-02T10:51:21
+INC-000457,2024-07-21T19:24:51,Malware Detection,Low,false,
+INC-000458,2024-04-29T09:02:00,Anomalous Network Traffic,Critical,true,2024-05-01T00:02:00
+INC-000459,2024-10-06T08:19:02,Suspicious Firmware Modification,Critical,true,2024-10-06T16:19:02
+INC-000460,2024-01-09T18:23:28,Unauthorized Access Attempt,High,true,2024-01-11T14:23:28
+INC-000461,2024-12-28T20:49:59,Suspicious Firmware Modification,High,true,2024-12-29T01:49:59
+INC-000462,2025-09-27T19:09:35,Suspicious Firmware Modification,Low,false,
+INC-000463,2025-07-18T09:55:38,Anomalous Network Traffic,Low,false,
+INC-000464,2025-11-06T00:30:56,Suspicious Firmware Modification,High,true,2025-11-08T18:30:56
+INC-000465,2024-10-29T16:07:50,Unauthorized Access Attempt,Critical,true,2024-10-29T21:07:50
+INC-000466,2024-12-07T17:28:40,Unauthorized Access Attempt,Medium,false,
+INC-000467,2024-11-11T07:43:22,Denial of Service,Medium,false,

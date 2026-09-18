@@ -1,0 +1,9 @@
+uomId,uomSymbol,uomName
+UOM-BARG,barg,Bar Gauge
+UOM-DEGC,degC,Degrees Celsius
+UOM-M3H,m3/h,Cubic Metres per Hour
+UOM-KW,kW,Kilowatt
+UOM-MM,mm,Millimetre
+UOM-KG,kg,Kilogram
+UOM-INCH,in,Inch
+UOM-PSI,psi,Pounds per Square Inch

@@ -1,0 +1,586 @@
+systemId,name,systemType,cfihosId
+SYS-00001,Power Distribution System,Power Distribution,CFIHOS-00000119
+SYS-00002,Cooling Water System,Cooling Water,CFIHOS-00000119
+SYS-00003,Hydrotreating System,Hydrotreating,CFIHOS-00000119
+SYS-00004,Crude Distillation System,Crude Distillation,CFIHOS-00000119
+SYS-00005,Instrument Air System,Instrument Air,CFIHOS-00000119
+SYS-00006,Wastewater Treatment System,Wastewater Treatment,CFIHOS-00000119
+SYS-00007,Compression System,Compression,CFIHOS-00000119
+SYS-00008,Power Distribution System,Power Distribution,CFIHOS-00000119
+SYS-00009,Flare System,Flare,CFIHOS-00000119
+SYS-00010,Crude Distillation System,Crude Distillation,CFIHOS-00000119
+SYS-00011,Instrument Air System,Instrument Air,CFIHOS-00000119
+SYS-00012,Storage & Loading System,Storage & Loading,CFIHOS-00000119
+SYS-00013,Wastewater Treatment System,Wastewater Treatment,CFIHOS-00000119
+SYS-00014,Firewater System,Firewater,CFIHOS-00000119
+SYS-00015,Instrument Air System,Instrument Air,CFIHOS-00000119
+SYS-00016,Hydrotreating System,Hydrotreating,CFIHOS-00000119
+SYS-00017,Cooling Water System,Cooling Water,CFIHOS-00000119
+SYS-00018,Wastewater Treatment System,Wastewater Treatment,CFIHOS-00000119
+SYS-00019,Power Distribution System,Power Distribution,CFIHOS-00000119
+SYS-00020,Firewater System,Firewater,CFIHOS-00000119
+SYS-00021,Flare System,Flare,CFIHOS-00000119
+SYS-00022,Power Distribution System,Power Distribution,CFIHOS-00000119
+SYS-00023,Compression System,Compression,CFIHOS-00000119
+SYS-00024,Firewater System,Firewater,CFIHOS-00000119
+SYS-00025,Cooling Water System,Cooling Water,CFIHOS-00000119
+SYS-00026,Hydrotreating System,Hydrotreating,CFIHOS-00000119
+SYS-00027,Flare System,Flare,CFIHOS-00000119
+SYS-00028,Wastewater Treatment System,Wastewater Treatment,CFIHOS-00000119
+SYS-00029,Hydrotreating System,Hydrotreating,CFIHOS-00000119
+SYS-00030,Crude Distillation System,Crude Distillation,CFIHOS-00000119
+SYS-00031,Crude Distillation System,Crude Distillation,CFIHOS-00000119
+SYS-00032,Hydrotreating System,Hydrotreating,CFIHOS-00000119
+SYS-00033,Cooling Water System,Cooling Water,CFIHOS-00000119
+SYS-00034,Wastewater Treatment System,Wastewater Treatment,CFIHOS-00000119
+SYS-00035,Flare System,Flare,CFIHOS-00000119
+SYS-00036,Instrument Air System,Instrument Air,CFIHOS-00000119
+SYS-00037,Firewater System,Firewater,CFIHOS-00000119
+SYS-00038,Storage & Loading System,Storage & Loading,CFIHOS-00000119
+SYS-00039,Crude Distillation System,Crude Distillation,CFIHOS-00000119
+SYS-00040,Compression System,Compression,CFIHOS-00000119
+SYS-00041,Power Distribution System,Power Distribution,CFIHOS-00000119
+SYS-00042,Storage & Loading System,Storage & Loading,CFIHOS-00000119
+SYS-00043,Cooling Water System,Cooling Water,CFIHOS-00000119
+SYS-00044,Wastewater Treatment System,Wastewater Treatment,CFIHOS-00000119
+SYS-00045,Instrument Air System,Instrument Air,CFIHOS-00000119
+SYS-00046,Power Distribution System,Power Distribution,CFIHOS-00000119
+SYS-00047,Wastewater Treatment System,Wastewater Treatment,CFIHOS-00000119
+SYS-00048,Flare System,Flare,CFIHOS-00000119
+SYS-00049,Hydrotreating System,Hydrotreating,CFIHOS-00000119
+SYS-00050,Storage & Loading System,Storage & Loading,CFIHOS-00000119
+SYS-00051,Compression System,Compression,CFIHOS-00000119
+SYS-00052,Crude Distillation System,Crude Distillation,CFIHOS-00000119
+SYS-00053,Wastewater Treatment System,Wastewater Treatment,CFIHOS-00000119
+SYS-00054,Storage & Loading System,Storage & Loading,CFIHOS-00000119
+SYS-00055,Instrument Air System,Instrument Air,CFIHOS-00000119
+SYS-00056,Compression System,Compression,CFIHOS-00000119
+SYS-00057,Crude Distillation System,Crude Distillation,CFIHOS-00000119
+SYS-00058,Flare System,Flare,CFIHOS-00000119
+SYS-00059,Compression System,Compression,CFIHOS-00000119
+SYS-00060,Storage & Loading System,Storage & Loading,CFIHOS-00000119
+SYS-00061,Hydrotreating System,Hydrotreating,CFIHOS-00000119
+SYS-00062,Compression System,Compression,CFIHOS-00000119
+SYS-00063,Storage & Loading System,Storage & Loading,CFIHOS-00000119
+SYS-00064,Firewater System,Firewater,CFIHOS-00000119
+SYS-00065,Crude Distillation System,Crude Distillation,CFIHOS-00000119
+SYS-00066,Flare System,Flare,CFIHOS-00000119
+SYS-00067,Cooling Water System,Cooling Water,CFIHOS-00000119
+SYS-00068,Instrument Air System,Instrument Air,CFIHOS-00000119
+SYS-00069,Cooling Water System,Cooling Water,CFIHOS-00000119
+SYS-00070,Crude Distillation System,Crude Distillation,CFIHOS-00000119
+SYS-00071,Hydrotreating System,Hydrotreating,CFIHOS-00000119
+SYS-00072,Storage & Loading System,Storage & Loading,CFIHOS-00000119
+SYS-00073,Instrument Air System,Instrument Air,CFIHOS-00000119
+SYS-00074,Firewater System,Firewater,CFIHOS-00000119
+SYS-00075,Compression System,Compression,CFIHOS-00000119
+SYS-00076,Flare System,Flare,CFIHOS-00000119
+SYS-00077,Instrument Air System,Instrument Air,CFIHOS-00000119
+SYS-00078,Cooling Water System,Cooling Water,CFIHOS-00000119
+SYS-00079,Firewater System,Firewater,CFIHOS-00000119
+SYS-00080,Wastewater Treatment System,Wastewater Treatment,CFIHOS-00000119
+SYS-00081,Hydrotreating System,Hydrotreating,CFIHOS-00000119
+SYS-00082,Flare System,Flare,CFIHOS-00000119
+SYS-00083,Instrument Air System,Instrument Air,CFIHOS-00000119
+SYS-00084,Hydrotreating System,Hydrotreating,CFIHOS-00000119
+SYS-00085,Crude Distillation System,Crude Distillation,CFIHOS-00000119
+SYS-00086,Cooling Water System,Cooling Water,CFIHOS-00000119
+SYS-00087,Firewater System,Firewater,CFIHOS-00000119
+SYS-00088,Hydrotreating System,Hydrotreating,CFIHOS-00000119
+SYS-00089,Storage & Loading System,Storage & Loading,CFIHOS-00000119
+SYS-00090,Cooling Water System,Cooling Water,CFIHOS-00000119
+SYS-00091,Firewater System,Firewater,CFIHOS-00000119
+SYS-00092,Compression System,Compression,CFIHOS-00000119
+SYS-00093,Wastewater Treatment System,Wastewater Treatment,CFIHOS-00000119
+SYS-00094,Instrument Air System,Instrument Air,CFIHOS-00000119
+SYS-00095,Crude Distillation System,Crude Distillation,CFIHOS-00000119
+SYS-00096,Instrument Air System,Instrument Air,CFIHOS-00000119
+SYS-00097,Firewater System,Firewater,CFIHOS-00000119
+SYS-00098,Compression System,Compression,CFIHOS-00000119
+SYS-00099,Cooling Water System,Cooling Water,CFIHOS-00000119
+SYS-00100,Wastewater Treatment System,Wastewater Treatment,CFIHOS-00000119
+SYS-00101,Storage & Loading System,Storage & Loading,CFIHOS-00000119
+SYS-00102,Wastewater Treatment System,Wastewater Treatment,CFIHOS-00000119
+SYS-00103,Crude Distillation System,Crude Distillation,CFIHOS-00000119
+SYS-00104,Instrument Air System,Instrument Air,CFIHOS-00000119
+SYS-00105,Firewater System,Firewater,CFIHOS-00000119
+SYS-00106,Compression System,Compression,CFIHOS-00000119
+SYS-00107,Compression System,Compression,CFIHOS-00000119
+SYS-00108,Firewater System,Firewater,CFIHOS-00000119
+SYS-00109,Hydrotreating System,Hydrotreating,CFIHOS-00000119
+SYS-00110,Crude Distillation System,Crude Distillation,CFIHOS-00000119
+SYS-00111,Compression System,Compression,CFIHOS-00000119
+SYS-00112,Firewater System,Firewater,CFIHOS-00000119
+SYS-00113,Wastewater Treatment System,Wastewater Treatment,CFIHOS-00000119
+SYS-00114,Flare System,Flare,CFIHOS-00000119
+SYS-00115,Hydrotreating System,Hydrotreating,CFIHOS-00000119
+SYS-00116,Storage & Loading System,Storage & Loading,CFIHOS-00000119
+SYS-00117,Instrument Air System,Instrument Air,CFIHOS-00000119
+SYS-00118,Power Distribution System,Power Distribution,CFIHOS-00000119
+SYS-00119,Wastewater Treatment System,Wastewater Treatment,CFIHOS-00000119
+SYS-00120,Flare System,Flare,CFIHOS-00000119
+SYS-00121,Firewater System,Firewater,CFIHOS-00000119
+SYS-00122,Power Distribution System,Power Distribution,CFIHOS-00000119
+SYS-00123,Crude Distillation System,Crude Distillation,CFIHOS-00000119
+SYS-00124,Instrument Air System,Instrument Air,CFIHOS-00000119
+SYS-00125,Firewater System,Firewater,CFIHOS-00000119
+SYS-00126,Crude Distillation System,Crude Distillation,CFIHOS-00000119
+SYS-00127,Wastewater Treatment System,Wastewater Treatment,CFIHOS-00000119
+SYS-00128,Compression System,Compression,CFIHOS-00000119
+SYS-00129,Hydrotreating System,Hydrotreating,CFIHOS-00000119
+SYS-00130,Power Distribution System,Power Distribution,CFIHOS-00000119
+SYS-00131,Instrument Air System,Instrument Air,CFIHOS-00000119
+SYS-00132,Wastewater Treatment System,Wastewater Treatment,CFIHOS-00000119
+SYS-00133,Power Distribution System,Power Distribution,CFIHOS-00000119
+SYS-00134,Crude Distillation System,Crude Distillation,CFIHOS-00000119
+SYS-00135,Flare System,Flare,CFIHOS-00000119
+SYS-00136,Storage & Loading System,Storage & Loading,CFIHOS-00000119
+SYS-00137,Hydrotreating System,Hydrotreating,CFIHOS-00000119
+SYS-00138,Instrument Air System,Instrument Air,CFIHOS-00000119
+SYS-00139,Storage & Loading System,Storage & Loading,CFIHOS-00000119
+SYS-00140,Wastewater Treatment System,Wastewater Treatment,CFIHOS-00000119
+SYS-00141,Compression System,Compression,CFIHOS-00000119
+SYS-00142,Cooling Water System,Cooling Water,CFIHOS-00000119
+SYS-00143,Hydrotreating System,Hydrotreating,CFIHOS-00000119
+SYS-00144,Crude Distillation System,Crude Distillation,CFIHOS-00000119
+SYS-00145,Instrument Air System,Instrument Air,CFIHOS-00000119
+SYS-00146,Crude Distillation System,Crude Distillation,CFIHOS-00000119
+SYS-00147,Storage & Loading System,Storage & Loading,CFIHOS-00000119
+SYS-00148,Hydrotreating System,Hydrotreating,CFIHOS-00000119
+SYS-00149,Flare System,Flare,CFIHOS-00000119
+SYS-00150,Power Distribution System,Power Distribution,CFIHOS-00000119
+SYS-00151,Instrument Air System,Instrument Air,CFIHOS-00000119
+SYS-00152,Wastewater Treatment System,Wastewater Treatment,CFIHOS-00000119
+SYS-00153,Power Distribution System,Power Distribution,CFIHOS-00000119
+SYS-00154,Firewater System,Firewater,CFIHOS-00000119
+SYS-00155,Cooling Water System,Cooling Water,CFIHOS-00000119
+SYS-00156,Compression System,Compression,CFIHOS-00000119
+SYS-00157,Wastewater Treatment System,Wastewater Treatment,CFIHOS-00000119
+SYS-00158,Storage & Loading System,Storage & Loading,CFIHOS-00000119
+SYS-00159,Crude Distillation System,Crude Distillation,CFIHOS-00000119
+SYS-00160,Instrument Air System,Instrument Air,CFIHOS-00000119
+SYS-00161,Power Distribution System,Power Distribution,CFIHOS-00000119
+SYS-00162,Cooling Water System,Cooling Water,CFIHOS-00000119
+SYS-00163,Compression System,Compression,CFIHOS-00000119
+SYS-00164,Hydrotreating System,Hydrotreating,CFIHOS-00000119
+SYS-00165,Power Distribution System,Power Distribution,CFIHOS-00000119
+SYS-00166,Crude Distillation System,Crude Distillation,CFIHOS-00000119
+SYS-00167,Flare System,Flare,CFIHOS-00000119
+SYS-00168,Hydrotreating System,Hydrotreating,CFIHOS-00000119
+SYS-00169,Flare System,Flare,CFIHOS-00000119
+SYS-00170,Instrument Air System,Instrument Air,CFIHOS-00000119
+SYS-00171,Firewater System,Firewater,CFIHOS-00000119
+SYS-00172,Power Distribution System,Power Distribution,CFIHOS-00000119
+SYS-00173,Hydrotreating System,Hydrotreating,CFIHOS-00000119
+SYS-00174,Crude Distillation System,Crude Distillation,CFIHOS-00000119
+SYS-00175,Cooling Water System,Cooling Water,CFIHOS-00000119
+SYS-00176,Power Distribution System,Power Distribution,CFIHOS-00000119
+SYS-00177,Compression System,Compression,CFIHOS-00000119
+SYS-00178,Flare System,Flare,CFIHOS-00000119
+SYS-00179,Firewater System,Firewater,CFIHOS-00000119
+SYS-00180,Instrument Air System,Instrument Air,CFIHOS-00000119
+SYS-00181,Power Distribution System,Power Distribution,CFIHOS-00000119
+SYS-00182,Wastewater Treatment System,Wastewater Treatment,CFIHOS-00000119
+SYS-00183,Instrument Air System,Instrument Air,CFIHOS-00000119
+SYS-00184,Crude Distillation System,Crude Distillation,CFIHOS-00000119
+SYS-00185,Hydrotreating System,Hydrotreating,CFIHOS-00000119
+SYS-00186,Compression System,Compression,CFIHOS-00000119
+SYS-00187,Flare System,Flare,CFIHOS-00000119
+SYS-00188,Firewater System,Firewater,CFIHOS-00000119
+SYS-00189,Power Distribution System,Power Distribution,CFIHOS-00000119
+SYS-00190,Wastewater Treatment System,Wastewater Treatment,CFIHOS-00000119
+SYS-00191,Storage & Loading System,Storage & Loading,CFIHOS-00000119
+SYS-00192,Power Distribution System,Power Distribution,CFIHOS-00000119
+SYS-00193,Instrument Air System,Instrument Air,CFIHOS-00000119
+SYS-00194,Flare System,Flare,CFIHOS-00000119
+SYS-00195,Power Distribution System,Power Distribution,CFIHOS-00000119
+SYS-00196,Wastewater Treatment System,Wastewater Treatment,CFIHOS-00000119
+SYS-00197,Hydrotreating System,Hydrotreating,CFIHOS-00000119
+SYS-00198,Cooling Water System,Cooling Water,CFIHOS-00000119
+SYS-00199,Firewater System,Firewater,CFIHOS-00000119
+SYS-00200,Flare System,Flare,CFIHOS-00000119
+SYS-00201,Crude Distillation System,Crude Distillation,CFIHOS-00000119
+SYS-00202,Power Distribution System,Power Distribution,CFIHOS-00000119
+SYS-00203,Storage & Loading System,Storage & Loading,CFIHOS-00000119
+SYS-00204,Firewater System,Firewater,CFIHOS-00000119
+SYS-00205,Wastewater Treatment System,Wastewater Treatment,CFIHOS-00000119
+SYS-00206,Hydrotreating System,Hydrotreating,CFIHOS-00000119
+SYS-00207,Power Distribution System,Power Distribution,CFIHOS-00000119
+SYS-00208,Hydrotreating System,Hydrotreating,CFIHOS-00000119
+SYS-00209,Instrument Air System,Instrument Air,CFIHOS-00000119
+SYS-00210,Firewater System,Firewater,CFIHOS-00000119
+SYS-00211,Compression System,Compression,CFIHOS-00000119
+SYS-00212,Crude Distillation System,Crude Distillation,CFIHOS-00000119
+SYS-00213,Wastewater Treatment System,Wastewater Treatment,CFIHOS-00000119
+SYS-00214,Firewater System,Firewater,CFIHOS-00000119
+SYS-00215,Power Distribution System,Power Distribution,CFIHOS-00000119
+SYS-00216,Compression System,Compression,CFIHOS-00000119
+SYS-00217,Cooling Water System,Cooling Water,CFIHOS-00000119
+SYS-00218,Flare System,Flare,CFIHOS-00000119
+SYS-00219,Compression System,Compression,CFIHOS-00000119
+SYS-00220,Cooling Water System,Cooling Water,CFIHOS-00000119
+SYS-00221,Power Distribution System,Power Distribution,CFIHOS-00000119
+SYS-00222,Instrument Air System,Instrument Air,CFIHOS-00000119
+SYS-00223,Wastewater Treatment System,Wastewater Treatment,CFIHOS-00000119
+SYS-00224,Hydrotreating System,Hydrotreating,CFIHOS-00000119
+SYS-00225,Storage & Loading System,Storage & Loading,CFIHOS-00000119
+SYS-00226,Firewater System,Firewater,CFIHOS-00000119
+SYS-00227,Crude Distillation System,Crude Distillation,CFIHOS-00000119
+SYS-00228,Firewater System,Firewater,CFIHOS-00000119
+SYS-00229,Wastewater Treatment System,Wastewater Treatment,CFIHOS-00000119
+SYS-00230,Hydrotreating System,Hydrotreating,CFIHOS-00000119
+SYS-00231,Cooling Water System,Cooling Water,CFIHOS-00000119
+SYS-00232,Flare System,Flare,CFIHOS-00000119
+SYS-00233,Compression System,Compression,CFIHOS-00000119
+SYS-00234,Power Distribution System,Power Distribution,CFIHOS-00000119
+SYS-00235,Flare System,Flare,CFIHOS-00000119
+SYS-00236,Cooling Water System,Cooling Water,CFIHOS-00000119
+SYS-00237,Storage & Loading System,Storage & Loading,CFIHOS-00000119
+SYS-00238,Power Distribution System,Power Distribution,CFIHOS-00000119
+SYS-00239,Instrument Air System,Instrument Air,CFIHOS-00000119
+SYS-00240,Hydrotreating System,Hydrotreating,CFIHOS-00000119
+SYS-00241,Crude Distillation System,Crude Distillation,CFIHOS-00000119
+SYS-00242,Wastewater Treatment System,Wastewater Treatment,CFIHOS-00000119
+SYS-00243,Instrument Air System,Instrument Air,CFIHOS-00000119
+SYS-00244,Hydrotreating System,Hydrotreating,CFIHOS-00000119
+SYS-00245,Power Distribution System,Power Distribution,CFIHOS-00000119
+SYS-00246,Flare System,Flare,CFIHOS-00000119
+SYS-00247,Compression System,Compression,CFIHOS-00000119
+SYS-00248,Cooling Water System,Cooling Water,CFIHOS-00000119
+SYS-00249,Compression System,Compression,CFIHOS-00000119
+SYS-00250,Crude Distillation System,Crude Distillation,CFIHOS-00000119
+SYS-00251,Flare System,Flare,CFIHOS-00000119
+SYS-00252,Hydrotreating System,Hydrotreating,CFIHOS-00000119
+SYS-00253,Storage & Loading System,Storage & Loading,CFIHOS-00000119
+SYS-00254,Hydrotreating System,Hydrotreating,CFIHOS-00000119
+SYS-00255,Flare System,Flare,CFIHOS-00000119
+SYS-00256,Cooling Water System,Cooling Water,CFIHOS-00000119
+SYS-00257,Instrument Air System,Instrument Air,CFIHOS-00000119
+SYS-00258,Firewater System,Firewater,CFIHOS-00000119
+SYS-00259,Wastewater Treatment System,Wastewater Treatment,CFIHOS-00000119
+SYS-00260,Flare System,Flare,CFIHOS-00000119
+SYS-00261,Power Distribution System,Power Distribution,CFIHOS-00000119
+SYS-00262,Cooling Water System,Cooling Water,CFIHOS-00000119
+SYS-00263,Hydrotreating System,Hydrotreating,CFIHOS-00000119
+SYS-00264,Instrument Air System,Instrument Air,CFIHOS-00000119
+SYS-00265,Crude Distillation System,Crude Distillation,CFIHOS-00000119
+SYS-00266,Firewater System,Firewater,CFIHOS-00000119
+SYS-00267,Cooling Water System,Cooling Water,CFIHOS-00000119
+SYS-00268,Compression System,Compression,CFIHOS-00000119
+SYS-00269,Flare System,Flare,CFIHOS-00000119
+SYS-00270,Crude Distillation System,Crude Distillation,CFIHOS-00000119
+SYS-00271,Firewater System,Firewater,CFIHOS-00000119
+SYS-00272,Hydrotreating System,Hydrotreating,CFIHOS-00000119
+SYS-00273,Power Distribution System,Power Distribution,CFIHOS-00000119
+SYS-00274,Compression System,Compression,CFIHOS-00000119
+SYS-00275,Flare System,Flare,CFIHOS-00000119
+SYS-00276,Instrument Air System,Instrument Air,CFIHOS-00000119
+SYS-00277,Power Distribution System,Power Distribution,CFIHOS-00000119
+SYS-00278,Cooling Water System,Cooling Water,CFIHOS-00000119
+SYS-00279,Firewater System,Firewater,CFIHOS-00000119
+SYS-00280,Wastewater Treatment System,Wastewater Treatment,CFIHOS-00000119
+SYS-00281,Flare System,Flare,CFIHOS-00000119
+SYS-00282,Compression System,Compression,CFIHOS-00000119
+SYS-00283,Storage & Loading System,Storage & Loading,CFIHOS-00000119
+SYS-00284,Cooling Water System,Cooling Water,CFIHOS-00000119
+SYS-00285,Wastewater Treatment System,Wastewater Treatment,CFIHOS-00000119
+SYS-00286,Hydrotreating System,Hydrotreating,CFIHOS-00000119
+SYS-00287,Instrument Air System,Instrument Air,CFIHOS-00000119
+SYS-00288,Power Distribution System,Power Distribution,CFIHOS-00000119
+SYS-00289,Cooling Water System,Cooling Water,CFIHOS-00000119
+SYS-00290,Firewater System,Firewater,CFIHOS-00000119
+SYS-00291,Flare System,Flare,CFIHOS-00000119
+SYS-00292,Crude Distillation System,Crude Distillation,CFIHOS-00000119
+SYS-00293,Instrument Air System,Instrument Air,CFIHOS-00000119
+SYS-00294,Compression System,Compression,CFIHOS-00000119
+SYS-00295,Hydrotreating System,Hydrotreating,CFIHOS-00000119
+SYS-00296,Instrument Air System,Instrument Air,CFIHOS-00000119
+SYS-00297,Storage & Loading System,Storage & Loading,CFIHOS-00000119
+SYS-00298,Hydrotreating System,Hydrotreating,CFIHOS-00000119
+SYS-00299,Flare System,Flare,CFIHOS-00000119
+SYS-00300,Power Distribution System,Power Distribution,CFIHOS-00000119
+SYS-00301,Wastewater Treatment System,Wastewater Treatment,CFIHOS-00000119
+SYS-00302,Compression System,Compression,CFIHOS-00000119
+SYS-00303,Cooling Water System,Cooling Water,CFIHOS-00000119
+SYS-00304,Hydrotreating System,Hydrotreating,CFIHOS-00000119
+SYS-00305,Wastewater Treatment System,Wastewater Treatment,CFIHOS-00000119
+SYS-00306,Power Distribution System,Power Distribution,CFIHOS-00000119
+SYS-00307,Storage & Loading System,Storage & Loading,CFIHOS-00000119
+SYS-00308,Instrument Air System,Instrument Air,CFIHOS-00000119
+SYS-00309,Crude Distillation System,Crude Distillation,CFIHOS-00000119
+SYS-00310,Cooling Water System,Cooling Water,CFIHOS-00000119
+SYS-00311,Power Distribution System,Power Distribution,CFIHOS-00000119
+SYS-00312,Wastewater Treatment System,Wastewater Treatment,CFIHOS-00000119
+SYS-00313,Firewater System,Firewater,CFIHOS-00000119
+SYS-00314,Storage & Loading System,Storage & Loading,CFIHOS-00000119
+SYS-00315,Flare System,Flare,CFIHOS-00000119
+SYS-00316,Crude Distillation System,Crude Distillation,CFIHOS-00000119
+SYS-00317,Instrument Air System,Instrument Air,CFIHOS-00000119
+SYS-00318,Firewater System,Firewater,CFIHOS-00000119
+SYS-00319,Power Distribution System,Power Distribution,CFIHOS-00000119
+SYS-00320,Cooling Water System,Cooling Water,CFIHOS-00000119
+SYS-00321,Wastewater Treatment System,Wastewater Treatment,CFIHOS-00000119
+SYS-00322,Hydrotreating System,Hydrotreating,CFIHOS-00000119
+SYS-00323,Cooling Water System,Cooling Water,CFIHOS-00000119
+SYS-00324,Firewater System,Firewater,CFIHOS-00000119
+SYS-00325,Power Distribution System,Power Distribution,CFIHOS-00000119
+SYS-00326,Storage & Loading System,Storage & Loading,CFIHOS-00000119
+SYS-00327,Crude Distillation System,Crude Distillation,CFIHOS-00000119
+SYS-00328,Flare System,Flare,CFIHOS-00000119
+SYS-00329,Compression System,Compression,CFIHOS-00000119
+SYS-00330,Compression System,Compression,CFIHOS-00000119
+SYS-00331,Flare System,Flare,CFIHOS-00000119
+SYS-00332,Storage & Loading System,Storage & Loading,CFIHOS-00000119
+SYS-00333,Firewater System,Firewater,CFIHOS-00000119
+SYS-00334,Power Distribution System,Power Distribution,CFIHOS-00000119
+SYS-00335,Crude Distillation System,Crude Distillation,CFIHOS-00000119
+SYS-00336,Cooling Water System,Cooling Water,CFIHOS-00000119
+SYS-00337,Storage & Loading System,Storage & Loading,CFIHOS-00000119
+SYS-00338,Crude Distillation System,Crude Distillation,CFIHOS-00000119
+SYS-00339,Hydrotreating System,Hydrotreating,CFIHOS-00000119
+SYS-00340,Instrument Air System,Instrument Air,CFIHOS-00000119
+SYS-00341,Cooling Water System,Cooling Water,CFIHOS-00000119
+SYS-00342,Flare System,Flare,CFIHOS-00000119
+SYS-00343,Power Distribution System,Power Distribution,CFIHOS-00000119
+SYS-00344,Wastewater Treatment System,Wastewater Treatment,CFIHOS-00000119
+SYS-00345,Firewater System,Firewater,CFIHOS-00000119
+SYS-00346,Power Distribution System,Power Distribution,CFIHOS-00000119
+SYS-00347,Instrument Air System,Instrument Air,CFIHOS-00000119
+SYS-00348,Hydrotreating System,Hydrotreating,CFIHOS-00000119
+SYS-00349,Instrument Air System,Instrument Air,CFIHOS-00000119
+SYS-00350,Storage & Loading System,Storage & Loading,CFIHOS-00000119
+SYS-00351,Power Distribution System,Power Distribution,CFIHOS-00000119
+SYS-00352,Compression System,Compression,CFIHOS-00000119
+SYS-00353,Cooling Water System,Cooling Water,CFIHOS-00000119
+SYS-00354,Flare System,Flare,CFIHOS-00000119
+SYS-00355,Crude Distillation System,Crude Distillation,CFIHOS-00000119
+SYS-00356,Crude Distillation System,Crude Distillation,CFIHOS-00000119
+SYS-00357,Wastewater Treatment System,Wastewater Treatment,CFIHOS-00000119
+SYS-00358,Storage & Loading System,Storage & Loading,CFIHOS-00000119
+SYS-00359,Compression System,Compression,CFIHOS-00000119
+SYS-00360,Hydrotreating System,Hydrotreating,CFIHOS-00000119
+SYS-00361,Flare System,Flare,CFIHOS-00000119
+SYS-00362,Firewater System,Firewater,CFIHOS-00000119
+SYS-00363,Cooling Water System,Cooling Water,CFIHOS-00000119
+SYS-00364,Storage & Loading System,Storage & Loading,CFIHOS-00000119
+SYS-00365,Crude Distillation System,Crude Distillation,CFIHOS-00000119
+SYS-00366,Firewater System,Firewater,CFIHOS-00000119
+SYS-00367,Cooling Water System,Cooling Water,CFIHOS-00000119
+SYS-00368,Compression System,Compression,CFIHOS-00000119
+SYS-00369,Flare System,Flare,CFIHOS-00000119
+SYS-00370,Instrument Air System,Instrument Air,CFIHOS-00000119
+SYS-00371,Crude Distillation System,Crude Distillation,CFIHOS-00000119
+SYS-00372,Cooling Water System,Cooling Water,CFIHOS-00000119
+SYS-00373,Flare System,Flare,CFIHOS-00000119
+SYS-00374,Firewater System,Firewater,CFIHOS-00000119
+SYS-00375,Power Distribution System,Power Distribution,CFIHOS-00000119
+SYS-00376,Compression System,Compression,CFIHOS-00000119
+SYS-00377,Hydrotreating System,Hydrotreating,CFIHOS-00000119
+SYS-00378,Crude Distillation System,Crude Distillation,CFIHOS-00000119
+SYS-00379,Storage & Loading System,Storage & Loading,CFIHOS-00000119
+SYS-00380,Hydrotreating System,Hydrotreating,CFIHOS-00000119
+SYS-00381,Crude Distillation System,Crude Distillation,CFIHOS-00000119
+SYS-00382,Firewater System,Firewater,CFIHOS-00000119
+SYS-00383,Flare System,Flare,CFIHOS-00000119
+SYS-00384,Instrument Air System,Instrument Air,CFIHOS-00000119
+SYS-00385,Cooling Water System,Cooling Water,CFIHOS-00000119
+SYS-00386,Cooling Water System,Cooling Water,CFIHOS-00000119
+SYS-00387,Hydrotreating System,Hydrotreating,CFIHOS-00000119
+SYS-00388,Storage & Loading System,Storage & Loading,CFIHOS-00000119
+SYS-00389,Crude Distillation System,Crude Distillation,CFIHOS-00000119
+SYS-00390,Instrument Air System,Instrument Air,CFIHOS-00000119
+SYS-00391,Compression System,Compression,CFIHOS-00000119
+SYS-00392,Power Distribution System,Power Distribution,CFIHOS-00000119
+SYS-00393,Crude Distillation System,Crude Distillation,CFIHOS-00000119
+SYS-00394,Instrument Air System,Instrument Air,CFIHOS-00000119
+SYS-00395,Power Distribution System,Power Distribution,CFIHOS-00000119
+SYS-00396,Wastewater Treatment System,Wastewater Treatment,CFIHOS-00000119
+SYS-00397,Compression System,Compression,CFIHOS-00000119
+SYS-00398,Storage & Loading System,Storage & Loading,CFIHOS-00000119
+SYS-00399,Flare System,Flare,CFIHOS-00000119
+SYS-00400,Firewater System,Firewater,CFIHOS-00000119
+SYS-00401,Flare System,Flare,CFIHOS-00000119
+SYS-00402,Hydrotreating System,Hydrotreating,CFIHOS-00000119
+SYS-00403,Power Distribution System,Power Distribution,CFIHOS-00000119
+SYS-00404,Compression System,Compression,CFIHOS-00000119
+SYS-00405,Instrument Air System,Instrument Air,CFIHOS-00000119
+SYS-00406,Cooling Water System,Cooling Water,CFIHOS-00000119
+SYS-00407,Wastewater Treatment System,Wastewater Treatment,CFIHOS-00000119
+SYS-00408,Compression System,Compression,CFIHOS-00000119
+SYS-00409,Wastewater Treatment System,Wastewater Treatment,CFIHOS-00000119
+SYS-00410,Firewater System,Firewater,CFIHOS-00000119
+SYS-00411,Flare System,Flare,CFIHOS-00000119
+SYS-00412,Power Distribution System,Power Distribution,CFIHOS-00000119
+SYS-00413,Cooling Water System,Cooling Water,CFIHOS-00000119
+SYS-00414,Instrument Air System,Instrument Air,CFIHOS-00000119
+SYS-00415,Storage & Loading System,Storage & Loading,CFIHOS-00000119
+SYS-00416,Firewater System,Firewater,CFIHOS-00000119
+SYS-00417,Instrument Air System,Instrument Air,CFIHOS-00000119
+SYS-00418,Power Distribution System,Power Distribution,CFIHOS-00000119
+SYS-00419,Hydrotreating System,Hydrotreating,CFIHOS-00000119
+SYS-00420,Crude Distillation System,Crude Distillation,CFIHOS-00000119
+SYS-00421,Compression System,Compression,CFIHOS-00000119
+SYS-00422,Cooling Water System,Cooling Water,CFIHOS-00000119
+SYS-00423,Flare System,Flare,CFIHOS-00000119
+SYS-00424,Power Distribution System,Power Distribution,CFIHOS-00000119
+SYS-00425,Compression System,Compression,CFIHOS-00000119
+SYS-00426,Crude Distillation System,Crude Distillation,CFIHOS-00000119
+SYS-00427,Storage & Loading System,Storage & Loading,CFIHOS-00000119
+SYS-00428,Wastewater Treatment System,Wastewater Treatment,CFIHOS-00000119
+SYS-00429,Flare System,Flare,CFIHOS-00000119
+SYS-00430,Cooling Water System,Cooling Water,CFIHOS-00000119
+SYS-00431,Instrument Air System,Instrument Air,CFIHOS-00000119
+SYS-00432,Power Distribution System,Power Distribution,CFIHOS-00000119
+SYS-00433,Compression System,Compression,CFIHOS-00000119
+SYS-00434,Firewater System,Firewater,CFIHOS-00000119
+SYS-00435,Storage & Loading System,Storage & Loading,CFIHOS-00000119
+SYS-00436,Crude Distillation System,Crude Distillation,CFIHOS-00000119
+SYS-00437,Wastewater Treatment System,Wastewater Treatment,CFIHOS-00000119
+SYS-00438,Hydrotreating System,Hydrotreating,CFIHOS-00000119
+SYS-00439,Flare System,Flare,CFIHOS-00000119
+SYS-00440,Power Distribution System,Power Distribution,CFIHOS-00000119
+SYS-00441,Flare System,Flare,CFIHOS-00000119
+SYS-00442,Cooling Water System,Cooling Water,CFIHOS-00000119
+SYS-00443,Instrument Air System,Instrument Air,CFIHOS-00000119
+SYS-00444,Wastewater Treatment System,Wastewater Treatment,CFIHOS-00000119
+SYS-00445,Flare System,Flare,CFIHOS-00000119
+SYS-00446,Crude Distillation System,Crude Distillation,CFIHOS-00000119
+SYS-00447,Hydrotreating System,Hydrotreating,CFIHOS-00000119
+SYS-00448,Compression System,Compression,CFIHOS-00000119
+SYS-00449,Storage & Loading System,Storage & Loading,CFIHOS-00000119
+SYS-00450,Cooling Water System,Cooling Water,CFIHOS-00000119
+SYS-00451,Instrument Air System,Instrument Air,CFIHOS-00000119
+SYS-00452,Storage & Loading System,Storage & Loading,CFIHOS-00000119
+SYS-00453,Instrument Air System,Instrument Air,CFIHOS-00000119
+SYS-00454,Flare System,Flare,CFIHOS-00000119
+SYS-00455,Firewater System,Firewater,CFIHOS-00000119
+SYS-00456,Power Distribution System,Power Distribution,CFIHOS-00000119
+SYS-00457,Compression System,Compression,CFIHOS-00000119
+SYS-00458,Wastewater Treatment System,Wastewater Treatment,CFIHOS-00000119
+SYS-00459,Instrument Air System,Instrument Air,CFIHOS-00000119
+SYS-00460,Storage & Loading System,Storage & Loading,CFIHOS-00000119
+SYS-00461,Flare System,Flare,CFIHOS-00000119
+SYS-00462,Cooling Water System,Cooling Water,CFIHOS-00000119
+SYS-00463,Compression System,Compression,CFIHOS-00000119
+SYS-00464,Firewater System,Firewater,CFIHOS-00000119
+SYS-00465,Cooling Water System,Cooling Water,CFIHOS-00000119
+SYS-00466,Hydrotreating System,Hydrotreating,CFIHOS-00000119
+SYS-00467,Storage & Loading System,Storage & Loading,CFIHOS-00000119
+SYS-00468,Compression System,Compression,CFIHOS-00000119
+SYS-00469,Crude Distillation System,Crude Distillation,CFIHOS-00000119
+SYS-00470,Firewater System,Firewater,CFIHOS-00000119
+SYS-00471,Cooling Water System,Cooling Water,CFIHOS-00000119
+SYS-00472,Storage & Loading System,Storage & Loading,CFIHOS-00000119
+SYS-00473,Flare System,Flare,CFIHOS-00000119
+SYS-00474,Compression System,Compression,CFIHOS-00000119
+SYS-00475,Instrument Air System,Instrument Air,CFIHOS-00000119
+SYS-00476,Wastewater Treatment System,Wastewater Treatment,CFIHOS-00000119
+SYS-00477,Firewater System,Firewater,CFIHOS-00000119
+SYS-00478,Hydrotreating System,Hydrotreating,CFIHOS-00000119
+SYS-00479,Power Distribution System,Power Distribution,CFIHOS-00000119
+SYS-00480,Flare System,Flare,CFIHOS-00000119
+SYS-00481,Compression System,Compression,CFIHOS-00000119
+SYS-00482,Instrument Air System,Instrument Air,CFIHOS-00000119
+SYS-00483,Cooling Water System,Cooling Water,CFIHOS-00000119
+SYS-00484,Firewater System,Firewater,CFIHOS-00000119
+SYS-00485,Crude Distillation System,Crude Distillation,CFIHOS-00000119
+SYS-00486,Compression System,Compression,CFIHOS-00000119
+SYS-00487,Flare System,Flare,CFIHOS-00000119
+SYS-00488,Wastewater Treatment System,Wastewater Treatment,CFIHOS-00000119
+SYS-00489,Wastewater Treatment System,Wastewater Treatment,CFIHOS-00000119
+SYS-00490,Firewater System,Firewater,CFIHOS-00000119
+SYS-00491,Compression System,Compression,CFIHOS-00000119
+SYS-00492,Instrument Air System,Instrument Air,CFIHOS-00000119
+SYS-00493,Hydrotreating System,Hydrotreating,CFIHOS-00000119
+SYS-00494,Crude Distillation System,Crude Distillation,CFIHOS-00000119
+SYS-00495,Firewater System,Firewater,CFIHOS-00000119
+SYS-00496,Cooling Water System,Cooling Water,CFIHOS-00000119
+SYS-00497,Power Distribution System,Power Distribution,CFIHOS-00000119
+SYS-00498,Instrument Air System,Instrument Air,CFIHOS-00000119
+SYS-00499,Compression System,Compression,CFIHOS-00000119
+SYS-00500,Crude Distillation System,Crude Distillation,CFIHOS-00000119
+SYS-00501,Firewater System,Firewater,CFIHOS-00000119
+SYS-00502,Flare System,Flare,CFIHOS-00000119
+SYS-00503,Storage & Loading System,Storage & Loading,CFIHOS-00000119
+SYS-00504,Power Distribution System,Power Distribution,CFIHOS-00000119
+SYS-00505,Flare System,Flare,CFIHOS-00000119
+SYS-00506,Hydrotreating System,Hydrotreating,CFIHOS-00000119
+SYS-00507,Crude Distillation System,Crude Distillation,CFIHOS-00000119
+SYS-00508,Wastewater Treatment System,Wastewater Treatment,CFIHOS-00000119
+SYS-00509,Power Distribution System,Power Distribution,CFIHOS-00000119
+SYS-00510,Firewater System,Firewater,CFIHOS-00000119
+SYS-00511,Compression System,Compression,CFIHOS-00000119
+SYS-00512,Cooling Water System,Cooling Water,CFIHOS-00000119
+SYS-00513,Hydrotreating System,Hydrotreating,CFIHOS-00000119
+SYS-00514,Power Distribution System,Power Distribution,CFIHOS-00000119
+SYS-00515,Firewater System,Firewater,CFIHOS-00000119
+SYS-00516,Storage & Loading System,Storage & Loading,CFIHOS-00000119
+SYS-00517,Cooling Water System,Cooling Water,CFIHOS-00000119
+SYS-00518,Power Distribution System,Power Distribution,CFIHOS-00000119
+SYS-00519,Wastewater Treatment System,Wastewater Treatment,CFIHOS-00000119
+SYS-00520,Flare System,Flare,CFIHOS-00000119
+SYS-00521,Compression System,Compression,CFIHOS-00000119
+SYS-00522,Instrument Air System,Instrument Air,CFIHOS-00000119
+SYS-00523,Hydrotreating System,Hydrotreating,CFIHOS-00000119
+SYS-00524,Storage & Loading System,Storage & Loading,CFIHOS-00000119
+SYS-00525,Crude Distillation System,Crude Distillation,CFIHOS-00000119
+SYS-00526,Hydrotreating System,Hydrotreating,CFIHOS-00000119
+SYS-00527,Power Distribution System,Power Distribution,CFIHOS-00000119
+SYS-00528,Flare System,Flare,CFIHOS-00000119
+SYS-00529,Instrument Air System,Instrument Air,CFIHOS-00000119
+SYS-00530,Compression System,Compression,CFIHOS-00000119
+SYS-00531,Cooling Water System,Cooling Water,CFIHOS-00000119
+SYS-00532,Compression System,Compression,CFIHOS-00000119
+SYS-00533,Cooling Water System,Cooling Water,CFIHOS-00000119
+SYS-00534,Storage & Loading System,Storage & Loading,CFIHOS-00000119
+SYS-00535,Firewater System,Firewater,CFIHOS-00000119
+SYS-00536,Compression System,Compression,CFIHOS-00000119
+SYS-00537,Crude Distillation System,Crude Distillation,CFIHOS-00000119
+SYS-00538,Power Distribution System,Power Distribution,CFIHOS-00000119
+SYS-00539,Cooling Water System,Cooling Water,CFIHOS-00000119
+SYS-00540,Flare System,Flare,CFIHOS-00000119
+SYS-00541,Firewater System,Firewater,CFIHOS-00000119
+SYS-00542,Crude Distillation System,Crude Distillation,CFIHOS-00000119
+SYS-00543,Hydrotreating System,Hydrotreating,CFIHOS-00000119
+SYS-00544,Compression System,Compression,CFIHOS-00000119
+SYS-00545,Instrument Air System,Instrument Air,CFIHOS-00000119
+SYS-00546,Cooling Water System,Cooling Water,CFIHOS-00000119
+SYS-00547,Storage & Loading System,Storage & Loading,CFIHOS-00000119
+SYS-00548,Firewater System,Firewater,CFIHOS-00000119
+SYS-00549,Cooling Water System,Cooling Water,CFIHOS-00000119
+SYS-00550,Power Distribution System,Power Distribution,CFIHOS-00000119
+SYS-00551,Crude Distillation System,Crude Distillation,CFIHOS-00000119
+SYS-00552,Storage & Loading System,Storage & Loading,CFIHOS-00000119
+SYS-00553,Compression System,Compression,CFIHOS-00000119
+SYS-00554,Firewater System,Firewater,CFIHOS-00000119
+SYS-00555,Storage & Loading System,Storage & Loading,CFIHOS-00000119
+SYS-00556,Crude Distillation System,Crude Distillation,CFIHOS-00000119
+SYS-00557,Power Distribution System,Power Distribution,CFIHOS-00000119
+SYS-00558,Firewater System,Firewater,CFIHOS-00000119
+SYS-00559,Storage & Loading System,Storage & Loading,CFIHOS-00000119
+SYS-00560,Flare System,Flare,CFIHOS-00000119
+SYS-00561,Crude Distillation System,Crude Distillation,CFIHOS-00000119
+SYS-00562,Cooling Water System,Cooling Water,CFIHOS-00000119
+SYS-00563,Power Distribution System,Power Distribution,CFIHOS-00000119
+SYS-00564,Firewater System,Firewater,CFIHOS-00000119
+SYS-00565,Flare System,Flare,CFIHOS-00000119
+SYS-00566,Cooling Water System,Cooling Water,CFIHOS-00000119
+SYS-00567,Crude Distillation System,Crude Distillation,CFIHOS-00000119
+SYS-00568,Wastewater Treatment System,Wastewater Treatment,CFIHOS-00000119
+SYS-00569,Power Distribution System,Power Distribution,CFIHOS-00000119
+SYS-00570,Instrument Air System,Instrument Air,CFIHOS-00000119
+SYS-00571,Firewater System,Firewater,CFIHOS-00000119
+SYS-00572,Crude Distillation System,Crude Distillation,CFIHOS-00000119
+SYS-00573,Cooling Water System,Cooling Water,CFIHOS-00000119
+SYS-00574,Crude Distillation System,Crude Distillation,CFIHOS-00000119
+SYS-00575,Firewater System,Firewater,CFIHOS-00000119
+SYS-00576,Flare System,Flare,CFIHOS-00000119
+SYS-00577,Compression System,Compression,CFIHOS-00000119
+SYS-00578,Flare System,Flare,CFIHOS-00000119
+SYS-00579,Wastewater Treatment System,Wastewater Treatment,CFIHOS-00000119
+SYS-00580,Storage & Loading System,Storage & Loading,CFIHOS-00000119
+SYS-00581,Storage & Loading System,Storage & Loading,CFIHOS-00000119
+SYS-00582,Power Distribution System,Power Distribution,CFIHOS-00000119
+SYS-00583,Flare System,Flare,CFIHOS-00000119
+SYS-00584,Crude Distillation System,Crude Distillation,CFIHOS-00000119
+SYS-00585,Cooling Water System,Cooling Water,CFIHOS-00000119

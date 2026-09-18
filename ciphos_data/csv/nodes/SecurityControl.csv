@@ -1,0 +1,8 @@
+controlId,name,controlType,iec62443Requirement,implementationStatus
+CTRL-001,Network segmentation between Zone 3 and Zone 1,Preventive,SR 5.1 - Network Segmentation,Implemented
+CTRL-002,OT-specific intrusion detection system,Detective,SR 6.2 - Continuous Monitoring,Implemented
+CTRL-003,Multi-factor authentication for remote vendor access,Preventive,SR 1.7 - Strength of Authentication,Implemented
+CTRL-004,Firmware integrity verification on update,Preventive,SR 3.4 - Software/Firmware Integrity,Implemented
+CTRL-005,Incident response playbook for OT ransomware,Corrective,SR 7.3 - Control System Recovery,Implemented
+CTRL-006,Asset inventory and passive network monitoring,Detective,SR 7.8 - Control System Component Inventory,Implemented
+CTRL-007,Least-privilege access control on HMI workstations,Preventive,SR 2.1 - Authorization Enforcement,Implemented

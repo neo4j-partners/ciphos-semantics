@@ -1,0 +1,11 @@
+organizationId,organizationName,organizationRole
+ORG-001,Veridian Energy Holdings,Owner
+ORG-002,North Sea Operating Co.,Owner
+ORG-003,Atlas EPC Contractors,EPC
+ORG-004,Hartmann Engineering & Construction,EPC
+ORG-005,Sentinel Automation Services,Contractor
+ORG-006,Cascade Instrumentation Ltd.,Contractor
+ORG-007,Halberd Valve Corporation,Manufacturer
+ORG-008,Reedmoor Pumps & Compressors,Manufacturer
+ORG-009,Ironclad Controls Inc.,Manufacturer
+ORG-010,Brightline Cybersecurity Partners,Contractor

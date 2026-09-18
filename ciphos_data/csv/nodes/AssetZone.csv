@@ -1,0 +1,61 @@
+zoneId,zoneName,iec62443Level,criticality,purdueLevel
+ZONE-0001,Maridale Refinery - Enterprise Zone,SL1,Low,4
+ZONE-0002,Maridale Refinery - DMZ,SL2,Medium,3
+ZONE-0003,Maridale Refinery - Site Operations Zone,SL2,Medium,3
+ZONE-0004,Maridale Refinery - Process Control Zone,SL3,High,1
+ZONE-0005,Maridale Refinery - Safety Instrumented Zone,SL4,High,0
+ZONE-0006,Korringen Gas Processing Complex - Enterprise Zone,SL1,Low,4
+ZONE-0007,Korringen Gas Processing Complex - DMZ,SL2,Medium,3
+ZONE-0008,Korringen Gas Processing Complex - Site Operations Zone,SL2,Medium,3
+ZONE-0009,Korringen Gas Processing Complex - Process Control Zone,SL3,High,1
+ZONE-0010,Korringen Gas Processing Complex - Safety Instrumented Zone,SL4,High,0
+ZONE-0011,Westbrook Petrochemical Site - Enterprise Zone,SL1,Low,4
+ZONE-0012,Westbrook Petrochemical Site - DMZ,SL2,Medium,3
+ZONE-0013,Westbrook Petrochemical Site - Site Operations Zone,SL2,Medium,3
+ZONE-0014,Westbrook Petrochemical Site - Process Control Zone,SL3,High,1
+ZONE-0015,Westbrook Petrochemical Site - Safety Instrumented Zone,SL4,High,0
+ZONE-0016,Solheim Terminal - Enterprise Zone,SL1,Low,4
+ZONE-0017,Solheim Terminal - DMZ,SL2,Medium,3
+ZONE-0018,Solheim Terminal - Site Operations Zone,SL2,Medium,3
+ZONE-0019,Solheim Terminal - Process Control Zone,SL3,High,1
+ZONE-0020,Solheim Terminal - Safety Instrumented Zone,SL4,High,0
+ZONE-0021,Falkenridge Refinery - Enterprise Zone,SL1,Low,4
+ZONE-0022,Falkenridge Refinery - DMZ,SL2,Medium,3
+ZONE-0023,Falkenridge Refinery - Site Operations Zone,SL2,Medium,3
+ZONE-0024,Falkenridge Refinery - Process Control Zone,SL3,High,1
+ZONE-0025,Falkenridge Refinery - Safety Instrumented Zone,SL4,High,0
+ZONE-0026,Ardmoor Gas Plant - Enterprise Zone,SL1,Low,4
+ZONE-0027,Ardmoor Gas Plant - DMZ,SL2,Medium,3
+ZONE-0028,Ardmoor Gas Plant - Site Operations Zone,SL2,Medium,3
+ZONE-0029,Ardmoor Gas Plant - Process Control Zone,SL3,High,1
+ZONE-0030,Ardmoor Gas Plant - Safety Instrumented Zone,SL4,High,0
+ZONE-0031,Brackenfield Petrochemical Complex - Enterprise Zone,SL1,Low,4
+ZONE-0032,Brackenfield Petrochemical Complex - DMZ,SL2,Medium,3
+ZONE-0033,Brackenfield Petrochemical Complex - Site Operations Zone,SL2,Medium,3
+ZONE-0034,Brackenfield Petrochemical Complex - Process Control Zone,SL3,High,1
+ZONE-0035,Brackenfield Petrochemical Complex - Safety Instrumented Zone,SL4,High,0
+ZONE-0036,Nordwyk Processing Terminal - Enterprise Zone,SL1,Low,4
+ZONE-0037,Nordwyk Processing Terminal - DMZ,SL2,Medium,3
+ZONE-0038,Nordwyk Processing Terminal - Site Operations Zone,SL2,Medium,3
+ZONE-0039,Nordwyk Processing Terminal - Process Control Zone,SL3,High,1
+ZONE-0040,Nordwyk Processing Terminal - Safety Instrumented Zone,SL4,High,0
+ZONE-0041,Stavenhall Refinery - Enterprise Zone,SL1,Low,4
+ZONE-0042,Stavenhall Refinery - DMZ,SL2,Medium,3
+ZONE-0043,Stavenhall Refinery - Site Operations Zone,SL2,Medium,3
+ZONE-0044,Stavenhall Refinery - Process Control Zone,SL3,High,1
+ZONE-0045,Stavenhall Refinery - Safety Instrumented Zone,SL4,High,0
+ZONE-0046,Kelburne Gas Processing Site - Enterprise Zone,SL1,Low,4
+ZONE-0047,Kelburne Gas Processing Site - DMZ,SL2,Medium,3
+ZONE-0048,Kelburne Gas Processing Site - Site Operations Zone,SL2,Medium,3
+ZONE-0049,Kelburne Gas Processing Site - Process Control Zone,SL3,High,1
+ZONE-0050,Kelburne Gas Processing Site - Safety Instrumented Zone,SL4,High,0
+ZONE-0051,Marrowick Petrochemical Plant - Enterprise Zone,SL1,Low,4
+ZONE-0052,Marrowick Petrochemical Plant - DMZ,SL2,Medium,3
+ZONE-0053,Marrowick Petrochemical Plant - Site Operations Zone,SL2,Medium,3
+ZONE-0054,Marrowick Petrochemical Plant - Process Control Zone,SL3,High,1
+ZONE-0055,Marrowick Petrochemical Plant - Safety Instrumented Zone,SL4,High,0
+ZONE-0056,Thornfield Terminal - Enterprise Zone,SL1,Low,4
+ZONE-0057,Thornfield Terminal - DMZ,SL2,Medium,3
+ZONE-0058,Thornfield Terminal - Site Operations Zone,SL2,Medium,3
+ZONE-0059,Thornfield Terminal - Process Control Zone,SL3,High,1
+ZONE-0060,Thornfield Terminal - Safety Instrumented Zone,SL4,High,0

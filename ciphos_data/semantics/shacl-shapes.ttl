@@ -1,0 +1,1379 @@
+@prefix cfihos: <http://neo4j.com/voc/cfihos-ot-cyber#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+# SHACL shapes for direct validation of the Neo4j property graph via
+# neosemantics native LPG validation (n10s.validation.shacl.*).
+# Requires: CALL n10s.graphconfig.init({handleVocabUris: "IGNORE"});
+# so that only the local name after "#" in each URI below is matched
+# against Neo4j node labels / relationship types / property keys.
+#
+# Severity convention used here:
+#   sh:Violation (the default, unmarked) - structural rules: required
+#     property present, correct datatype, a relationship's target has
+#     the expected label, and the handful of relationships that are
+#     structurally 1:1 in this model (see SCHEMA.md design notes).
+#   sh:Warning - controlled-vocabulary / format checks inferred from the
+#     sample dataset (sh:in, sh:pattern) that a real CFIHOS pick list or
+#     a growing dataset may legitimately extend, so they flag for review
+#     rather than block a write.
+#
+# NOTE - dates as strings: installationDate, publishedDate, assessmentDate,
+# detectedDate and reportedToAuthorityDate are written by this dataset as
+# plain Neo4j strings ("YYYY-MM-DD" / "YYYY-MM-DDTHH:MM:SS"), not native
+# Date/DateTime values, so they are validated here as xsd:string plus an
+# sh:pattern format check rather than xsd:date / xsd:dateTime. If you later
+# convert those properties to native temporal types, change sh:datatype
+# to xsd:date / xsd:dateTime and drop the sh:pattern.
+#
+# NOTE - relationship-scoped properties: Tag-[:CONNECTED_TO {connectionType}]->Tag,
+# Tag-[:REPLACES {revampDate}]->Tag, AssetZone-[:HAS_CONDUIT {direction}]->Conduit and
+# CyberIncident-[:REPORTED_UNDER {reportingDeadlineHours}]->ComplianceFramework carry
+# values on the relationship itself. Neither OWL nor neosemantics' SHACL support
+# constraining values stored on a relationship (only node properties and a
+# relationship's existence/target class), so those are covered by a companion
+# Cypher check in NEOSEMANTICS_IMPORT.md instead.
+#
+# NOTE - uniqueness: true uniqueness (one node per key value) is already
+# enforced by the native Neo4j constraints at the top of synthetic_dataset.cypher
+# (CREATE CONSTRAINT ... IS UNIQUE). Keep using those; SHACL below only checks
+# that the key property is present with the right type.
+
+cfihos:OrganizationShape a sh:NodeShape ;
+    sh:targetClass cfihos:Organization ;
+    rdfs:label "Validates :Organization nodes" ;
+    sh:property [
+        sh:path cfihos:organizationId ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        rdfs:comment "Business key; also enforced UNIQUE by a native Neo4j constraint." ;
+        sh:name "Organization.organizationId" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:organizationName ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "Organization.organizationName" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:organizationRole ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:in ( "Owner" "EPC" "Contractor" "Manufacturer" ) ;
+        sh:severity sh:Warning ;
+        sh:name "Organization.organizationRole" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:RESPONSIBLE_FOR_REPORTING ;
+        sh:nodeKind sh:IRI ;
+        sh:class cfihos:CyberIncident ;
+        sh:name "Organization -[:RESPONSIBLE_FOR_REPORTING]-> CyberIncident" ;
+    ] .
+
+cfihos:PlantShape a sh:NodeShape ;
+    sh:targetClass cfihos:Plant ;
+    rdfs:label "Validates :Plant nodes" ;
+    sh:property [
+        sh:path cfihos:plantId ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "Plant.plantId" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:name ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "Plant.name" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:country ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "Plant.country" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:cfihosId ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        rdfs:comment "CFIHOS RDL entity cross-reference." ;
+        sh:name "Plant.cfihosId" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:HAS_FACILITY ;
+        sh:nodeKind sh:IRI ;
+        sh:class cfihos:Facility ;
+        sh:name "Plant -[:HAS_FACILITY]-> Facility" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:OPERATED_BY ;
+        sh:nodeKind sh:IRI ;
+        sh:class cfihos:Organization ;
+        sh:name "Plant -[:OPERATED_BY]-> Organization" ;
+    ] .
+
+cfihos:FacilityShape a sh:NodeShape ;
+    sh:targetClass cfihos:Facility ;
+    rdfs:label "Validates :Facility nodes" ;
+    sh:property [
+        sh:path cfihos:facilityId ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "Facility.facilityId" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:name ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "Facility.name" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:facilityType ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:in ( "Tank Farm" "Utilities Area" "Power Generation" "Process Unit" ) ;
+        sh:severity sh:Warning ;
+        sh:name "Facility.facilityType" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:cfihosId ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:name "Facility.cfihosId" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:HAS_FUNCTIONAL_LOCATION ;
+        sh:nodeKind sh:IRI ;
+        sh:class cfihos:FunctionalLocation ;
+        sh:name "Facility -[:HAS_FUNCTIONAL_LOCATION]-> FunctionalLocation" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:HAS_SYSTEM ;
+        sh:nodeKind sh:IRI ;
+        sh:class cfihos:System ;
+        sh:name "Facility -[:HAS_SYSTEM]-> System" ;
+    ] .
+
+cfihos:SystemShape a sh:NodeShape ;
+    sh:targetClass cfihos:System ;
+    rdfs:label "Validates :System nodes" ;
+    sh:property [
+        sh:path cfihos:systemId ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "System.systemId" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:name ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "System.name" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:systemType ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "System.systemType" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:cfihosId ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:name "System.cfihosId" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:CONTAINS_TAG ;
+        sh:nodeKind sh:IRI ;
+        sh:class cfihos:Tag ;
+        sh:name "System -[:CONTAINS_TAG]-> Tag" ;
+    ] .
+
+cfihos:FunctionalLocationShape a sh:NodeShape ;
+    sh:targetClass cfihos:FunctionalLocation ;
+    rdfs:label "Validates :FunctionalLocation nodes" ;
+    sh:property [
+        sh:path cfihos:functionalLocationId ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "FunctionalLocation.functionalLocationId" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:name ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "FunctionalLocation.name" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:hierarchyLevel ;
+        sh:datatype xsd:long ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:minInclusive 1 ;
+        sh:maxInclusive 10 ;
+        sh:name "FunctionalLocation.hierarchyLevel" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:cfihosId ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:name "FunctionalLocation.cfihosId" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:PARENT_OF ;
+        sh:nodeKind sh:IRI ;
+        sh:class cfihos:FunctionalLocation ;
+        sh:name "FunctionalLocation -[:PARENT_OF]-> FunctionalLocation" ;
+    ] .
+
+cfihos:TagShape a sh:NodeShape ;
+    sh:targetClass cfihos:Tag ;
+    rdfs:label "Validates :Tag nodes" ;
+    sh:property [
+        sh:path cfihos:tagNumber ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "Tag.tagNumber" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:tagDescription ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "Tag.tagDescription" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:tagStatus ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:in ( "In Service" "Out of Service" "Decommissioned" "Commissioning" ) ;
+        sh:severity sh:Warning ;
+        sh:name "Tag.tagStatus" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:equipmentClassId ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        rdfs:comment "Denormalized copy of the CLASSIFIED_AS target key." ;
+        sh:name "Tag.equipmentClassId" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:manufacturer ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:name "Tag.manufacturer" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:criticalityClass ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:in ( "High" "Medium" "Low" ) ;
+        sh:severity sh:Warning ;
+        sh:name "Tag.criticalityClass" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:installationDate ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:pattern "^\\d{4}-\\d{2}-\\d{2}$" ;
+        sh:severity sh:Warning ;
+        rdfs:comment "Stored as a plain string 'YYYY-MM-DD', not a native Neo4j Date." ;
+        sh:name "Tag.installationDate" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:cfihosId ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:name "Tag.cfihosId" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:CLASSIFIED_AS ;
+        sh:nodeKind sh:IRI ;
+        sh:class cfihos:EquipmentClass ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "Tag -[:CLASSIFIED_AS]-> EquipmentClass" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:CONNECTED_TO ;
+        sh:nodeKind sh:IRI ;
+        sh:class cfihos:Tag ;
+        sh:name "Tag -[:CONNECTED_TO]-> Tag" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:HAS_MAINTAINABLE_ITEM ;
+        sh:nodeKind sh:IRI ;
+        sh:class cfihos:MaintainableItem ;
+        sh:name "Tag -[:HAS_MAINTAINABLE_ITEM]-> MaintainableItem" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:HAS_MODEL ;
+        sh:nodeKind sh:IRI ;
+        sh:class cfihos:ManufacturerModel ;
+        sh:name "Tag -[:HAS_MODEL]-> ManufacturerModel" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:HAS_OT_REPRESENTATION ;
+        sh:nodeKind sh:IRI ;
+        sh:class cfihos:OTAsset ;
+        sh:name "Tag -[:HAS_OT_REPRESENTATION]-> OTAsset" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:HAS_PROPERTY_VALUE ;
+        sh:nodeKind sh:IRI ;
+        sh:class cfihos:TagPropertyValue ;
+        sh:name "Tag -[:HAS_PROPERTY_VALUE]-> TagPropertyValue" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:LOCATED_AT ;
+        sh:nodeKind sh:IRI ;
+        sh:class cfihos:FunctionalLocation ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "Tag -[:LOCATED_AT]-> FunctionalLocation" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:PART_OF_LOOP ;
+        sh:nodeKind sh:IRI ;
+        sh:class cfihos:CorrosionLoop ;
+        sh:name "Tag -[:PART_OF_LOOP]-> CorrosionLoop" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:RECOMMENDS_SPARE ;
+        sh:nodeKind sh:IRI ;
+        sh:class cfihos:SparePart ;
+        sh:name "Tag -[:RECOMMENDS_SPARE]-> SparePart" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:REFERENCED_IN ;
+        sh:nodeKind sh:IRI ;
+        sh:class cfihos:Document ;
+        sh:name "Tag -[:REFERENCED_IN]-> Document" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:REPLACES ;
+        sh:nodeKind sh:IRI ;
+        sh:class cfihos:Tag ;
+        sh:name "Tag -[:REPLACES]-> Tag" ;
+    ] .
+
+cfihos:SparePartShape a sh:NodeShape ;
+    sh:targetClass cfihos:SparePart ;
+    rdfs:label "Validates :SparePart nodes" ;
+    sh:property [
+        sh:path cfihos:partNumber ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "SparePart.partNumber" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:partDescription ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "SparePart.partDescription" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:recommendedQuantity ;
+        sh:datatype xsd:long ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:minInclusive 0 ;
+        sh:maxInclusive 1000 ;
+        sh:name "SparePart.recommendedQuantity" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:criticality ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:in ( "High" "Medium" "Low" ) ;
+        sh:severity sh:Warning ;
+        sh:name "SparePart.criticality" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:cfihosId ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:name "SparePart.cfihosId" ;
+    ] .
+
+cfihos:MaintainableItemShape a sh:NodeShape ;
+    sh:targetClass cfihos:MaintainableItem ;
+    rdfs:label "Validates :MaintainableItem nodes" ;
+    sh:property [
+        sh:path cfihos:itemId ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "MaintainableItem.itemId" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:name ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "MaintainableItem.name" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:failureModeClass ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "MaintainableItem.failureModeClass" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:cfihosId ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:name "MaintainableItem.cfihosId" ;
+    ] .
+
+cfihos:CorrosionLoopShape a sh:NodeShape ;
+    sh:targetClass cfihos:CorrosionLoop ;
+    rdfs:label "Validates :CorrosionLoop nodes" ;
+    sh:property [
+        sh:path cfihos:loopId ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "CorrosionLoop.loopId" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:description ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "CorrosionLoop.description" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:cfihosId ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:name "CorrosionLoop.cfihosId" ;
+    ] .
+
+cfihos:EquipmentClassShape a sh:NodeShape ;
+    sh:targetClass cfihos:EquipmentClass ;
+    rdfs:label "Validates :EquipmentClass nodes" ;
+    sh:property [
+        sh:path cfihos:classId ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "EquipmentClass.classId" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:className ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "EquipmentClass.className" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:cfihosId ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:name "EquipmentClass.cfihosId" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:HAS_APPLICABLE_PROPERTY ;
+        sh:nodeKind sh:IRI ;
+        sh:class cfihos:Property ;
+        sh:name "EquipmentClass -[:HAS_APPLICABLE_PROPERTY]-> Property" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:SUBCLASS_OF ;
+        sh:nodeKind sh:IRI ;
+        sh:class cfihos:EquipmentClass ;
+        sh:name "EquipmentClass -[:SUBCLASS_OF]-> EquipmentClass" ;
+    ] .
+
+cfihos:PropertyShape a sh:NodeShape ;
+    sh:targetClass cfihos:Property ;
+    rdfs:label "Validates :Property nodes" ;
+    sh:property [
+        sh:path cfihos:propertyId ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "Property.propertyId" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:propertyName ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "Property.propertyName" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:dataType ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:in ( "Numeric" "PickList" "Text" ) ;
+        sh:severity sh:Warning ;
+        sh:name "Property.dataType" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:unitOfMeasureId ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        rdfs:comment "Null for non-numeric (e.g. PickList) properties." ;
+        sh:name "Property.unitOfMeasureId" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:cfihosId ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:name "Property.cfihosId" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:DEFAULT_UNIT ;
+        sh:nodeKind sh:IRI ;
+        sh:class cfihos:UnitOfMeasure ;
+        sh:minCount 0 ;
+        sh:maxCount 1 ;
+        sh:name "Property -[:DEFAULT_UNIT]-> UnitOfMeasure" ;
+    ] .
+
+cfihos:TagPropertyValueShape a sh:NodeShape ;
+    sh:targetClass cfihos:TagPropertyValue ;
+    rdfs:label "Validates :TagPropertyValue nodes" ;
+    sh:property [
+        sh:path cfihos:tpvId ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "TagPropertyValue.tpvId" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:tagNumber ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        rdfs:comment "Denormalized copy of the owning Tag's key." ;
+        sh:name "TagPropertyValue.tagNumber" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:propertyId ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        rdfs:comment "Denormalized copy of the VALUE_OF target key." ;
+        sh:name "TagPropertyValue.propertyId" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:value ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        rdfs:comment "Held as a string regardless of the Property's declared dataType (see README known simplifications)." ;
+        sh:name "TagPropertyValue.value" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:unitOfMeasureId ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:name "TagPropertyValue.unitOfMeasureId" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:cfihosId ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:name "TagPropertyValue.cfihosId" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:MEASURED_IN ;
+        sh:nodeKind sh:IRI ;
+        sh:class cfihos:UnitOfMeasure ;
+        sh:minCount 0 ;
+        sh:maxCount 1 ;
+        sh:name "TagPropertyValue -[:MEASURED_IN]-> UnitOfMeasure" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:SOURCED_FROM ;
+        sh:nodeKind sh:IRI ;
+        sh:class cfihos:Document ;
+        sh:name "TagPropertyValue -[:SOURCED_FROM]-> Document" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:VALUE_OF ;
+        sh:nodeKind sh:IRI ;
+        sh:class cfihos:Property ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "TagPropertyValue -[:VALUE_OF]-> Property" ;
+    ] .
+
+cfihos:UnitOfMeasureShape a sh:NodeShape ;
+    sh:targetClass cfihos:UnitOfMeasure ;
+    rdfs:label "Validates :UnitOfMeasure nodes" ;
+    sh:property [
+        sh:path cfihos:uomId ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "UnitOfMeasure.uomId" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:uomSymbol ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "UnitOfMeasure.uomSymbol" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:uomName ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "UnitOfMeasure.uomName" ;
+    ] .
+
+cfihos:ManufacturerModelShape a sh:NodeShape ;
+    sh:targetClass cfihos:ManufacturerModel ;
+    rdfs:label "Validates :ManufacturerModel nodes" ;
+    sh:property [
+        sh:path cfihos:modelId ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "ManufacturerModel.modelId" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:manufacturerName ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "ManufacturerModel.manufacturerName" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:modelNumber ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "ManufacturerModel.modelNumber" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:cfihosId ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:name "ManufacturerModel.cfihosId" ;
+    ] .
+
+cfihos:DocumentTypeShape a sh:NodeShape ;
+    sh:targetClass cfihos:DocumentType ;
+    rdfs:label "Validates :DocumentType nodes" ;
+    sh:property [
+        sh:path cfihos:typeId ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "DocumentType.typeId" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:typeName ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "DocumentType.typeName" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:disciplineId ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        rdfs:comment "Denormalized copy of the BELONGS_TO_DISCIPLINE target key." ;
+        sh:name "DocumentType.disciplineId" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:cfihosId ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:name "DocumentType.cfihosId" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:BELONGS_TO_DISCIPLINE ;
+        sh:nodeKind sh:IRI ;
+        sh:class cfihos:Discipline ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "DocumentType -[:BELONGS_TO_DISCIPLINE]-> Discipline" ;
+    ] .
+
+cfihos:DisciplineShape a sh:NodeShape ;
+    sh:targetClass cfihos:Discipline ;
+    rdfs:label "Validates :Discipline nodes" ;
+    sh:property [
+        sh:path cfihos:disciplineId ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "Discipline.disciplineId" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:disciplineName ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "Discipline.disciplineName" ;
+    ] .
+
+cfihos:DocumentShape a sh:NodeShape ;
+    sh:targetClass cfihos:Document ;
+    rdfs:label "Validates :Document nodes" ;
+    sh:property [
+        sh:path cfihos:documentNumber ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "Document.documentNumber" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:documentTitle ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "Document.documentTitle" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:documentTypeId ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        rdfs:comment "Denormalized copy of the HAS_DOCUMENT_TYPE target key." ;
+        sh:name "Document.documentTypeId" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:revision ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "Document.revision" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:status ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:in ( "Issued for Review" "As-Built" "Approved for Construction" "Superseded" ) ;
+        sh:severity sh:Warning ;
+        sh:name "Document.status" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:cfihosId ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:name "Document.cfihosId" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:AUTHORED_BY ;
+        sh:nodeKind sh:IRI ;
+        sh:class cfihos:Organization ;
+        sh:name "Document -[:AUTHORED_BY]-> Organization" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:HAS_DOCUMENT_TYPE ;
+        sh:nodeKind sh:IRI ;
+        sh:class cfihos:DocumentType ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "Document -[:HAS_DOCUMENT_TYPE]-> DocumentType" ;
+    ] .
+
+cfihos:AssetZoneShape a sh:NodeShape ;
+    sh:targetClass cfihos:AssetZone ;
+    rdfs:label "Validates :AssetZone nodes" ;
+    sh:property [
+        sh:path cfihos:zoneId ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "AssetZone.zoneId" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:zoneName ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "AssetZone.zoneName" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:iec62443Level ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:in ( "SL1" "SL2" "SL3" "SL4" ) ;
+        sh:severity sh:Warning ;
+        sh:name "AssetZone.iec62443Level" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:criticality ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:in ( "High" "Medium" "Low" ) ;
+        sh:severity sh:Warning ;
+        sh:name "AssetZone.criticality" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:purdueLevel ;
+        sh:datatype xsd:long ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:minInclusive 0 ;
+        sh:maxInclusive 5 ;
+        sh:name "AssetZone.purdueLevel" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:GOVERNED_BY ;
+        sh:nodeKind sh:IRI ;
+        sh:class cfihos:ComplianceFramework ;
+        sh:name "AssetZone -[:GOVERNED_BY]-> ComplianceFramework" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:HAS_CONDUIT ;
+        sh:nodeKind sh:IRI ;
+        sh:class cfihos:Conduit ;
+        sh:name "AssetZone -[:HAS_CONDUIT]-> Conduit" ;
+    ] .
+
+cfihos:ConduitShape a sh:NodeShape ;
+    sh:targetClass cfihos:Conduit ;
+    rdfs:label "Validates :Conduit nodes" ;
+    sh:property [
+        sh:path cfihos:conduitId ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "Conduit.conduitId" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:name ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "Conduit.name" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:protocol ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "Conduit.protocol" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:encryption ;
+        sh:datatype xsd:boolean ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "Conduit.encryption" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:CONNECTS_TO_ZONE ;
+        sh:nodeKind sh:IRI ;
+        sh:class cfihos:AssetZone ;
+        sh:minCount 0 ;
+        sh:maxCount 1 ;
+        sh:name "Conduit -[:CONNECTS_TO_ZONE]-> AssetZone" ;
+    ] .
+
+cfihos:OTAssetShape a sh:NodeShape ;
+    sh:targetClass cfihos:OTAsset ;
+    rdfs:label "Validates :OTAsset nodes" ;
+    sh:property [
+        sh:path cfihos:otAssetId ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "OTAsset.otAssetId" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:tagNumber ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        rdfs:comment "Denormalized copy of the owning Tag's key (see HAS_OT_REPRESENTATION). Null for network-visible assets with no 1:1 Tag, e.g. HMI/engineering workstations." ;
+        sh:name "OTAsset.tagNumber" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:deviceType ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:in ( "PLC" "RTU" "HMI Workstation" "Sensor" "Positioner/RTU" ) ;
+        sh:severity sh:Warning ;
+        sh:name "OTAsset.deviceType" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:firmwareVersion ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:name "OTAsset.firmwareVersion" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:ipAddress ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:pattern "^\\d{1,3}(\\.\\d{1,3}){3}$" ;
+        sh:severity sh:Warning ;
+        sh:name "OTAsset.ipAddress" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:macAddress ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:pattern "^([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}$" ;
+        sh:severity sh:Warning ;
+        sh:name "OTAsset.macAddress" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:vendor ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:name "OTAsset.vendor" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:purdueLevel ;
+        sh:datatype xsd:long ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:minInclusive 0 ;
+        sh:maxInclusive 5 ;
+        sh:name "OTAsset.purdueLevel" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:isInternetFacing ;
+        sh:datatype xsd:boolean ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "OTAsset.isInternetFacing" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:CONNECTED_VIA ;
+        sh:nodeKind sh:IRI ;
+        sh:class cfihos:NetworkSegment ;
+        sh:name "OTAsset -[:CONNECTED_VIA]-> NetworkSegment" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:HAS_VULNERABILITY ;
+        sh:nodeKind sh:IRI ;
+        sh:class cfihos:Vulnerability ;
+        sh:name "OTAsset -[:HAS_VULNERABILITY]-> Vulnerability" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:MEMBER_OF_ZONE ;
+        sh:nodeKind sh:IRI ;
+        sh:class cfihos:AssetZone ;
+        sh:minCount 0 ;
+        sh:maxCount 1 ;
+        sh:name "OTAsset -[:MEMBER_OF_ZONE]-> AssetZone" ;
+    ] .
+
+cfihos:NetworkSegmentShape a sh:NodeShape ;
+    sh:targetClass cfihos:NetworkSegment ;
+    rdfs:label "Validates :NetworkSegment nodes" ;
+    sh:property [
+        sh:path cfihos:segmentId ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "NetworkSegment.segmentId" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:vlanId ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "NetworkSegment.vlanId" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:subnet ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:pattern "^\\d{1,3}(\\.\\d{1,3}){3}/\\d{1,2}$" ;
+        sh:severity sh:Warning ;
+        rdfs:comment "Expected as CIDR notation, e.g. 10.0.0.0/24." ;
+        sh:name "NetworkSegment.subnet" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:purdueLevel ;
+        sh:datatype xsd:long ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:minInclusive 0 ;
+        sh:maxInclusive 5 ;
+        sh:name "NetworkSegment.purdueLevel" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:WITHIN_ZONE ;
+        sh:nodeKind sh:IRI ;
+        sh:class cfihos:AssetZone ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "NetworkSegment -[:WITHIN_ZONE]-> AssetZone" ;
+    ] .
+
+cfihos:VulnerabilityShape a sh:NodeShape ;
+    sh:targetClass cfihos:Vulnerability ;
+    rdfs:label "Validates :Vulnerability nodes" ;
+    sh:property [
+        sh:path cfihos:cveId ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "Vulnerability.cveId" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:description ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "Vulnerability.description" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:cvssScore ;
+        sh:datatype xsd:double ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:minInclusive 0 ;
+        sh:maxInclusive 10 ;
+        sh:name "Vulnerability.cvssScore" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:severity ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:in ( "Low" "Medium" "High" "Critical" ) ;
+        sh:severity sh:Warning ;
+        sh:name "Vulnerability.severity" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:affectedFirmwareVersion ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:name "Vulnerability.affectedFirmwareVersion" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:publishedDate ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:pattern "^\\d{4}-\\d{2}-\\d{2}$" ;
+        sh:severity sh:Warning ;
+        rdfs:comment "Stored as a plain string 'YYYY-MM-DD'." ;
+        sh:name "Vulnerability.publishedDate" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:EXPLOITED_BY ;
+        sh:nodeKind sh:IRI ;
+        sh:class cfihos:Threat ;
+        sh:name "Vulnerability -[:EXPLOITED_BY]-> Threat" ;
+    ] .
+
+cfihos:ThreatShape a sh:NodeShape ;
+    sh:targetClass cfihos:Threat ;
+    rdfs:label "Validates :Threat nodes" ;
+    sh:property [
+        sh:path cfihos:threatId ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "Threat.threatId" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:name ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "Threat.name" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:threatActorType ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:in ( "Insider" "Nation-State" "Organized Cybercrime" ) ;
+        sh:severity sh:Warning ;
+        sh:name "Threat.threatActorType" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:mitreAttIckTechniqueId ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:pattern "^T\\d{4}(\\.\\d{3})?$" ;
+        sh:severity sh:Warning ;
+        rdfs:comment "MITRE ATT&CK for ICS technique id." ;
+        sh:name "Threat.mitreAttIckTechniqueId" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:TARGETS_ZONE ;
+        sh:nodeKind sh:IRI ;
+        sh:class cfihos:AssetZone ;
+        sh:name "Threat -[:TARGETS_ZONE]-> AssetZone" ;
+    ] .
+
+cfihos:SecurityControlShape a sh:NodeShape ;
+    sh:targetClass cfihos:SecurityControl ;
+    rdfs:label "Validates :SecurityControl nodes" ;
+    sh:property [
+        sh:path cfihos:controlId ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "SecurityControl.controlId" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:name ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "SecurityControl.name" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:controlType ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:in ( "Preventive" "Detective" "Corrective" ) ;
+        sh:severity sh:Warning ;
+        sh:name "SecurityControl.controlType" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:iec62443Requirement ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:name "SecurityControl.iec62443Requirement" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:implementationStatus ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:in ( "Implemented" "Partially Implemented" "Planned" "Not Implemented" ) ;
+        sh:severity sh:Warning ;
+        sh:name "SecurityControl.implementationStatus" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:APPLIED_TO_ASSET ;
+        sh:nodeKind sh:IRI ;
+        sh:class cfihos:OTAsset ;
+        sh:name "SecurityControl -[:APPLIED_TO_ASSET]-> OTAsset" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:APPLIED_TO_ZONE ;
+        sh:nodeKind sh:IRI ;
+        sh:class cfihos:AssetZone ;
+        sh:name "SecurityControl -[:APPLIED_TO_ZONE]-> AssetZone" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:MITIGATES ;
+        sh:nodeKind sh:IRI ;
+        sh:class cfihos:Vulnerability ;
+        sh:name "SecurityControl -[:MITIGATES]-> Vulnerability" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:SATISFIES_REQUIREMENT ;
+        sh:nodeKind sh:IRI ;
+        sh:class cfihos:ComplianceFramework ;
+        sh:name "SecurityControl -[:SATISFIES_REQUIREMENT]-> ComplianceFramework" ;
+    ] .
+
+cfihos:RiskAssessmentShape a sh:NodeShape ;
+    sh:targetClass cfihos:RiskAssessment ;
+    rdfs:label "Validates :RiskAssessment nodes" ;
+    sh:property [
+        sh:path cfihos:assessmentId ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "RiskAssessment.assessmentId" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:assessmentDate ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:pattern "^\\d{4}-\\d{2}-\\d{2}$" ;
+        sh:severity sh:Warning ;
+        rdfs:comment "Stored as a plain string 'YYYY-MM-DD'." ;
+        sh:name "RiskAssessment.assessmentDate" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:likelihood ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:in ( "Low" "Medium" "High" ) ;
+        sh:severity sh:Warning ;
+        sh:name "RiskAssessment.likelihood" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:impact ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:in ( "Low" "Medium" "High" "Severe" ) ;
+        sh:severity sh:Warning ;
+        sh:name "RiskAssessment.impact" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:riskScore ;
+        sh:datatype xsd:double ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:minInclusive 0 ;
+        sh:maxInclusive 100 ;
+        sh:name "RiskAssessment.riskScore" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:residualRisk ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:in ( "Low" "Medium" "High" ) ;
+        sh:severity sh:Warning ;
+        sh:name "RiskAssessment.residualRisk" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:ASSESSES ;
+        sh:nodeKind sh:IRI ;
+        sh:class cfihos:AssetZone ;
+        sh:name "RiskAssessment -[:ASSESSES]-> AssetZone" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:CONSIDERS ;
+        sh:nodeKind sh:IRI ;
+        sh:class cfihos:Vulnerability ;
+        sh:name "RiskAssessment -[:CONSIDERS]-> Vulnerability" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:EVALUATES ;
+        sh:nodeKind sh:IRI ;
+        sh:class cfihos:Threat ;
+        sh:name "RiskAssessment -[:EVALUATES]-> Threat" ;
+    ] .
+
+cfihos:CyberIncidentShape a sh:NodeShape ;
+    sh:targetClass cfihos:CyberIncident ;
+    rdfs:label "Validates :CyberIncident nodes" ;
+    sh:property [
+        sh:path cfihos:incidentId ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "CyberIncident.incidentId" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:detectedDate ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:pattern "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}$" ;
+        sh:severity sh:Warning ;
+        rdfs:comment "Stored as a plain string 'YYYY-MM-DDTHH:MM:SS'." ;
+        sh:name "CyberIncident.detectedDate" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:incidentType ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "CyberIncident.incidentType" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:severity ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:in ( "Low" "Medium" "High" "Critical" ) ;
+        sh:severity sh:Warning ;
+        sh:name "CyberIncident.severity" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:nis2Reportable ;
+        sh:datatype xsd:boolean ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "CyberIncident.nis2Reportable" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:reportedToAuthorityDate ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:pattern "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}$" ;
+        sh:severity sh:Warning ;
+        rdfs:comment "Null unless nis2Reportable; stored as a plain string when present." ;
+        sh:name "CyberIncident.reportedToAuthorityDate" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:AFFECTS_ASSET ;
+        sh:nodeKind sh:IRI ;
+        sh:class cfihos:OTAsset ;
+        sh:name "CyberIncident -[:AFFECTS_ASSET]-> OTAsset" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:CAUSED_BY ;
+        sh:nodeKind sh:IRI ;
+        sh:class cfihos:Threat ;
+        sh:name "CyberIncident -[:CAUSED_BY]-> Threat" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:EXPLOITS ;
+        sh:nodeKind sh:IRI ;
+        sh:class cfihos:Vulnerability ;
+        sh:name "CyberIncident -[:EXPLOITS]-> Vulnerability" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:REPORTED_UNDER ;
+        sh:nodeKind sh:IRI ;
+        sh:class cfihos:ComplianceFramework ;
+        sh:name "CyberIncident -[:REPORTED_UNDER]-> ComplianceFramework" ;
+    ] .
+
+cfihos:ComplianceFrameworkShape a sh:NodeShape ;
+    sh:targetClass cfihos:ComplianceFramework ;
+    rdfs:label "Validates :ComplianceFramework nodes" ;
+    sh:property [
+        sh:path cfihos:frameworkId ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "ComplianceFramework.frameworkId" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:frameworkName ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:name "ComplianceFramework.frameworkName" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:version ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:name "ComplianceFramework.version" ;
+    ] ;
+    sh:property [
+        sh:path cfihos:applicableSector ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:name "ComplianceFramework.applicableSector" ;
+    ] .

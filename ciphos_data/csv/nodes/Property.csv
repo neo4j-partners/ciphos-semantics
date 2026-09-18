@@ -1,0 +1,14 @@
+propertyId,propertyName,dataType,unitOfMeasureId,cfihosId
+PROP-001,Design Pressure,Numeric,UOM-BARG,CFIHOS-00000017
+PROP-002,Design Temperature,Numeric,UOM-DEGC,CFIHOS-00000017
+PROP-003,Operating Pressure,Numeric,UOM-BARG,CFIHOS-00000017
+PROP-004,Operating Temperature,Numeric,UOM-DEGC,CFIHOS-00000017
+PROP-005,Flow Rate,Numeric,UOM-M3H,CFIHOS-00000017
+PROP-006,Rated Power,Numeric,UOM-KW,CFIHOS-00000017
+PROP-007,Material of Construction,PickList,,CFIHOS-00000017
+PROP-008,Nominal Diameter,Numeric,UOM-MM,CFIHOS-00000017
+PROP-009,Pipe Class,PickList,,CFIHOS-00000017
+PROP-010,Insulation Type,PickList,,CFIHOS-00000017
+PROP-011,Weight,Numeric,UOM-KG,CFIHOS-00000017
+PROP-012,Calibration Range Low,Numeric,UOM-BARG,CFIHOS-00000017
+PROP-013,Calibration Range High,Numeric,UOM-BARG,CFIHOS-00000017

@@ -1,0 +1,6 @@
+threatId,name,threatActorType,mitreAttIckTechniqueId
+THR-001,ICS-targeted ransomware deployment,Organized Cybercrime,T0882
+THR-002,Spear-phishing for OT network initial access,Nation-State,T0865
+THR-003,Living-off-the-land lateral movement via engineering workstation,Nation-State,T0859
+THR-004,Insider misuse of vendor remote access,Insider,T0822
+THR-005,Supply chain compromise of firmware update package,Nation-State,T0862

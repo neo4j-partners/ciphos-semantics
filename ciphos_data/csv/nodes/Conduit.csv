@@ -1,0 +1,49 @@
+conduitId,name,protocol,encryption
+COND-0001,Maridale Refinery - Enterprise Zone to Maridale Refinery - DMZ,DNP3,false
+COND-0002,Maridale Refinery - DMZ to Maridale Refinery - Site Operations Zone,OPC-UA,true
+COND-0003,Maridale Refinery - Site Operations Zone to Maridale Refinery - Process Control Zone,Modbus TCP,false
+COND-0004,Maridale Refinery - Process Control Zone to Maridale Refinery - Safety Instrumented Zone,OPC-UA,true
+COND-0005,Korringen Gas Processing Complex - Enterprise Zone to Korringen Gas Processing Complex - DMZ,IPSec VPN,true
+COND-0006,Korringen Gas Processing Complex - DMZ to Korringen Gas Processing Complex - Site Operations Zone,HTTPS/TLS 1.2,false
+COND-0007,Korringen Gas Processing Complex - Site Operations Zone to Korringen Gas Processing Complex - Process Control Zone,DNP3,false
+COND-0008,Korringen Gas Processing Complex - Process Control Zone to Korringen Gas Processing Complex - Safety Instrumented Zone,OPC-UA,true
+COND-0009,Westbrook Petrochemical Site - Enterprise Zone to Westbrook Petrochemical Site - DMZ,OPC-UA,false
+COND-0010,Westbrook Petrochemical Site - DMZ to Westbrook Petrochemical Site - Site Operations Zone,Modbus TCP,true
+COND-0011,Westbrook Petrochemical Site - Site Operations Zone to Westbrook Petrochemical Site - Process Control Zone,Modbus TCP,true
+COND-0012,Westbrook Petrochemical Site - Process Control Zone to Westbrook Petrochemical Site - Safety Instrumented Zone,OPC-UA,false
+COND-0013,Solheim Terminal - Enterprise Zone to Solheim Terminal - DMZ,IPSec VPN,true
+COND-0014,Solheim Terminal - DMZ to Solheim Terminal - Site Operations Zone,IPSec VPN,false
+COND-0015,Solheim Terminal - Site Operations Zone to Solheim Terminal - Process Control Zone,HTTPS/TLS 1.2,false
+COND-0016,Solheim Terminal - Process Control Zone to Solheim Terminal - Safety Instrumented Zone,DNP3,true
+COND-0017,Falkenridge Refinery - Enterprise Zone to Falkenridge Refinery - DMZ,HTTPS/TLS 1.2,true
+COND-0018,Falkenridge Refinery - DMZ to Falkenridge Refinery - Site Operations Zone,DNP3,true
+COND-0019,Falkenridge Refinery - Site Operations Zone to Falkenridge Refinery - Process Control Zone,Modbus TCP,true
+COND-0020,Falkenridge Refinery - Process Control Zone to Falkenridge Refinery - Safety Instrumented Zone,OPC-UA,true
+COND-0021,Ardmoor Gas Plant - Enterprise Zone to Ardmoor Gas Plant - DMZ,HTTPS/TLS 1.2,true
+COND-0022,Ardmoor Gas Plant - DMZ to Ardmoor Gas Plant - Site Operations Zone,OPC-UA,true
+COND-0023,Ardmoor Gas Plant - Site Operations Zone to Ardmoor Gas Plant - Process Control Zone,Modbus TCP,true
+COND-0024,Ardmoor Gas Plant - Process Control Zone to Ardmoor Gas Plant - Safety Instrumented Zone,Modbus TCP,false
+COND-0025,Brackenfield Petrochemical Complex - Enterprise Zone to Brackenfield Petrochemical Complex - DMZ,OPC-UA,true
+COND-0026,Brackenfield Petrochemical Complex - DMZ to Brackenfield Petrochemical Complex - Site Operations Zone,DNP3,true
+COND-0027,Brackenfield Petrochemical Complex - Site Operations Zone to Brackenfield Petrochemical Complex - Process Control Zone,Modbus TCP,true
+COND-0028,Brackenfield Petrochemical Complex - Process Control Zone to Brackenfield Petrochemical Complex - Safety Instrumented Zone,Modbus TCP,true
+COND-0029,Nordwyk Processing Terminal - Enterprise Zone to Nordwyk Processing Terminal - DMZ,IPSec VPN,true
+COND-0030,Nordwyk Processing Terminal - DMZ to Nordwyk Processing Terminal - Site Operations Zone,DNP3,true
+COND-0031,Nordwyk Processing Terminal - Site Operations Zone to Nordwyk Processing Terminal - Process Control Zone,HTTPS/TLS 1.2,false
+COND-0032,Nordwyk Processing Terminal - Process Control Zone to Nordwyk Processing Terminal - Safety Instrumented Zone,Modbus TCP,true
+COND-0033,Stavenhall Refinery - Enterprise Zone to Stavenhall Refinery - DMZ,HTTPS/TLS 1.2,false
+COND-0034,Stavenhall Refinery - DMZ to Stavenhall Refinery - Site Operations Zone,HTTPS/TLS 1.2,true
+COND-0035,Stavenhall Refinery - Site Operations Zone to Stavenhall Refinery - Process Control Zone,DNP3,false
+COND-0036,Stavenhall Refinery - Process Control Zone to Stavenhall Refinery - Safety Instrumented Zone,DNP3,false
+COND-0037,Kelburne Gas Processing Site - Enterprise Zone to Kelburne Gas Processing Site - DMZ,OPC-UA,true
+COND-0038,Kelburne Gas Processing Site - DMZ to Kelburne Gas Processing Site - Site Operations Zone,DNP3,false
+COND-0039,Kelburne Gas Processing Site - Site Operations Zone to Kelburne Gas Processing Site - Process Control Zone,Modbus TCP,true
+COND-0040,Kelburne Gas Processing Site - Process Control Zone to Kelburne Gas Processing Site - Safety Instrumented Zone,Modbus TCP,true
+COND-0041,Marrowick Petrochemical Plant - Enterprise Zone to Marrowick Petrochemical Plant - DMZ,IPSec VPN,false
+COND-0042,Marrowick Petrochemical Plant - DMZ to Marrowick Petrochemical Plant - Site Operations Zone,DNP3,false
+COND-0043,Marrowick Petrochemical Plant - Site Operations Zone to Marrowick Petrochemical Plant - Process Control Zone,OPC-UA,false
+COND-0044,Marrowick Petrochemical Plant - Process Control Zone to Marrowick Petrochemical Plant - Safety Instrumented Zone,OPC-UA,true
+COND-0045,Thornfield Terminal - Enterprise Zone to Thornfield Terminal - DMZ,DNP3,true
+COND-0046,Thornfield Terminal - DMZ to Thornfield Terminal - Site Operations Zone,DNP3,true
+COND-0047,Thornfield Terminal - Site Operations Zone to Thornfield Terminal - Process Control Zone,IPSec VPN,true
+COND-0048,Thornfield Terminal - Process Control Zone to Thornfield Terminal - Safety Instrumented Zone,OPC-UA,false

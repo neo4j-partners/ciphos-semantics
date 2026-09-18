@@ -1,0 +1,385 @@
+documentNumber,documentTitle,documentTypeId,revision,status,cfihosId
+DOC-000001,Piping Isometric - Utilities Area 1 - Rev A,DT-ISOMETRIC,B,Issued for Review,CFIHOS-00000010
+DOC-000002,Calibration Certificate - Utilities Area 1 - Rev C,DT-CALCERT,A,As-Built,CFIHOS-00000010
+DOC-000003,Network Architecture Diagram - Utilities Area 1 - Rev A,DT-NETARCH,B,Approved for Construction,CFIHOS-00000010
+DOC-000004,Single Line Diagram - Utilities Area 1 - Rev 0,DT-SLD,0,Superseded,CFIHOS-00000010
+DOC-000005,Instrument Loop Diagram - Utilities Area 1 - Rev C,DT-LOOPDIAG,C,Issued for Review,CFIHOS-00000010
+DOC-000006,Equipment Datasheet - Power Generation 2 - Rev A,DT-DATASHEET,B,As-Built,CFIHOS-00000010
+DOC-000007,P&ID - Power Generation 2 - Rev 2,DT-PID,A,Issued for Review,CFIHOS-00000010
+DOC-000008,Network Architecture Diagram - Power Generation 2 - Rev 0,DT-NETARCH,1,Superseded,CFIHOS-00000010
+DOC-000009,Piping Isometric - Power Generation 2 - Rev B,DT-ISOMETRIC,1,Approved for Construction,CFIHOS-00000010
+DOC-000010,Network Architecture Diagram - Power Generation 2 - Rev A,DT-NETARCH,C,Superseded,CFIHOS-00000010
+DOC-000011,Piping Isometric - Power Generation 3 - Rev A,DT-ISOMETRIC,B,Superseded,CFIHOS-00000010
+DOC-000012,P&ID - Power Generation 3 - Rev A,DT-PID,B,Issued for Review,CFIHOS-00000010
+DOC-000013,Instrument Loop Diagram - Power Generation 3 - Rev C,DT-LOOPDIAG,C,Issued for Review,CFIHOS-00000010
+DOC-000014,P&ID - Power Generation 3 - Rev 0,DT-PID,2,Superseded,CFIHOS-00000010
+DOC-000015,Instrument Loop Diagram - Power Generation 3 - Rev 0,DT-LOOPDIAG,1,As-Built,CFIHOS-00000010
+DOC-000016,Calibration Certificate - Power Generation 4 - Rev A,DT-CALCERT,0,Approved for Construction,CFIHOS-00000010
+DOC-000017,P&ID - Power Generation 4 - Rev 0,DT-PID,A,Issued for Review,CFIHOS-00000010
+DOC-000018,Network Architecture Diagram - Power Generation 4 - Rev 1,DT-NETARCH,0,Superseded,CFIHOS-00000010
+DOC-000019,Equipment Datasheet - Power Generation 4 - Rev 0,DT-DATASHEET,A,Issued for Review,CFIHOS-00000010
+DOC-000020,Risk Assessment Report - Power Generation 4 - Rev 2,DT-RISKREPORT,C,Approved for Construction,CFIHOS-00000010
+DOC-000021,Single Line Diagram - Utilities Area 5 - Rev 0,DT-SLD,1,Superseded,CFIHOS-00000010
+DOC-000022,Equipment Datasheet - Utilities Area 5 - Rev 0,DT-DATASHEET,C,Issued for Review,CFIHOS-00000010
+DOC-000023,Calibration Certificate - Utilities Area 5 - Rev B,DT-CALCERT,A,Approved for Construction,CFIHOS-00000010
+DOC-000024,Single Line Diagram - Power Generation 6 - Rev C,DT-SLD,C,As-Built,CFIHOS-00000010
+DOC-000025,Equipment Datasheet - Power Generation 6 - Rev B,DT-DATASHEET,C,As-Built,CFIHOS-00000010
+DOC-000026,Instrument Loop Diagram - Power Generation 6 - Rev 2,DT-LOOPDIAG,A,As-Built,CFIHOS-00000010
+DOC-000027,Risk Assessment Report - Power Generation 6 - Rev 1,DT-RISKREPORT,1,Superseded,CFIHOS-00000010
+DOC-000028,Calibration Certificate - Power Generation 6 - Rev 2,DT-CALCERT,C,As-Built,CFIHOS-00000010
+DOC-000029,Risk Assessment Report - Process Unit 7 - Rev 0,DT-RISKREPORT,2,Issued for Review,CFIHOS-00000010
+DOC-000030,P&ID - Process Unit 7 - Rev C,DT-PID,1,Approved for Construction,CFIHOS-00000010
+DOC-000031,Risk Assessment Report - Process Unit 7 - Rev 0,DT-RISKREPORT,A,Approved for Construction,CFIHOS-00000010
+DOC-000032,Equipment Datasheet - Tank Farm 8 - Rev 2,DT-DATASHEET,A,Superseded,CFIHOS-00000010
+DOC-000033,P&ID - Tank Farm 8 - Rev 0,DT-PID,1,As-Built,CFIHOS-00000010
+DOC-000034,Risk Assessment Report - Tank Farm 8 - Rev 1,DT-RISKREPORT,B,Approved for Construction,CFIHOS-00000010
+DOC-000035,Equipment Datasheet - Tank Farm 8 - Rev C,DT-DATASHEET,2,Approved for Construction,CFIHOS-00000010
+DOC-000036,Instrument Loop Diagram - Utilities Area 9 - Rev A,DT-LOOPDIAG,B,Superseded,CFIHOS-00000010
+DOC-000037,Instrument Loop Diagram - Utilities Area 9 - Rev C,DT-LOOPDIAG,C,Issued for Review,CFIHOS-00000010
+DOC-000038,Network Architecture Diagram - Utilities Area 9 - Rev C,DT-NETARCH,2,Approved for Construction,CFIHOS-00000010
+DOC-000039,Equipment Datasheet - Utilities Area 9 - Rev C,DT-DATASHEET,A,Superseded,CFIHOS-00000010
+DOC-000040,Piping Isometric - Utilities Area 9 - Rev 2,DT-ISOMETRIC,2,As-Built,CFIHOS-00000010
+DOC-000041,Instrument Loop Diagram - Tank Farm 10 - Rev C,DT-LOOPDIAG,C,Superseded,CFIHOS-00000010
+DOC-000042,Equipment Datasheet - Tank Farm 10 - Rev C,DT-DATASHEET,1,Superseded,CFIHOS-00000010
+DOC-000043,Instrument Loop Diagram - Tank Farm 10 - Rev 2,DT-LOOPDIAG,2,Approved for Construction,CFIHOS-00000010
+DOC-000044,Calibration Certificate - Process Unit 11 - Rev A,DT-CALCERT,C,Issued for Review,CFIHOS-00000010
+DOC-000045,Single Line Diagram - Process Unit 11 - Rev C,DT-SLD,0,As-Built,CFIHOS-00000010
+DOC-000046,Instrument Loop Diagram - Process Unit 11 - Rev B,DT-LOOPDIAG,A,Issued for Review,CFIHOS-00000010
+DOC-000047,P&ID - Process Unit 11 - Rev 2,DT-PID,C,As-Built,CFIHOS-00000010
+DOC-000048,Network Architecture Diagram - Process Unit 11 - Rev B,DT-NETARCH,B,As-Built,CFIHOS-00000010
+DOC-000049,Risk Assessment Report - Process Unit 12 - Rev A,DT-RISKREPORT,0,Issued for Review,CFIHOS-00000010
+DOC-000050,Risk Assessment Report - Process Unit 12 - Rev 1,DT-RISKREPORT,C,Superseded,CFIHOS-00000010
+DOC-000051,Single Line Diagram - Process Unit 12 - Rev C,DT-SLD,0,As-Built,CFIHOS-00000010
+DOC-000052,Risk Assessment Report - Tank Farm 13 - Rev 0,DT-RISKREPORT,C,Superseded,CFIHOS-00000010
+DOC-000053,Network Architecture Diagram - Tank Farm 13 - Rev B,DT-NETARCH,B,As-Built,CFIHOS-00000010
+DOC-000054,P&ID - Tank Farm 13 - Rev 2,DT-PID,0,Issued for Review,CFIHOS-00000010
+DOC-000055,Equipment Datasheet - Tank Farm 13 - Rev 2,DT-DATASHEET,1,Approved for Construction,CFIHOS-00000010
+DOC-000056,Equipment Datasheet - Tank Farm 13 - Rev B,DT-DATASHEET,C,Superseded,CFIHOS-00000010
+DOC-000057,Network Architecture Diagram - Tank Farm 14 - Rev A,DT-NETARCH,B,Superseded,CFIHOS-00000010
+DOC-000058,P&ID - Tank Farm 14 - Rev 0,DT-PID,A,Superseded,CFIHOS-00000010
+DOC-000059,Calibration Certificate - Tank Farm 14 - Rev B,DT-CALCERT,0,Approved for Construction,CFIHOS-00000010
+DOC-000060,P&ID - Offsite Pipeline Corridor 15 - Rev C,DT-PID,A,Issued for Review,CFIHOS-00000010
+DOC-000061,Instrument Loop Diagram - Offsite Pipeline Corridor 15 - Rev A,DT-LOOPDIAG,C,Superseded,CFIHOS-00000010
+DOC-000062,Risk Assessment Report - Offsite Pipeline Corridor 15 - Rev 0,DT-RISKREPORT,1,Approved for Construction,CFIHOS-00000010
+DOC-000063,Piping Isometric - Process Unit 16 - Rev B,DT-ISOMETRIC,B,Superseded,CFIHOS-00000010
+DOC-000064,Piping Isometric - Process Unit 16 - Rev B,DT-ISOMETRIC,C,Approved for Construction,CFIHOS-00000010
+DOC-000065,Single Line Diagram - Process Unit 16 - Rev 0,DT-SLD,2,Superseded,CFIHOS-00000010
+DOC-000066,Risk Assessment Report - Power Generation 17 - Rev 1,DT-RISKREPORT,1,Approved for Construction,CFIHOS-00000010
+DOC-000067,Single Line Diagram - Power Generation 17 - Rev 2,DT-SLD,B,Issued for Review,CFIHOS-00000010
+DOC-000068,P&ID - Power Generation 17 - Rev 1,DT-PID,C,As-Built,CFIHOS-00000010
+DOC-000069,Instrument Loop Diagram - Power Generation 18 - Rev 2,DT-LOOPDIAG,2,Approved for Construction,CFIHOS-00000010
+DOC-000070,Calibration Certificate - Power Generation 18 - Rev A,DT-CALCERT,1,Approved for Construction,CFIHOS-00000010
+DOC-000071,Risk Assessment Report - Power Generation 18 - Rev A,DT-RISKREPORT,2,Superseded,CFIHOS-00000010
+DOC-000072,Piping Isometric - Power Generation 18 - Rev 2,DT-ISOMETRIC,A,Issued for Review,CFIHOS-00000010
+DOC-000073,Single Line Diagram - Power Generation 19 - Rev 2,DT-SLD,2,Approved for Construction,CFIHOS-00000010
+DOC-000074,Calibration Certificate - Power Generation 19 - Rev B,DT-CALCERT,A,Issued for Review,CFIHOS-00000010
+DOC-000075,Calibration Certificate - Power Generation 19 - Rev 2,DT-CALCERT,B,Superseded,CFIHOS-00000010
+DOC-000076,Instrument Loop Diagram - Power Generation 19 - Rev B,DT-LOOPDIAG,A,Superseded,CFIHOS-00000010
+DOC-000077,Single Line Diagram - Process Unit 20 - Rev A,DT-SLD,B,Approved for Construction,CFIHOS-00000010
+DOC-000078,Piping Isometric - Process Unit 20 - Rev 1,DT-ISOMETRIC,0,Superseded,CFIHOS-00000010
+DOC-000079,P&ID - Process Unit 20 - Rev 2,DT-PID,B,Issued for Review,CFIHOS-00000010
+DOC-000080,P&ID - Process Unit 20 - Rev 2,DT-PID,C,Issued for Review,CFIHOS-00000010
+DOC-000081,Network Architecture Diagram - Utilities Area 21 - Rev 0,DT-NETARCH,2,Superseded,CFIHOS-00000010
+DOC-000082,Calibration Certificate - Utilities Area 21 - Rev B,DT-CALCERT,0,Superseded,CFIHOS-00000010
+DOC-000083,Piping Isometric - Utilities Area 21 - Rev A,DT-ISOMETRIC,2,Superseded,CFIHOS-00000010
+DOC-000084,Network Architecture Diagram - Utilities Area 21 - Rev 1,DT-NETARCH,B,Issued for Review,CFIHOS-00000010
+DOC-000085,Equipment Datasheet - Process Unit 22 - Rev C,DT-DATASHEET,2,Issued for Review,CFIHOS-00000010
+DOC-000086,Risk Assessment Report - Process Unit 22 - Rev 1,DT-RISKREPORT,2,Superseded,CFIHOS-00000010
+DOC-000087,Risk Assessment Report - Process Unit 22 - Rev C,DT-RISKREPORT,0,Approved for Construction,CFIHOS-00000010
+DOC-000088,Network Architecture Diagram - Offsite Pipeline Corridor 23 - Rev C,DT-NETARCH,2,Approved for Construction,CFIHOS-00000010
+DOC-000089,Network Architecture Diagram - Offsite Pipeline Corridor 23 - Rev C,DT-NETARCH,1,As-Built,CFIHOS-00000010
+DOC-000090,Instrument Loop Diagram - Offsite Pipeline Corridor 23 - Rev 1,DT-LOOPDIAG,2,Superseded,CFIHOS-00000010
+DOC-000091,Instrument Loop Diagram - Offsite Pipeline Corridor 23 - Rev A,DT-LOOPDIAG,B,Issued for Review,CFIHOS-00000010
+DOC-000092,Network Architecture Diagram - Offsite Pipeline Corridor 23 - Rev 1,DT-NETARCH,A,As-Built,CFIHOS-00000010
+DOC-000093,Calibration Certificate - Offsite Pipeline Corridor 24 - Rev 0,DT-CALCERT,A,As-Built,CFIHOS-00000010
+DOC-000094,Calibration Certificate - Offsite Pipeline Corridor 24 - Rev 0,DT-CALCERT,C,Issued for Review,CFIHOS-00000010
+DOC-000095,Equipment Datasheet - Offsite Pipeline Corridor 24 - Rev A,DT-DATASHEET,2,As-Built,CFIHOS-00000010
+DOC-000096,Network Architecture Diagram - Offsite Pipeline Corridor 24 - Rev 1,DT-NETARCH,A,Issued for Review,CFIHOS-00000010
+DOC-000097,Risk Assessment Report - Utilities Area 25 - Rev B,DT-RISKREPORT,1,Issued for Review,CFIHOS-00000010
+DOC-000098,Single Line Diagram - Utilities Area 25 - Rev A,DT-SLD,B,Approved for Construction,CFIHOS-00000010
+DOC-000099,Instrument Loop Diagram - Utilities Area 25 - Rev 2,DT-LOOPDIAG,0,Approved for Construction,CFIHOS-00000010
+DOC-000100,Calibration Certificate - Utilities Area 25 - Rev 2,DT-CALCERT,A,Issued for Review,CFIHOS-00000010
+DOC-000101,Instrument Loop Diagram - Utilities Area 25 - Rev 2,DT-LOOPDIAG,2,As-Built,CFIHOS-00000010
+DOC-000102,Single Line Diagram - Tank Farm 26 - Rev A,DT-SLD,B,As-Built,CFIHOS-00000010
+DOC-000103,Risk Assessment Report - Tank Farm 26 - Rev A,DT-RISKREPORT,C,Issued for Review,CFIHOS-00000010
+DOC-000104,Instrument Loop Diagram - Tank Farm 26 - Rev 1,DT-LOOPDIAG,A,Approved for Construction,CFIHOS-00000010
+DOC-000105,Network Architecture Diagram - Tank Farm 26 - Rev 2,DT-NETARCH,2,Superseded,CFIHOS-00000010
+DOC-000106,Network Architecture Diagram - Tank Farm 26 - Rev 0,DT-NETARCH,1,Approved for Construction,CFIHOS-00000010
+DOC-000107,Equipment Datasheet - Tank Farm 27 - Rev 0,DT-DATASHEET,0,Issued for Review,CFIHOS-00000010
+DOC-000108,Instrument Loop Diagram - Tank Farm 27 - Rev B,DT-LOOPDIAG,0,Approved for Construction,CFIHOS-00000010
+DOC-000109,Instrument Loop Diagram - Tank Farm 27 - Rev C,DT-LOOPDIAG,B,As-Built,CFIHOS-00000010
+DOC-000110,Single Line Diagram - Tank Farm 27 - Rev C,DT-SLD,1,Issued for Review,CFIHOS-00000010
+DOC-000111,Single Line Diagram - Power Generation 28 - Rev 2,DT-SLD,1,Issued for Review,CFIHOS-00000010
+DOC-000112,Piping Isometric - Power Generation 28 - Rev 1,DT-ISOMETRIC,1,Approved for Construction,CFIHOS-00000010
+DOC-000113,Instrument Loop Diagram - Power Generation 28 - Rev 1,DT-LOOPDIAG,1,As-Built,CFIHOS-00000010
+DOC-000114,Calibration Certificate - Power Generation 28 - Rev 1,DT-CALCERT,A,Approved for Construction,CFIHOS-00000010
+DOC-000115,Piping Isometric - Utilities Area 29 - Rev 2,DT-ISOMETRIC,B,Superseded,CFIHOS-00000010
+DOC-000116,P&ID - Utilities Area 29 - Rev 0,DT-PID,2,Issued for Review,CFIHOS-00000010
+DOC-000117,Risk Assessment Report - Utilities Area 29 - Rev B,DT-RISKREPORT,2,Superseded,CFIHOS-00000010
+DOC-000118,Equipment Datasheet - Offsite Pipeline Corridor 30 - Rev 2,DT-DATASHEET,A,As-Built,CFIHOS-00000010
+DOC-000119,Network Architecture Diagram - Offsite Pipeline Corridor 30 - Rev 0,DT-NETARCH,0,As-Built,CFIHOS-00000010
+DOC-000120,Instrument Loop Diagram - Offsite Pipeline Corridor 30 - Rev C,DT-LOOPDIAG,2,Issued for Review,CFIHOS-00000010
+DOC-000121,Network Architecture Diagram - Offsite Pipeline Corridor 30 - Rev B,DT-NETARCH,C,Approved for Construction,CFIHOS-00000010
+DOC-000122,Risk Assessment Report - Tank Farm 31 - Rev A,DT-RISKREPORT,C,Superseded,CFIHOS-00000010
+DOC-000123,Instrument Loop Diagram - Tank Farm 31 - Rev A,DT-LOOPDIAG,A,Issued for Review,CFIHOS-00000010
+DOC-000124,Network Architecture Diagram - Tank Farm 31 - Rev B,DT-NETARCH,B,Issued for Review,CFIHOS-00000010
+DOC-000125,Calibration Certificate - Utilities Area 32 - Rev B,DT-CALCERT,B,Superseded,CFIHOS-00000010
+DOC-000126,Risk Assessment Report - Utilities Area 32 - Rev 0,DT-RISKREPORT,C,Superseded,CFIHOS-00000010
+DOC-000127,Equipment Datasheet - Utilities Area 32 - Rev 0,DT-DATASHEET,1,Superseded,CFIHOS-00000010
+DOC-000128,Single Line Diagram - Utilities Area 32 - Rev 1,DT-SLD,C,Approved for Construction,CFIHOS-00000010
+DOC-000129,Piping Isometric - Utilities Area 32 - Rev 0,DT-ISOMETRIC,1,Superseded,CFIHOS-00000010
+DOC-000130,P&ID - Process Unit 33 - Rev A,DT-PID,0,As-Built,CFIHOS-00000010
+DOC-000131,Calibration Certificate - Process Unit 33 - Rev 0,DT-CALCERT,C,Approved for Construction,CFIHOS-00000010
+DOC-000132,P&ID - Process Unit 33 - Rev 1,DT-PID,1,As-Built,CFIHOS-00000010
+DOC-000133,Piping Isometric - Process Unit 33 - Rev A,DT-ISOMETRIC,0,Superseded,CFIHOS-00000010
+DOC-000134,Piping Isometric - Process Unit 33 - Rev 1,DT-ISOMETRIC,2,Approved for Construction,CFIHOS-00000010
+DOC-000135,Network Architecture Diagram - Process Unit 34 - Rev C,DT-NETARCH,C,Issued for Review,CFIHOS-00000010
+DOC-000136,Single Line Diagram - Process Unit 34 - Rev 1,DT-SLD,1,Superseded,CFIHOS-00000010
+DOC-000137,P&ID - Process Unit 34 - Rev A,DT-PID,A,As-Built,CFIHOS-00000010
+DOC-000138,Risk Assessment Report - Offsite Pipeline Corridor 35 - Rev B,DT-RISKREPORT,1,As-Built,CFIHOS-00000010
+DOC-000139,Calibration Certificate - Offsite Pipeline Corridor 35 - Rev B,DT-CALCERT,0,Issued for Review,CFIHOS-00000010
+DOC-000140,Calibration Certificate - Offsite Pipeline Corridor 35 - Rev 1,DT-CALCERT,1,Superseded,CFIHOS-00000010
+DOC-000141,Piping Isometric - Offsite Pipeline Corridor 35 - Rev 0,DT-ISOMETRIC,A,Issued for Review,CFIHOS-00000010
+DOC-000142,Equipment Datasheet - Process Unit 36 - Rev 0,DT-DATASHEET,1,Issued for Review,CFIHOS-00000010
+DOC-000143,Risk Assessment Report - Process Unit 36 - Rev C,DT-RISKREPORT,2,As-Built,CFIHOS-00000010
+DOC-000144,Risk Assessment Report - Process Unit 36 - Rev B,DT-RISKREPORT,1,Superseded,CFIHOS-00000010
+DOC-000145,Single Line Diagram - Process Unit 36 - Rev A,DT-SLD,1,Approved for Construction,CFIHOS-00000010
+DOC-000146,P&ID - Process Unit 36 - Rev 0,DT-PID,C,Superseded,CFIHOS-00000010
+DOC-000147,Single Line Diagram - Power Generation 37 - Rev 0,DT-SLD,1,Superseded,CFIHOS-00000010
+DOC-000148,Instrument Loop Diagram - Power Generation 37 - Rev 1,DT-LOOPDIAG,B,Issued for Review,CFIHOS-00000010
+DOC-000149,Network Architecture Diagram - Power Generation 37 - Rev C,DT-NETARCH,B,Superseded,CFIHOS-00000010
+DOC-000150,Calibration Certificate - Power Generation 37 - Rev 1,DT-CALCERT,C,Issued for Review,CFIHOS-00000010
+DOC-000151,Single Line Diagram - Utilities Area 38 - Rev B,DT-SLD,C,Issued for Review,CFIHOS-00000010
+DOC-000152,Piping Isometric - Utilities Area 38 - Rev C,DT-ISOMETRIC,2,As-Built,CFIHOS-00000010
+DOC-000153,Calibration Certificate - Utilities Area 38 - Rev 0,DT-CALCERT,C,Issued for Review,CFIHOS-00000010
+DOC-000154,Equipment Datasheet - Utilities Area 38 - Rev 1,DT-DATASHEET,2,Superseded,CFIHOS-00000010
+DOC-000155,Instrument Loop Diagram - Offsite Pipeline Corridor 39 - Rev C,DT-LOOPDIAG,A,Issued for Review,CFIHOS-00000010
+DOC-000156,Calibration Certificate - Offsite Pipeline Corridor 39 - Rev 0,DT-CALCERT,2,Issued for Review,CFIHOS-00000010
+DOC-000157,Single Line Diagram - Offsite Pipeline Corridor 39 - Rev B,DT-SLD,1,Issued for Review,CFIHOS-00000010
+DOC-000158,Piping Isometric - Offsite Pipeline Corridor 39 - Rev B,DT-ISOMETRIC,A,As-Built,CFIHOS-00000010
+DOC-000159,Single Line Diagram - Tank Farm 40 - Rev 2,DT-SLD,B,Approved for Construction,CFIHOS-00000010
+DOC-000160,Network Architecture Diagram - Tank Farm 40 - Rev C,DT-NETARCH,2,Superseded,CFIHOS-00000010
+DOC-000161,Instrument Loop Diagram - Tank Farm 40 - Rev A,DT-LOOPDIAG,1,As-Built,CFIHOS-00000010
+DOC-000162,Risk Assessment Report - Utilities Area 41 - Rev 0,DT-RISKREPORT,2,As-Built,CFIHOS-00000010
+DOC-000163,Calibration Certificate - Utilities Area 41 - Rev C,DT-CALCERT,2,Approved for Construction,CFIHOS-00000010
+DOC-000164,Single Line Diagram - Utilities Area 41 - Rev 1,DT-SLD,2,Approved for Construction,CFIHOS-00000010
+DOC-000165,Network Architecture Diagram - Utilities Area 41 - Rev B,DT-NETARCH,A,Superseded,CFIHOS-00000010
+DOC-000166,Instrument Loop Diagram - Utilities Area 41 - Rev 2,DT-LOOPDIAG,C,Approved for Construction,CFIHOS-00000010
+DOC-000167,Equipment Datasheet - Power Generation 42 - Rev C,DT-DATASHEET,C,Superseded,CFIHOS-00000010
+DOC-000168,Risk Assessment Report - Power Generation 42 - Rev B,DT-RISKREPORT,1,Superseded,CFIHOS-00000010
+DOC-000169,Single Line Diagram - Power Generation 42 - Rev A,DT-SLD,C,As-Built,CFIHOS-00000010
+DOC-000170,Piping Isometric - Power Generation 42 - Rev 2,DT-ISOMETRIC,B,Approved for Construction,CFIHOS-00000010
+DOC-000171,Single Line Diagram - Power Generation 43 - Rev B,DT-SLD,1,Superseded,CFIHOS-00000010
+DOC-000172,Calibration Certificate - Power Generation 43 - Rev A,DT-CALCERT,0,Approved for Construction,CFIHOS-00000010
+DOC-000173,Instrument Loop Diagram - Power Generation 43 - Rev 0,DT-LOOPDIAG,C,As-Built,CFIHOS-00000010
+DOC-000174,Piping Isometric - Power Generation 43 - Rev 0,DT-ISOMETRIC,B,Superseded,CFIHOS-00000010
+DOC-000175,Piping Isometric - Power Generation 44 - Rev 1,DT-ISOMETRIC,2,Approved for Construction,CFIHOS-00000010
+DOC-000176,Calibration Certificate - Power Generation 44 - Rev 2,DT-CALCERT,B,Approved for Construction,CFIHOS-00000010
+DOC-000177,Risk Assessment Report - Power Generation 44 - Rev C,DT-RISKREPORT,B,Superseded,CFIHOS-00000010
+DOC-000178,Piping Isometric - Power Generation 44 - Rev 2,DT-ISOMETRIC,A,Issued for Review,CFIHOS-00000010
+DOC-000179,Single Line Diagram - Tank Farm 45 - Rev B,DT-SLD,B,Superseded,CFIHOS-00000010
+DOC-000180,Risk Assessment Report - Tank Farm 45 - Rev 2,DT-RISKREPORT,1,Issued for Review,CFIHOS-00000010
+DOC-000181,Risk Assessment Report - Tank Farm 45 - Rev 1,DT-RISKREPORT,2,As-Built,CFIHOS-00000010
+DOC-000182,Equipment Datasheet - Tank Farm 45 - Rev 1,DT-DATASHEET,0,Issued for Review,CFIHOS-00000010
+DOC-000183,Equipment Datasheet - Tank Farm 45 - Rev A,DT-DATASHEET,1,As-Built,CFIHOS-00000010
+DOC-000184,Instrument Loop Diagram - Utilities Area 46 - Rev B,DT-LOOPDIAG,C,Superseded,CFIHOS-00000010
+DOC-000185,Single Line Diagram - Utilities Area 46 - Rev 2,DT-SLD,1,Superseded,CFIHOS-00000010
+DOC-000186,Risk Assessment Report - Utilities Area 46 - Rev A,DT-RISKREPORT,0,As-Built,CFIHOS-00000010
+DOC-000187,Network Architecture Diagram - Utilities Area 46 - Rev 0,DT-NETARCH,1,Approved for Construction,CFIHOS-00000010
+DOC-000188,Risk Assessment Report - Utilities Area 46 - Rev 2,DT-RISKREPORT,C,Approved for Construction,CFIHOS-00000010
+DOC-000189,P&ID - Offsite Pipeline Corridor 47 - Rev 2,DT-PID,B,Approved for Construction,CFIHOS-00000010
+DOC-000190,Network Architecture Diagram - Offsite Pipeline Corridor 47 - Rev C,DT-NETARCH,2,Approved for Construction,CFIHOS-00000010
+DOC-000191,P&ID - Offsite Pipeline Corridor 47 - Rev A,DT-PID,0,Approved for Construction,CFIHOS-00000010
+DOC-000192,Network Architecture Diagram - Offsite Pipeline Corridor 47 - Rev B,DT-NETARCH,B,Superseded,CFIHOS-00000010
+DOC-000193,Risk Assessment Report - Process Unit 48 - Rev 0,DT-RISKREPORT,0,Approved for Construction,CFIHOS-00000010
+DOC-000194,Instrument Loop Diagram - Process Unit 48 - Rev 2,DT-LOOPDIAG,C,Approved for Construction,CFIHOS-00000010
+DOC-000195,Network Architecture Diagram - Process Unit 48 - Rev 1,DT-NETARCH,B,As-Built,CFIHOS-00000010
+DOC-000196,P&ID - Process Unit 48 - Rev C,DT-PID,0,Superseded,CFIHOS-00000010
+DOC-000197,Single Line Diagram - Utilities Area 49 - Rev B,DT-SLD,0,Issued for Review,CFIHOS-00000010
+DOC-000198,Piping Isometric - Utilities Area 49 - Rev B,DT-ISOMETRIC,2,Approved for Construction,CFIHOS-00000010
+DOC-000199,Network Architecture Diagram - Utilities Area 49 - Rev 1,DT-NETARCH,A,As-Built,CFIHOS-00000010
+DOC-000200,Equipment Datasheet - Utilities Area 49 - Rev A,DT-DATASHEET,1,Approved for Construction,CFIHOS-00000010
+DOC-000201,P&ID - Power Generation 50 - Rev B,DT-PID,2,Approved for Construction,CFIHOS-00000010
+DOC-000202,Risk Assessment Report - Power Generation 50 - Rev B,DT-RISKREPORT,1,As-Built,CFIHOS-00000010
+DOC-000203,Instrument Loop Diagram - Power Generation 50 - Rev 1,DT-LOOPDIAG,C,As-Built,CFIHOS-00000010
+DOC-000204,Calibration Certificate - Power Generation 50 - Rev 1,DT-CALCERT,1,Issued for Review,CFIHOS-00000010
+DOC-000205,Piping Isometric - Power Generation 50 - Rev B,DT-ISOMETRIC,2,As-Built,CFIHOS-00000010
+DOC-000206,Piping Isometric - Offsite Pipeline Corridor 51 - Rev A,DT-ISOMETRIC,1,As-Built,CFIHOS-00000010
+DOC-000207,Risk Assessment Report - Offsite Pipeline Corridor 51 - Rev A,DT-RISKREPORT,C,Superseded,CFIHOS-00000010
+DOC-000208,Calibration Certificate - Offsite Pipeline Corridor 51 - Rev 2,DT-CALCERT,0,Superseded,CFIHOS-00000010
+DOC-000209,Piping Isometric - Offsite Pipeline Corridor 51 - Rev 0,DT-ISOMETRIC,B,Superseded,CFIHOS-00000010
+DOC-000210,Piping Isometric - Power Generation 52 - Rev 2,DT-ISOMETRIC,B,Superseded,CFIHOS-00000010
+DOC-000211,Network Architecture Diagram - Power Generation 52 - Rev 0,DT-NETARCH,1,As-Built,CFIHOS-00000010
+DOC-000212,Single Line Diagram - Power Generation 52 - Rev C,DT-SLD,B,Issued for Review,CFIHOS-00000010
+DOC-000213,Calibration Certificate - Power Generation 53 - Rev A,DT-CALCERT,1,As-Built,CFIHOS-00000010
+DOC-000214,Piping Isometric - Power Generation 53 - Rev 0,DT-ISOMETRIC,2,Approved for Construction,CFIHOS-00000010
+DOC-000215,Single Line Diagram - Power Generation 53 - Rev 1,DT-SLD,2,As-Built,CFIHOS-00000010
+DOC-000216,Single Line Diagram - Power Generation 53 - Rev C,DT-SLD,C,Approved for Construction,CFIHOS-00000010
+DOC-000217,Equipment Datasheet - Process Unit 54 - Rev 2,DT-DATASHEET,0,As-Built,CFIHOS-00000010
+DOC-000218,Single Line Diagram - Process Unit 54 - Rev 0,DT-SLD,B,Issued for Review,CFIHOS-00000010
+DOC-000219,Network Architecture Diagram - Process Unit 54 - Rev 0,DT-NETARCH,1,Issued for Review,CFIHOS-00000010
+DOC-000220,Calibration Certificate - Power Generation 55 - Rev 1,DT-CALCERT,0,Superseded,CFIHOS-00000010
+DOC-000221,Risk Assessment Report - Power Generation 55 - Rev C,DT-RISKREPORT,B,Issued for Review,CFIHOS-00000010
+DOC-000222,Network Architecture Diagram - Power Generation 55 - Rev A,DT-NETARCH,1,As-Built,CFIHOS-00000010
+DOC-000223,P&ID - Power Generation 55 - Rev C,DT-PID,1,Superseded,CFIHOS-00000010
+DOC-000224,Single Line Diagram - Tank Farm 56 - Rev C,DT-SLD,B,Superseded,CFIHOS-00000010
+DOC-000225,Single Line Diagram - Tank Farm 56 - Rev 0,DT-SLD,1,Issued for Review,CFIHOS-00000010
+DOC-000226,Risk Assessment Report - Tank Farm 56 - Rev 2,DT-RISKREPORT,2,Superseded,CFIHOS-00000010
+DOC-000227,Calibration Certificate - Tank Farm 57 - Rev B,DT-CALCERT,B,Superseded,CFIHOS-00000010
+DOC-000228,P&ID - Tank Farm 57 - Rev 1,DT-PID,A,Approved for Construction,CFIHOS-00000010
+DOC-000229,P&ID - Tank Farm 57 - Rev 0,DT-PID,B,As-Built,CFIHOS-00000010
+DOC-000230,Instrument Loop Diagram - Utilities Area 58 - Rev A,DT-LOOPDIAG,B,Superseded,CFIHOS-00000010
+DOC-000231,P&ID - Utilities Area 58 - Rev 1,DT-PID,2,Superseded,CFIHOS-00000010
+DOC-000232,P&ID - Utilities Area 58 - Rev A,DT-PID,1,Superseded,CFIHOS-00000010
+DOC-000233,P&ID - Utilities Area 58 - Rev 1,DT-PID,2,Issued for Review,CFIHOS-00000010
+DOC-000234,Piping Isometric - Utilities Area 58 - Rev A,DT-ISOMETRIC,1,Superseded,CFIHOS-00000010
+DOC-000235,Equipment Datasheet - Process Unit 59 - Rev 1,DT-DATASHEET,B,As-Built,CFIHOS-00000010
+DOC-000236,Piping Isometric - Process Unit 59 - Rev C,DT-ISOMETRIC,C,Superseded,CFIHOS-00000010
+DOC-000237,Calibration Certificate - Process Unit 59 - Rev 0,DT-CALCERT,0,As-Built,CFIHOS-00000010
+DOC-000238,Equipment Datasheet - Power Generation 60 - Rev 2,DT-DATASHEET,2,Approved for Construction,CFIHOS-00000010
+DOC-000239,Network Architecture Diagram - Power Generation 60 - Rev 0,DT-NETARCH,0,Superseded,CFIHOS-00000010
+DOC-000240,P&ID - Power Generation 60 - Rev 2,DT-PID,B,Approved for Construction,CFIHOS-00000010
+DOC-000241,Network Architecture Diagram - Power Generation 60 - Rev 2,DT-NETARCH,C,Approved for Construction,CFIHOS-00000010
+DOC-000242,Single Line Diagram - Power Generation 61 - Rev B,DT-SLD,2,Superseded,CFIHOS-00000010
+DOC-000243,P&ID - Power Generation 61 - Rev A,DT-PID,2,Issued for Review,CFIHOS-00000010
+DOC-000244,P&ID - Power Generation 61 - Rev B,DT-PID,C,Approved for Construction,CFIHOS-00000010
+DOC-000245,Instrument Loop Diagram - Tank Farm 62 - Rev 2,DT-LOOPDIAG,0,Approved for Construction,CFIHOS-00000010
+DOC-000246,Instrument Loop Diagram - Tank Farm 62 - Rev 1,DT-LOOPDIAG,B,Superseded,CFIHOS-00000010
+DOC-000247,Calibration Certificate - Tank Farm 62 - Rev 0,DT-CALCERT,2,As-Built,CFIHOS-00000010
+DOC-000248,Calibration Certificate - Tank Farm 62 - Rev A,DT-CALCERT,A,Superseded,CFIHOS-00000010
+DOC-000249,Equipment Datasheet - Tank Farm 62 - Rev C,DT-DATASHEET,1,Superseded,CFIHOS-00000010
+DOC-000250,Piping Isometric - Power Generation 63 - Rev 0,DT-ISOMETRIC,0,As-Built,CFIHOS-00000010
+DOC-000251,Network Architecture Diagram - Power Generation 63 - Rev 0,DT-NETARCH,B,Superseded,CFIHOS-00000010
+DOC-000252,Piping Isometric - Power Generation 63 - Rev B,DT-ISOMETRIC,2,Approved for Construction,CFIHOS-00000010
+DOC-000253,Instrument Loop Diagram - Tank Farm 64 - Rev 0,DT-LOOPDIAG,2,As-Built,CFIHOS-00000010
+DOC-000254,Calibration Certificate - Tank Farm 64 - Rev C,DT-CALCERT,A,Approved for Construction,CFIHOS-00000010
+DOC-000255,Piping Isometric - Tank Farm 64 - Rev 0,DT-ISOMETRIC,C,Issued for Review,CFIHOS-00000010
+DOC-000256,Instrument Loop Diagram - Tank Farm 64 - Rev A,DT-LOOPDIAG,B,Superseded,CFIHOS-00000010
+DOC-000257,Network Architecture Diagram - Power Generation 65 - Rev A,DT-NETARCH,A,Approved for Construction,CFIHOS-00000010
+DOC-000258,Equipment Datasheet - Power Generation 65 - Rev 1,DT-DATASHEET,1,Issued for Review,CFIHOS-00000010
+DOC-000259,P&ID - Power Generation 65 - Rev C,DT-PID,0,Superseded,CFIHOS-00000010
+DOC-000260,Single Line Diagram - Power Generation 65 - Rev 1,DT-SLD,1,As-Built,CFIHOS-00000010
+DOC-000261,Instrument Loop Diagram - Power Generation 65 - Rev B,DT-LOOPDIAG,C,Issued for Review,CFIHOS-00000010
+DOC-000262,Instrument Loop Diagram - Process Unit 66 - Rev A,DT-LOOPDIAG,B,Superseded,CFIHOS-00000010
+DOC-000263,Network Architecture Diagram - Process Unit 66 - Rev C,DT-NETARCH,0,Approved for Construction,CFIHOS-00000010
+DOC-000264,Piping Isometric - Process Unit 66 - Rev B,DT-ISOMETRIC,2,Superseded,CFIHOS-00000010
+DOC-000265,Single Line Diagram - Process Unit 66 - Rev 0,DT-SLD,A,As-Built,CFIHOS-00000010
+DOC-000266,Network Architecture Diagram - Tank Farm 67 - Rev C,DT-NETARCH,1,Superseded,CFIHOS-00000010
+DOC-000267,Risk Assessment Report - Tank Farm 67 - Rev C,DT-RISKREPORT,0,As-Built,CFIHOS-00000010
+DOC-000268,Calibration Certificate - Tank Farm 67 - Rev 1,DT-CALCERT,2,As-Built,CFIHOS-00000010
+DOC-000269,Instrument Loop Diagram - Process Unit 68 - Rev 0,DT-LOOPDIAG,C,Issued for Review,CFIHOS-00000010
+DOC-000270,Single Line Diagram - Process Unit 68 - Rev C,DT-SLD,0,Issued for Review,CFIHOS-00000010
+DOC-000271,Calibration Certificate - Process Unit 68 - Rev A,DT-CALCERT,1,As-Built,CFIHOS-00000010
+DOC-000272,Instrument Loop Diagram - Process Unit 68 - Rev 2,DT-LOOPDIAG,1,Approved for Construction,CFIHOS-00000010
+DOC-000273,Single Line Diagram - Tank Farm 69 - Rev 0,DT-SLD,C,Approved for Construction,CFIHOS-00000010
+DOC-000274,Risk Assessment Report - Tank Farm 69 - Rev B,DT-RISKREPORT,2,Issued for Review,CFIHOS-00000010
+DOC-000275,Piping Isometric - Tank Farm 69 - Rev 2,DT-ISOMETRIC,B,Superseded,CFIHOS-00000010
+DOC-000276,Equipment Datasheet - Tank Farm 69 - Rev 0,DT-DATASHEET,1,Superseded,CFIHOS-00000010
+DOC-000277,Network Architecture Diagram - Tank Farm 69 - Rev 1,DT-NETARCH,1,Superseded,CFIHOS-00000010
+DOC-000278,Calibration Certificate - Utilities Area 70 - Rev 2,DT-CALCERT,1,Approved for Construction,CFIHOS-00000010
+DOC-000279,Single Line Diagram - Utilities Area 70 - Rev 2,DT-SLD,2,Issued for Review,CFIHOS-00000010
+DOC-000280,P&ID - Utilities Area 70 - Rev 1,DT-PID,2,Superseded,CFIHOS-00000010
+DOC-000281,Equipment Datasheet - Power Generation 71 - Rev A,DT-DATASHEET,A,Issued for Review,CFIHOS-00000010
+DOC-000282,Single Line Diagram - Power Generation 71 - Rev 0,DT-SLD,C,Superseded,CFIHOS-00000010
+DOC-000283,Instrument Loop Diagram - Power Generation 71 - Rev C,DT-LOOPDIAG,A,Superseded,CFIHOS-00000010
+DOC-000284,Piping Isometric - Power Generation 71 - Rev 0,DT-ISOMETRIC,A,Approved for Construction,CFIHOS-00000010
+DOC-000285,Piping Isometric - Process Unit 72 - Rev C,DT-ISOMETRIC,0,As-Built,CFIHOS-00000010
+DOC-000286,Risk Assessment Report - Process Unit 72 - Rev C,DT-RISKREPORT,0,Approved for Construction,CFIHOS-00000010
+DOC-000287,Risk Assessment Report - Process Unit 72 - Rev C,DT-RISKREPORT,A,Issued for Review,CFIHOS-00000010
+DOC-000288,Equipment Datasheet - Process Unit 72 - Rev A,DT-DATASHEET,C,Approved for Construction,CFIHOS-00000010
+DOC-000289,Single Line Diagram - Process Unit 73 - Rev 1,DT-SLD,B,As-Built,CFIHOS-00000010
+DOC-000290,Network Architecture Diagram - Process Unit 73 - Rev 0,DT-NETARCH,B,Superseded,CFIHOS-00000010
+DOC-000291,Instrument Loop Diagram - Process Unit 73 - Rev 2,DT-LOOPDIAG,2,Superseded,CFIHOS-00000010
+DOC-000292,P&ID - Process Unit 73 - Rev 2,DT-PID,1,As-Built,CFIHOS-00000010
+DOC-000293,Network Architecture Diagram - Process Unit 73 - Rev 0,DT-NETARCH,A,As-Built,CFIHOS-00000010
+DOC-000294,Equipment Datasheet - Utilities Area 74 - Rev 1,DT-DATASHEET,A,As-Built,CFIHOS-00000010
+DOC-000295,Calibration Certificate - Utilities Area 74 - Rev B,DT-CALCERT,0,Approved for Construction,CFIHOS-00000010
+DOC-000296,Risk Assessment Report - Utilities Area 74 - Rev 1,DT-RISKREPORT,2,Issued for Review,CFIHOS-00000010
+DOC-000297,Network Architecture Diagram - Utilities Area 74 - Rev 1,DT-NETARCH,0,Approved for Construction,CFIHOS-00000010
+DOC-000298,Risk Assessment Report - Offsite Pipeline Corridor 75 - Rev 1,DT-RISKREPORT,B,Issued for Review,CFIHOS-00000010
+DOC-000299,Equipment Datasheet - Offsite Pipeline Corridor 75 - Rev 2,DT-DATASHEET,B,Issued for Review,CFIHOS-00000010
+DOC-000300,Single Line Diagram - Offsite Pipeline Corridor 75 - Rev C,DT-SLD,A,As-Built,CFIHOS-00000010
+DOC-000301,Instrument Loop Diagram - Offsite Pipeline Corridor 75 - Rev 1,DT-LOOPDIAG,0,Superseded,CFIHOS-00000010
+DOC-000302,Network Architecture Diagram - Utilities Area 76 - Rev 0,DT-NETARCH,B,Superseded,CFIHOS-00000010
+DOC-000303,Instrument Loop Diagram - Utilities Area 76 - Rev 1,DT-LOOPDIAG,B,Superseded,CFIHOS-00000010
+DOC-000304,Instrument Loop Diagram - Utilities Area 76 - Rev B,DT-LOOPDIAG,C,Superseded,CFIHOS-00000010
+DOC-000305,Calibration Certificate - Power Generation 77 - Rev A,DT-CALCERT,0,As-Built,CFIHOS-00000010
+DOC-000306,Network Architecture Diagram - Power Generation 77 - Rev 1,DT-NETARCH,1,Superseded,CFIHOS-00000010
+DOC-000307,Risk Assessment Report - Power Generation 77 - Rev 0,DT-RISKREPORT,2,Superseded,CFIHOS-00000010
+DOC-000308,Equipment Datasheet - Utilities Area 78 - Rev 1,DT-DATASHEET,A,As-Built,CFIHOS-00000010
+DOC-000309,P&ID - Utilities Area 78 - Rev C,DT-PID,B,Issued for Review,CFIHOS-00000010
+DOC-000310,Risk Assessment Report - Utilities Area 78 - Rev 1,DT-RISKREPORT,2,Superseded,CFIHOS-00000010
+DOC-000311,Equipment Datasheet - Utilities Area 79 - Rev 1,DT-DATASHEET,A,Issued for Review,CFIHOS-00000010
+DOC-000312,Calibration Certificate - Utilities Area 79 - Rev 1,DT-CALCERT,A,Superseded,CFIHOS-00000010
+DOC-000313,Single Line Diagram - Utilities Area 79 - Rev 0,DT-SLD,A,As-Built,CFIHOS-00000010
+DOC-000314,P&ID - Utilities Area 79 - Rev 0,DT-PID,C,Issued for Review,CFIHOS-00000010
+DOC-000315,Risk Assessment Report - Utilities Area 79 - Rev A,DT-RISKREPORT,B,As-Built,CFIHOS-00000010
+DOC-000316,Calibration Certificate - Offsite Pipeline Corridor 80 - Rev 2,DT-CALCERT,1,Superseded,CFIHOS-00000010
+DOC-000317,Instrument Loop Diagram - Offsite Pipeline Corridor 80 - Rev B,DT-LOOPDIAG,B,Approved for Construction,CFIHOS-00000010
+DOC-000318,Calibration Certificate - Offsite Pipeline Corridor 80 - Rev 1,DT-CALCERT,C,As-Built,CFIHOS-00000010
+DOC-000319,Piping Isometric - Offsite Pipeline Corridor 80 - Rev C,DT-ISOMETRIC,1,Issued for Review,CFIHOS-00000010
+DOC-000320,Equipment Datasheet - Offsite Pipeline Corridor 80 - Rev B,DT-DATASHEET,0,Approved for Construction,CFIHOS-00000010
+DOC-000321,Instrument Loop Diagram - Offsite Pipeline Corridor 81 - Rev 2,DT-LOOPDIAG,B,As-Built,CFIHOS-00000010
+DOC-000322,Calibration Certificate - Offsite Pipeline Corridor 81 - Rev B,DT-CALCERT,2,Superseded,CFIHOS-00000010
+DOC-000323,Instrument Loop Diagram - Offsite Pipeline Corridor 81 - Rev 1,DT-LOOPDIAG,2,Issued for Review,CFIHOS-00000010
+DOC-000324,Network Architecture Diagram - Offsite Pipeline Corridor 81 - Rev 0,DT-NETARCH,A,Approved for Construction,CFIHOS-00000010
+DOC-000325,Piping Isometric - Offsite Pipeline Corridor 81 - Rev 2,DT-ISOMETRIC,C,Superseded,CFIHOS-00000010
+DOC-000326,P&ID - Offsite Pipeline Corridor 82 - Rev 2,DT-PID,A,Superseded,CFIHOS-00000010
+DOC-000327,Equipment Datasheet - Offsite Pipeline Corridor 82 - Rev 1,DT-DATASHEET,0,As-Built,CFIHOS-00000010
+DOC-000328,Single Line Diagram - Offsite Pipeline Corridor 82 - Rev 0,DT-SLD,C,Issued for Review,CFIHOS-00000010
+DOC-000329,Calibration Certificate - Offsite Pipeline Corridor 82 - Rev 1,DT-CALCERT,1,As-Built,CFIHOS-00000010
+DOC-000330,Calibration Certificate - Utilities Area 83 - Rev 2,DT-CALCERT,A,Approved for Construction,CFIHOS-00000010
+DOC-000331,Risk Assessment Report - Utilities Area 83 - Rev A,DT-RISKREPORT,A,As-Built,CFIHOS-00000010
+DOC-000332,Risk Assessment Report - Utilities Area 83 - Rev A,DT-RISKREPORT,0,As-Built,CFIHOS-00000010
+DOC-000333,Piping Isometric - Utilities Area 83 - Rev B,DT-ISOMETRIC,C,Approved for Construction,CFIHOS-00000010
+DOC-000334,Equipment Datasheet - Process Unit 84 - Rev C,DT-DATASHEET,2,As-Built,CFIHOS-00000010
+DOC-000335,Network Architecture Diagram - Process Unit 84 - Rev 2,DT-NETARCH,C,As-Built,CFIHOS-00000010
+DOC-000336,Equipment Datasheet - Process Unit 84 - Rev 2,DT-DATASHEET,A,Approved for Construction,CFIHOS-00000010
+DOC-000337,Risk Assessment Report - Process Unit 84 - Rev A,DT-RISKREPORT,B,As-Built,CFIHOS-00000010
+DOC-000338,Risk Assessment Report - Process Unit 85 - Rev A,DT-RISKREPORT,A,Issued for Review,CFIHOS-00000010
+DOC-000339,Network Architecture Diagram - Process Unit 85 - Rev 2,DT-NETARCH,B,Superseded,CFIHOS-00000010
+DOC-000340,Single Line Diagram - Process Unit 85 - Rev 0,DT-SLD,A,Approved for Construction,CFIHOS-00000010
+DOC-000341,Calibration Certificate - Process Unit 85 - Rev C,DT-CALCERT,C,As-Built,CFIHOS-00000010
+DOC-000342,Instrument Loop Diagram - Process Unit 85 - Rev 2,DT-LOOPDIAG,2,As-Built,CFIHOS-00000010
+DOC-000343,P&ID - Power Generation 86 - Rev 1,DT-PID,2,As-Built,CFIHOS-00000010
+DOC-000344,Calibration Certificate - Power Generation 86 - Rev 2,DT-CALCERT,B,As-Built,CFIHOS-00000010
+DOC-000345,Risk Assessment Report - Power Generation 86 - Rev B,DT-RISKREPORT,A,Approved for Construction,CFIHOS-00000010
+DOC-000346,Equipment Datasheet - Power Generation 86 - Rev 1,DT-DATASHEET,2,Superseded,CFIHOS-00000010
+DOC-000347,Network Architecture Diagram - Power Generation 86 - Rev C,DT-NETARCH,B,As-Built,CFIHOS-00000010
+DOC-000348,Equipment Datasheet - Utilities Area 87 - Rev B,DT-DATASHEET,1,Issued for Review,CFIHOS-00000010
+DOC-000349,Piping Isometric - Utilities Area 87 - Rev B,DT-ISOMETRIC,1,As-Built,CFIHOS-00000010
+DOC-000350,Piping Isometric - Utilities Area 87 - Rev 2,DT-ISOMETRIC,A,As-Built,CFIHOS-00000010
+DOC-000351,Network Architecture Diagram - Utilities Area 87 - Rev A,DT-NETARCH,B,Superseded,CFIHOS-00000010
+DOC-000352,Equipment Datasheet - Utilities Area 87 - Rev 1,DT-DATASHEET,A,Issued for Review,CFIHOS-00000010
+DOC-000353,Network Architecture Diagram - Process Unit 88 - Rev 1,DT-NETARCH,0,Issued for Review,CFIHOS-00000010
+DOC-000354,Instrument Loop Diagram - Process Unit 88 - Rev 0,DT-LOOPDIAG,A,Approved for Construction,CFIHOS-00000010
+DOC-000355,Equipment Datasheet - Process Unit 88 - Rev A,DT-DATASHEET,C,As-Built,CFIHOS-00000010
+DOC-000356,Network Architecture Diagram - Utilities Area 89 - Rev 1,DT-NETARCH,C,Superseded,CFIHOS-00000010
+DOC-000357,Network Architecture Diagram - Utilities Area 89 - Rev A,DT-NETARCH,2,As-Built,CFIHOS-00000010
+DOC-000358,Equipment Datasheet - Utilities Area 89 - Rev C,DT-DATASHEET,A,As-Built,CFIHOS-00000010
+DOC-000359,Calibration Certificate - Process Unit 90 - Rev 0,DT-CALCERT,1,Approved for Construction,CFIHOS-00000010
+DOC-000360,Network Architecture Diagram - Process Unit 90 - Rev 2,DT-NETARCH,B,Approved for Construction,CFIHOS-00000010
+DOC-000361,Equipment Datasheet - Process Unit 90 - Rev 0,DT-DATASHEET,A,Superseded,CFIHOS-00000010
+DOC-000362,P&ID - Process Unit 90 - Rev C,DT-PID,2,As-Built,CFIHOS-00000010
+DOC-000363,P&ID - Process Unit 90 - Rev 2,DT-PID,B,Approved for Construction,CFIHOS-00000010
+DOC-000364,Calibration Certificate - Process Unit 91 - Rev 1,DT-CALCERT,1,Issued for Review,CFIHOS-00000010
+DOC-000365,Calibration Certificate - Process Unit 91 - Rev B,DT-CALCERT,2,Issued for Review,CFIHOS-00000010
+DOC-000366,P&ID - Process Unit 91 - Rev C,DT-PID,0,Issued for Review,CFIHOS-00000010
+DOC-000367,Equipment Datasheet - Process Unit 91 - Rev C,DT-DATASHEET,2,Approved for Construction,CFIHOS-00000010
+DOC-000368,Calibration Certificate - Utilities Area 92 - Rev A,DT-CALCERT,0,As-Built,CFIHOS-00000010
+DOC-000369,Instrument Loop Diagram - Utilities Area 92 - Rev C,DT-LOOPDIAG,A,Approved for Construction,CFIHOS-00000010
+DOC-000370,P&ID - Utilities Area 92 - Rev A,DT-PID,A,As-Built,CFIHOS-00000010
+DOC-000371,Risk Assessment Report - Utilities Area 92 - Rev C,DT-RISKREPORT,0,As-Built,CFIHOS-00000010
+DOC-000372,Network Architecture Diagram - Offsite Pipeline Corridor 93 - Rev B,DT-NETARCH,C,As-Built,CFIHOS-00000010
+DOC-000373,Calibration Certificate - Offsite Pipeline Corridor 93 - Rev C,DT-CALCERT,A,Issued for Review,CFIHOS-00000010
+DOC-000374,P&ID - Offsite Pipeline Corridor 93 - Rev B,DT-PID,B,Approved for Construction,CFIHOS-00000010
+DOC-000375,Risk Assessment Report - Power Generation 94 - Rev C,DT-RISKREPORT,C,Issued for Review,CFIHOS-00000010
+DOC-000376,Risk Assessment Report - Power Generation 94 - Rev A,DT-RISKREPORT,C,As-Built,CFIHOS-00000010
+DOC-000377,Piping Isometric - Power Generation 94 - Rev 2,DT-ISOMETRIC,1,As-Built,CFIHOS-00000010
+DOC-000378,Risk Assessment Report - Power Generation 95 - Rev B,DT-RISKREPORT,2,As-Built,CFIHOS-00000010
+DOC-000379,P&ID - Power Generation 95 - Rev 0,DT-PID,A,As-Built,CFIHOS-00000010
+DOC-000380,Calibration Certificate - Power Generation 95 - Rev 2,DT-CALCERT,2,Approved for Construction,CFIHOS-00000010
+DOC-000381,P&ID - Power Generation 95 - Rev 2,DT-PID,0,Issued for Review,CFIHOS-00000010
+DOC-000382,Single Line Diagram - Offsite Pipeline Corridor 96 - Rev 0,DT-SLD,0,Approved for Construction,CFIHOS-00000010
+DOC-000383,Piping Isometric - Offsite Pipeline Corridor 96 - Rev A,DT-ISOMETRIC,A,As-Built,CFIHOS-00000010
+DOC-000384,Network Architecture Diagram - Offsite Pipeline Corridor 96 - Rev 2,DT-NETARCH,C,Superseded,CFIHOS-00000010

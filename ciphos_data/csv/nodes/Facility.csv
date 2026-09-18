@@ -1,0 +1,97 @@
+facilityId,name,facilityType,cfihosId
+FAC-0001,Utilities Area 1,Power Generation,CFIHOS-00000060
+FAC-0002,Power Generation 2,Process Unit,CFIHOS-00000060
+FAC-0003,Power Generation 3,Utilities Area,CFIHOS-00000060
+FAC-0004,Power Generation 4,Offsite Pipeline Corridor,CFIHOS-00000060
+FAC-0005,Utilities Area 5,Offsite Pipeline Corridor,CFIHOS-00000060
+FAC-0006,Power Generation 6,Tank Farm,CFIHOS-00000060
+FAC-0007,Process Unit 7,Utilities Area,CFIHOS-00000060
+FAC-0008,Tank Farm 8,Tank Farm,CFIHOS-00000060
+FAC-0009,Utilities Area 9,Utilities Area,CFIHOS-00000060
+FAC-0010,Tank Farm 10,Process Unit,CFIHOS-00000060
+FAC-0011,Process Unit 11,Offsite Pipeline Corridor,CFIHOS-00000060
+FAC-0012,Process Unit 12,Tank Farm,CFIHOS-00000060
+FAC-0013,Tank Farm 13,Power Generation,CFIHOS-00000060
+FAC-0014,Tank Farm 14,Process Unit,CFIHOS-00000060
+FAC-0015,Offsite Pipeline Corridor 15,Power Generation,CFIHOS-00000060
+FAC-0016,Process Unit 16,Offsite Pipeline Corridor,CFIHOS-00000060
+FAC-0017,Power Generation 17,Tank Farm,CFIHOS-00000060
+FAC-0018,Power Generation 18,Tank Farm,CFIHOS-00000060
+FAC-0019,Power Generation 19,Utilities Area,CFIHOS-00000060
+FAC-0020,Process Unit 20,Process Unit,CFIHOS-00000060
+FAC-0021,Utilities Area 21,Tank Farm,CFIHOS-00000060
+FAC-0022,Process Unit 22,Utilities Area,CFIHOS-00000060
+FAC-0023,Offsite Pipeline Corridor 23,Tank Farm,CFIHOS-00000060
+FAC-0024,Offsite Pipeline Corridor 24,Tank Farm,CFIHOS-00000060
+FAC-0025,Utilities Area 25,Tank Farm,CFIHOS-00000060
+FAC-0026,Tank Farm 26,Utilities Area,CFIHOS-00000060
+FAC-0027,Tank Farm 27,Process Unit,CFIHOS-00000060
+FAC-0028,Power Generation 28,Utilities Area,CFIHOS-00000060
+FAC-0029,Utilities Area 29,Utilities Area,CFIHOS-00000060
+FAC-0030,Offsite Pipeline Corridor 30,Offsite Pipeline Corridor,CFIHOS-00000060
+FAC-0031,Tank Farm 31,Power Generation,CFIHOS-00000060
+FAC-0032,Utilities Area 32,Tank Farm,CFIHOS-00000060
+FAC-0033,Process Unit 33,Utilities Area,CFIHOS-00000060
+FAC-0034,Process Unit 34,Tank Farm,CFIHOS-00000060
+FAC-0035,Offsite Pipeline Corridor 35,Tank Farm,CFIHOS-00000060
+FAC-0036,Process Unit 36,Utilities Area,CFIHOS-00000060
+FAC-0037,Power Generation 37,Tank Farm,CFIHOS-00000060
+FAC-0038,Utilities Area 38,Offsite Pipeline Corridor,CFIHOS-00000060
+FAC-0039,Offsite Pipeline Corridor 39,Utilities Area,CFIHOS-00000060
+FAC-0040,Tank Farm 40,Utilities Area,CFIHOS-00000060
+FAC-0041,Utilities Area 41,Power Generation,CFIHOS-00000060
+FAC-0042,Power Generation 42,Tank Farm,CFIHOS-00000060
+FAC-0043,Power Generation 43,Offsite Pipeline Corridor,CFIHOS-00000060
+FAC-0044,Power Generation 44,Offsite Pipeline Corridor,CFIHOS-00000060
+FAC-0045,Tank Farm 45,Utilities Area,CFIHOS-00000060
+FAC-0046,Utilities Area 46,Power Generation,CFIHOS-00000060
+FAC-0047,Offsite Pipeline Corridor 47,Process Unit,CFIHOS-00000060
+FAC-0048,Process Unit 48,Utilities Area,CFIHOS-00000060
+FAC-0049,Utilities Area 49,Offsite Pipeline Corridor,CFIHOS-00000060
+FAC-0050,Power Generation 50,Process Unit,CFIHOS-00000060
+FAC-0051,Offsite Pipeline Corridor 51,Offsite Pipeline Corridor,CFIHOS-00000060
+FAC-0052,Power Generation 52,Offsite Pipeline Corridor,CFIHOS-00000060
+FAC-0053,Power Generation 53,Tank Farm,CFIHOS-00000060
+FAC-0054,Process Unit 54,Process Unit,CFIHOS-00000060
+FAC-0055,Power Generation 55,Tank Farm,CFIHOS-00000060
+FAC-0056,Tank Farm 56,Process Unit,CFIHOS-00000060
+FAC-0057,Tank Farm 57,Offsite Pipeline Corridor,CFIHOS-00000060
+FAC-0058,Utilities Area 58,Offsite Pipeline Corridor,CFIHOS-00000060
+FAC-0059,Process Unit 59,Tank Farm,CFIHOS-00000060
+FAC-0060,Power Generation 60,Utilities Area,CFIHOS-00000060
+FAC-0061,Power Generation 61,Process Unit,CFIHOS-00000060
+FAC-0062,Tank Farm 62,Power Generation,CFIHOS-00000060
+FAC-0063,Power Generation 63,Utilities Area,CFIHOS-00000060
+FAC-0064,Tank Farm 64,Utilities Area,CFIHOS-00000060
+FAC-0065,Power Generation 65,Power Generation,CFIHOS-00000060
+FAC-0066,Process Unit 66,Power Generation,CFIHOS-00000060
+FAC-0067,Tank Farm 67,Offsite Pipeline Corridor,CFIHOS-00000060
+FAC-0068,Process Unit 68,Process Unit,CFIHOS-00000060
+FAC-0069,Tank Farm 69,Tank Farm,CFIHOS-00000060
+FAC-0070,Utilities Area 70,Process Unit,CFIHOS-00000060
+FAC-0071,Power Generation 71,Process Unit,CFIHOS-00000060
+FAC-0072,Process Unit 72,Offsite Pipeline Corridor,CFIHOS-00000060
+FAC-0073,Process Unit 73,Power Generation,CFIHOS-00000060
+FAC-0074,Utilities Area 74,Utilities Area,CFIHOS-00000060
+FAC-0075,Offsite Pipeline Corridor 75,Power Generation,CFIHOS-00000060
+FAC-0076,Utilities Area 76,Tank Farm,CFIHOS-00000060
+FAC-0077,Power Generation 77,Power Generation,CFIHOS-00000060
+FAC-0078,Utilities Area 78,Power Generation,CFIHOS-00000060
+FAC-0079,Utilities Area 79,Tank Farm,CFIHOS-00000060
+FAC-0080,Offsite Pipeline Corridor 80,Tank Farm,CFIHOS-00000060
+FAC-0081,Offsite Pipeline Corridor 81,Power Generation,CFIHOS-00000060
+FAC-0082,Offsite Pipeline Corridor 82,Process Unit,CFIHOS-00000060
+FAC-0083,Utilities Area 83,Utilities Area,CFIHOS-00000060
+FAC-0084,Process Unit 84,Tank Farm,CFIHOS-00000060
+FAC-0085,Process Unit 85,Power Generation,CFIHOS-00000060
+FAC-0086,Power Generation 86,Utilities Area,CFIHOS-00000060
+FAC-0087,Utilities Area 87,Process Unit,CFIHOS-00000060
+FAC-0088,Process Unit 88,Process Unit,CFIHOS-00000060
+FAC-0089,Utilities Area 89,Process Unit,CFIHOS-00000060
+FAC-0090,Process Unit 90,Tank Farm,CFIHOS-00000060
+FAC-0091,Process Unit 91,Power Generation,CFIHOS-00000060
+FAC-0092,Utilities Area 92,Tank Farm,CFIHOS-00000060
+FAC-0093,Offsite Pipeline Corridor 93,Utilities Area,CFIHOS-00000060
+FAC-0094,Power Generation 94,Utilities Area,CFIHOS-00000060
+FAC-0095,Power Generation 95,Power Generation,CFIHOS-00000060
+FAC-0096,Offsite Pipeline Corridor 96,Utilities Area,CFIHOS-00000060

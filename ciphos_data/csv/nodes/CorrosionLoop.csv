@@ -1,0 +1,140 @@
+loopId,description,cfihosId
+CL-00001,Corrosion Loop 1 - Utilities Area 1,CFIHOS-00000043
+CL-00002,Corrosion Loop 2 - Power Generation 2,CFIHOS-00000043
+CL-00003,Corrosion Loop 3 - Power Generation 3,CFIHOS-00000043
+CL-00004,Corrosion Loop 4 - Power Generation 3,CFIHOS-00000043
+CL-00005,Corrosion Loop 5 - Power Generation 4,CFIHOS-00000043
+CL-00006,Corrosion Loop 6 - Utilities Area 5,CFIHOS-00000043
+CL-00007,Corrosion Loop 7 - Power Generation 6,CFIHOS-00000043
+CL-00008,Corrosion Loop 8 - Power Generation 6,CFIHOS-00000043
+CL-00009,Corrosion Loop 9 - Process Unit 7,CFIHOS-00000043
+CL-00010,Corrosion Loop 10 - Tank Farm 8,CFIHOS-00000043
+CL-00011,Corrosion Loop 11 - Utilities Area 9,CFIHOS-00000043
+CL-00012,Corrosion Loop 12 - Utilities Area 9,CFIHOS-00000043
+CL-00013,Corrosion Loop 13 - Tank Farm 10,CFIHOS-00000043
+CL-00014,Corrosion Loop 14 - Tank Farm 10,CFIHOS-00000043
+CL-00015,Corrosion Loop 15 - Process Unit 11,CFIHOS-00000043
+CL-00016,Corrosion Loop 16 - Process Unit 11,CFIHOS-00000043
+CL-00017,Corrosion Loop 17 - Process Unit 12,CFIHOS-00000043
+CL-00018,Corrosion Loop 18 - Process Unit 12,CFIHOS-00000043
+CL-00019,Corrosion Loop 19 - Tank Farm 13,CFIHOS-00000043
+CL-00020,Corrosion Loop 20 - Tank Farm 13,CFIHOS-00000043
+CL-00021,Corrosion Loop 21 - Tank Farm 14,CFIHOS-00000043
+CL-00022,Corrosion Loop 22 - Tank Farm 14,CFIHOS-00000043
+CL-00023,Corrosion Loop 23 - Offsite Pipeline Corridor 15,CFIHOS-00000043
+CL-00024,Corrosion Loop 24 - Offsite Pipeline Corridor 15,CFIHOS-00000043
+CL-00025,Corrosion Loop 25 - Process Unit 16,CFIHOS-00000043
+CL-00026,Corrosion Loop 26 - Process Unit 16,CFIHOS-00000043
+CL-00027,Corrosion Loop 27 - Power Generation 17,CFIHOS-00000043
+CL-00028,Corrosion Loop 28 - Power Generation 18,CFIHOS-00000043
+CL-00029,Corrosion Loop 29 - Power Generation 19,CFIHOS-00000043
+CL-00030,Corrosion Loop 30 - Process Unit 20,CFIHOS-00000043
+CL-00031,Corrosion Loop 31 - Utilities Area 21,CFIHOS-00000043
+CL-00032,Corrosion Loop 32 - Process Unit 22,CFIHOS-00000043
+CL-00033,Corrosion Loop 33 - Offsite Pipeline Corridor 23,CFIHOS-00000043
+CL-00034,Corrosion Loop 34 - Offsite Pipeline Corridor 24,CFIHOS-00000043
+CL-00035,Corrosion Loop 35 - Utilities Area 25,CFIHOS-00000043
+CL-00036,Corrosion Loop 36 - Utilities Area 25,CFIHOS-00000043
+CL-00037,Corrosion Loop 37 - Tank Farm 26,CFIHOS-00000043
+CL-00038,Corrosion Loop 38 - Tank Farm 26,CFIHOS-00000043
+CL-00039,Corrosion Loop 39 - Tank Farm 27,CFIHOS-00000043
+CL-00040,Corrosion Loop 40 - Tank Farm 27,CFIHOS-00000043
+CL-00041,Corrosion Loop 41 - Power Generation 28,CFIHOS-00000043
+CL-00042,Corrosion Loop 42 - Power Generation 28,CFIHOS-00000043
+CL-00043,Corrosion Loop 43 - Utilities Area 29,CFIHOS-00000043
+CL-00044,Corrosion Loop 44 - Offsite Pipeline Corridor 30,CFIHOS-00000043
+CL-00045,Corrosion Loop 45 - Offsite Pipeline Corridor 30,CFIHOS-00000043
+CL-00046,Corrosion Loop 46 - Tank Farm 31,CFIHOS-00000043
+CL-00047,Corrosion Loop 47 - Utilities Area 32,CFIHOS-00000043
+CL-00048,Corrosion Loop 48 - Utilities Area 32,CFIHOS-00000043
+CL-00049,Corrosion Loop 49 - Process Unit 33,CFIHOS-00000043
+CL-00050,Corrosion Loop 50 - Process Unit 33,CFIHOS-00000043
+CL-00051,Corrosion Loop 51 - Process Unit 34,CFIHOS-00000043
+CL-00052,Corrosion Loop 52 - Process Unit 34,CFIHOS-00000043
+CL-00053,Corrosion Loop 53 - Offsite Pipeline Corridor 35,CFIHOS-00000043
+CL-00054,Corrosion Loop 54 - Offsite Pipeline Corridor 35,CFIHOS-00000043
+CL-00055,Corrosion Loop 55 - Process Unit 36,CFIHOS-00000043
+CL-00056,Corrosion Loop 56 - Power Generation 37,CFIHOS-00000043
+CL-00057,Corrosion Loop 57 - Utilities Area 38,CFIHOS-00000043
+CL-00058,Corrosion Loop 58 - Offsite Pipeline Corridor 39,CFIHOS-00000043
+CL-00059,Corrosion Loop 59 - Offsite Pipeline Corridor 39,CFIHOS-00000043
+CL-00060,Corrosion Loop 60 - Tank Farm 40,CFIHOS-00000043
+CL-00061,Corrosion Loop 61 - Utilities Area 41,CFIHOS-00000043
+CL-00062,Corrosion Loop 62 - Power Generation 42,CFIHOS-00000043
+CL-00063,Corrosion Loop 63 - Power Generation 42,CFIHOS-00000043
+CL-00064,Corrosion Loop 64 - Power Generation 43,CFIHOS-00000043
+CL-00065,Corrosion Loop 65 - Power Generation 44,CFIHOS-00000043
+CL-00066,Corrosion Loop 66 - Tank Farm 45,CFIHOS-00000043
+CL-00067,Corrosion Loop 67 - Utilities Area 46,CFIHOS-00000043
+CL-00068,Corrosion Loop 68 - Utilities Area 46,CFIHOS-00000043
+CL-00069,Corrosion Loop 69 - Offsite Pipeline Corridor 47,CFIHOS-00000043
+CL-00070,Corrosion Loop 70 - Offsite Pipeline Corridor 47,CFIHOS-00000043
+CL-00071,Corrosion Loop 71 - Process Unit 48,CFIHOS-00000043
+CL-00072,Corrosion Loop 72 - Utilities Area 49,CFIHOS-00000043
+CL-00073,Corrosion Loop 73 - Utilities Area 49,CFIHOS-00000043
+CL-00074,Corrosion Loop 74 - Power Generation 50,CFIHOS-00000043
+CL-00075,Corrosion Loop 75 - Power Generation 50,CFIHOS-00000043
+CL-00076,Corrosion Loop 76 - Offsite Pipeline Corridor 51,CFIHOS-00000043
+CL-00077,Corrosion Loop 77 - Power Generation 52,CFIHOS-00000043
+CL-00078,Corrosion Loop 78 - Power Generation 53,CFIHOS-00000043
+CL-00079,Corrosion Loop 79 - Power Generation 53,CFIHOS-00000043
+CL-00080,Corrosion Loop 80 - Process Unit 54,CFIHOS-00000043
+CL-00081,Corrosion Loop 81 - Process Unit 54,CFIHOS-00000043
+CL-00082,Corrosion Loop 82 - Power Generation 55,CFIHOS-00000043
+CL-00083,Corrosion Loop 83 - Tank Farm 56,CFIHOS-00000043
+CL-00084,Corrosion Loop 84 - Tank Farm 57,CFIHOS-00000043
+CL-00085,Corrosion Loop 85 - Tank Farm 57,CFIHOS-00000043
+CL-00086,Corrosion Loop 86 - Utilities Area 58,CFIHOS-00000043
+CL-00087,Corrosion Loop 87 - Process Unit 59,CFIHOS-00000043
+CL-00088,Corrosion Loop 88 - Power Generation 60,CFIHOS-00000043
+CL-00089,Corrosion Loop 89 - Power Generation 61,CFIHOS-00000043
+CL-00090,Corrosion Loop 90 - Tank Farm 62,CFIHOS-00000043
+CL-00091,Corrosion Loop 91 - Power Generation 63,CFIHOS-00000043
+CL-00092,Corrosion Loop 92 - Tank Farm 64,CFIHOS-00000043
+CL-00093,Corrosion Loop 93 - Power Generation 65,CFIHOS-00000043
+CL-00094,Corrosion Loop 94 - Process Unit 66,CFIHOS-00000043
+CL-00095,Corrosion Loop 95 - Process Unit 66,CFIHOS-00000043
+CL-00096,Corrosion Loop 96 - Tank Farm 67,CFIHOS-00000043
+CL-00097,Corrosion Loop 97 - Tank Farm 67,CFIHOS-00000043
+CL-00098,Corrosion Loop 98 - Process Unit 68,CFIHOS-00000043
+CL-00099,Corrosion Loop 99 - Tank Farm 69,CFIHOS-00000043
+CL-00100,Corrosion Loop 100 - Tank Farm 69,CFIHOS-00000043
+CL-00101,Corrosion Loop 101 - Utilities Area 70,CFIHOS-00000043
+CL-00102,Corrosion Loop 102 - Power Generation 71,CFIHOS-00000043
+CL-00103,Corrosion Loop 103 - Process Unit 72,CFIHOS-00000043
+CL-00104,Corrosion Loop 104 - Process Unit 73,CFIHOS-00000043
+CL-00105,Corrosion Loop 105 - Utilities Area 74,CFIHOS-00000043
+CL-00106,Corrosion Loop 106 - Utilities Area 74,CFIHOS-00000043
+CL-00107,Corrosion Loop 107 - Offsite Pipeline Corridor 75,CFIHOS-00000043
+CL-00108,Corrosion Loop 108 - Utilities Area 76,CFIHOS-00000043
+CL-00109,Corrosion Loop 109 - Power Generation 77,CFIHOS-00000043
+CL-00110,Corrosion Loop 110 - Power Generation 77,CFIHOS-00000043
+CL-00111,Corrosion Loop 111 - Utilities Area 78,CFIHOS-00000043
+CL-00112,Corrosion Loop 112 - Utilities Area 79,CFIHOS-00000043
+CL-00113,Corrosion Loop 113 - Offsite Pipeline Corridor 80,CFIHOS-00000043
+CL-00114,Corrosion Loop 114 - Offsite Pipeline Corridor 80,CFIHOS-00000043
+CL-00115,Corrosion Loop 115 - Offsite Pipeline Corridor 81,CFIHOS-00000043
+CL-00116,Corrosion Loop 116 - Offsite Pipeline Corridor 82,CFIHOS-00000043
+CL-00117,Corrosion Loop 117 - Utilities Area 83,CFIHOS-00000043
+CL-00118,Corrosion Loop 118 - Utilities Area 83,CFIHOS-00000043
+CL-00119,Corrosion Loop 119 - Process Unit 84,CFIHOS-00000043
+CL-00120,Corrosion Loop 120 - Process Unit 84,CFIHOS-00000043
+CL-00121,Corrosion Loop 121 - Process Unit 85,CFIHOS-00000043
+CL-00122,Corrosion Loop 122 - Process Unit 85,CFIHOS-00000043
+CL-00123,Corrosion Loop 123 - Power Generation 86,CFIHOS-00000043
+CL-00124,Corrosion Loop 124 - Utilities Area 87,CFIHOS-00000043
+CL-00125,Corrosion Loop 125 - Utilities Area 87,CFIHOS-00000043
+CL-00126,Corrosion Loop 126 - Process Unit 88,CFIHOS-00000043
+CL-00127,Corrosion Loop 127 - Process Unit 88,CFIHOS-00000043
+CL-00128,Corrosion Loop 128 - Utilities Area 89,CFIHOS-00000043
+CL-00129,Corrosion Loop 129 - Process Unit 90,CFIHOS-00000043
+CL-00130,Corrosion Loop 130 - Process Unit 90,CFIHOS-00000043
+CL-00131,Corrosion Loop 131 - Process Unit 91,CFIHOS-00000043
+CL-00132,Corrosion Loop 132 - Utilities Area 92,CFIHOS-00000043
+CL-00133,Corrosion Loop 133 - Offsite Pipeline Corridor 93,CFIHOS-00000043
+CL-00134,Corrosion Loop 134 - Offsite Pipeline Corridor 93,CFIHOS-00000043
+CL-00135,Corrosion Loop 135 - Power Generation 94,CFIHOS-00000043
+CL-00136,Corrosion Loop 136 - Power Generation 94,CFIHOS-00000043
+CL-00137,Corrosion Loop 137 - Power Generation 95,CFIHOS-00000043
+CL-00138,Corrosion Loop 138 - Power Generation 95,CFIHOS-00000043
+CL-00139,Corrosion Loop 139 - Offsite Pipeline Corridor 96,CFIHOS-00000043
