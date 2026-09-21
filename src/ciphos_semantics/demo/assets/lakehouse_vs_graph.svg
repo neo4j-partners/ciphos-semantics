@@ -42,16 +42,17 @@
   <text x="510" y="298" text-anchor="middle" font-size="12" font-style="italic" fill="#51606f">projection</text>
   <line x1="480" y1="308" x2="538" y2="308" stroke="#3f8a53" stroke-width="1.5" marker-end="url(#arrowGreen)" />
 
-  <!-- Operational graph -->
+  <!-- Cyber-Physical Plant Asset Inventory Graph -->
   <rect x="540" y="100" width="420" height="290" rx="12" fill="#f4f9f5" stroke="#3f8a53" stroke-width="1.5" filter="url(#softShadow)" />
-  <text x="750" y="140" text-anchor="middle" font-size="16" font-weight="600" fill="#1f2d3d">Operational graph</text>
-  <text x="750" y="170" text-anchor="middle" font-size="12.5" fill="#51606f">Current-state asset hierarchy: facility, plant,</text>
-  <text x="750" y="192" text-anchor="middle" font-size="12.5" fill="#51606f">system, functional location, tag</text>
-  <text x="750" y="214" text-anchor="middle" font-size="12.5" fill="#51606f">Equipment classes and manufacturer models</text>
-  <text x="750" y="236" text-anchor="middle" font-size="12.5" fill="#51606f">OT assets, network segments, zones, conduits</text>
-  <text x="750" y="258" text-anchor="middle" font-size="12.5" fill="#51606f">Vulnerabilities, threats, controls, risk</text>
-  <text x="750" y="280" text-anchor="middle" font-size="12.5" fill="#51606f">assessments, compliance frameworks</text>
-  <text x="750" y="302" text-anchor="middle" font-size="12.5" fill="#51606f">Organizations</text>
+  <text x="750" y="130" text-anchor="middle" font-size="16" font-weight="600" fill="#1f2d3d">Cyber-Physical Plant Asset</text>
+  <text x="750" y="152" text-anchor="middle" font-size="16" font-weight="600" fill="#1f2d3d">Inventory Graph</text>
+  <text x="750" y="180" text-anchor="middle" font-size="12.5" fill="#51606f">Current-state asset hierarchy: facility, plant,</text>
+  <text x="750" y="202" text-anchor="middle" font-size="12.5" fill="#51606f">system, functional location, tag</text>
+  <text x="750" y="224" text-anchor="middle" font-size="12.5" fill="#51606f">Equipment classes and manufacturer models</text>
+  <text x="750" y="246" text-anchor="middle" font-size="12.5" fill="#51606f">OT assets, network segments, zones, conduits</text>
+  <text x="750" y="268" text-anchor="middle" font-size="12.5" fill="#51606f">Vulnerabilities, threats, controls, risk</text>
+  <text x="750" y="290" text-anchor="middle" font-size="12.5" fill="#51606f">assessments, compliance frameworks</text>
+  <text x="750" y="312" text-anchor="middle" font-size="12.5" fill="#51606f">Organizations</text>
 
   <!-- down arrows into NeoCarta -->
   <line x1="270" y1="390" x2="270" y2="452" stroke="#4b6a88" stroke-width="1.5" marker-end="url(#arrowBlue)" />
